@@ -1,0 +1,270 @@
+
+\documentclass[final]{beamer}
+
+\usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{textpos}
+\usepackage{xcolor}
+\graphicspath{{./figs/}}
+\usetheme{confposter} % Use the confposter theme supplied with this template
+
+\setbeamercolor{block title}{fg=illiniblue,bg=white} % Colors of the block titles
+\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
+\setbeamercolor{block alerted title}{fg=white,bg=illiniorange} % Colors of the highlighted block titles
+\setbeamercolor{block alerted body}{fg=black,bg=heritageorange} % Colors of the body of highlighted blocks
+% Many more colors are available for use in beamerthemeconfposter.sty
+
+%-----------------------------------------------------------
+% Define the column widths and overall poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
+% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
+% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\newlength{\fourcolwid}
+\setlength{\paperwidth}{48in} % A0 width: 46.8in
+\setlength{\paperheight}{36in} % A0 height: 33.1in
+\setlength{\sepwid}{0.024\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.22\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.464\paperwidth} % Width of two columns
+\setlength{\threecolwid}{0.708\paperwidth}
+\setlength{\fourcolwid}{0.9508\paperwidth} % Width of three columns
+\setlength{\topmargin}{-0.75in} % Reduce the top margin size
+%-----------------------------------------------------------
+
+\usepackage{graphicx}  % Required for including images
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+\usepackage[expert]{mathdesign}
+\usepackage[percent]{overpic}
+%\usepackage{caption}
+\usepackage{booktabs} % Top and bottom rules for tables\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+\DeclareFontShape{OMX}{cmex}{m}{n}{
+  <-7.5> cmex7
+  <7.5-8.5> cmex8
+  <8.5-9.5> cmex9
+  <9.5-> cmex10
+}{}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+
+\title{\Large The Price of Fame:\\
+\Large The Effect of Award-Winning Pedigrees on the Price of Livestock Genetics} % Poster title
+
+\author{Victor Funes-Leal and Jared Hutchins} % Author(s)
+
+\institute{University of Illinois at Urbana-Champaign\\ Department of Agricultural and Consumer Economics} % Institution(s)
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\addtobeamertemplate{headline}{} 
+{
+%\begin{tikzpicture}[remember picture,overlay] 
+%\node [shift={(-10 cm,-7cm)}] at (current page.north east) %{\includegraphics[scale=2]{BlockI-Logo}}; 
+%\end{tikzpicture} 
+
+\begin{tikzpicture}[remember picture,overlay] 
+	\node [shift={(14 cm,-7cm)}] at (current page.north west) {\includegraphics[scale=3]{ACES-Logo}}; 
+\end{tikzpicture} 
+}
+
+% {
+% \begin{tikzpicture}[remember picture,overlay] 
+% \node [shift={(-1 cm,-7cm)}] at (current page.north west) {\includegraphics[scale=.1]{bucky}}; 
+% \end{tikzpicture} 
+% }
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{2ex} % White space under equations
+
+\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The first column
+
+%----------------------------------------------------------------------------------------
+%	OBJECTIVES
+%----------------------------------------------------------------------------------------
+
+\begin{block}{Introduction}
+\begin{center}
+%\includegraphics[scale=2]{milk_price.png} 
+\end{center}
+\begin{itemize}
+\item \textbf{Research Question}: What is the causal effect of award-winning pedigrees on the price of livestock genetics?
+\item \textbf{Natural experiment}: The price difference between World Dairy Expo winners and runner-ups is mostly random since the margin is relatively small.
+\item Genetic traits are an important factor to determine a bull's semen price, particularly productivity and health traits (Schroeder et al., 1992; Richards and Jeffrey, 1996; Sy et , 1997).
+\item None of these papers include pedigree into the pricing equation (focus on pricing each trait).
+\end{itemize}
+
+% \includegraphics[scale=2]{sample_milk_price.png}
+\end{block}
+\begin{block}{Data Description}
+\begin{itemize}
+\item 5367 quarterly evaluation observations from 476 distinct bulls belonging to five different lineages reconstructed from sire/dam data.
+\item Ancestry data was merged with bull-level evaluation data from 2001 to 2004 (years of high winner turnover).
+\item Source: National Association of Animal Breeders and winner/runner-up data from the World Dairy Expo (Held on October of every year).
+\end{itemize}
+\end{block}
+
+%----------------------------------------------------------------------------------------
+%	QUICK REVISION
+%----------------------------------------------------------------------------------------
+
+%\includegraphics[scale=1.75]{wood_model}
+
+%----------------------------------------------------------------------------------------
+
+\end{column} % End of the first column
+
+
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
+	
+\begin{columns}[t,totalwidth=\twocolwid]
+	\begin{column}{\twocolwid}
+		\begin{block}{Pedigree Networks}
+			%\vspace{-0.9in}
+			\begin{figure}
+				\begin{center}
+					\includegraphics[scale=1.9]{Network.pdf}\\
+					\caption{\hspace{.05cm}WDE winners/runners-up and relatives}
+					\label{fig:network}
+				\end{center}
+			\end{figure} 
+		\end{block}
+	\end{column}
+\end{columns}
+	
+
+\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
+
+\begin{column}{\onecolwid}\vspace{-.6in} % The first column within column 2 (column 2.1)
+
+%----------------------------------------------------------------------------------------
+%	MATERIALS
+%----------------------------------------------------------------------------------------
+
+
+%----------------------------------------------------------------------------------------
+\begin{block}{Event Study 1}
+	%\vspace{-0.9in}
+	\begin{figure}
+		\begin{center}
+			\includegraphics[scale=1.2]{event_study.png}\\
+			\caption{\hspace{.05cm}Weights proportional to genetic distance}
+			\label{fig:study1}
+		\end{center}
+	\end{figure} 
+\end{block}
+\end{column} % End of column 2.1
+
+\begin{column}{\onecolwid}\vspace{-.6in} % The second column within column 2 (column 2.2)
+\begin{block}{Event Study 2}
+		%\vspace{-0.9in}
+		\begin{figure}
+			\begin{center}
+				\includegraphics[scale=1.2]{event_study_alt.png}\\
+				\caption{\hspace{.05cm}Weights equal to 1 for winners and half-siblings only}
+				\label{fig:study2}
+			\end{center}
+		\end{figure} 
+
+\end{block}
+\end{column}	
+\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
+\begin{block}{ }
+After the competition, the relatives of the winner increased \$2.75 in price, a 12\% increase, relative to the runners up. Half-siblings had a larger increase of \$3.14, though for all the relatives the price increase is temporary.
+\end{block}
+\end{column} % End of the second column
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The third column
+	
+\begin{block}{Rotation Plans}
+
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        Code & Pattern  & \% Corn & Prevalence\\
+       \textcolor{red}{CCCCCC}  & Corn monoculture & 100 & 53\%\\
+        \twxtcolor{}{} &  & \\
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:placeholder}
+\end{table}
+\vspace{1.2cm}
+\end{block}	
+
+\begin{block}{Empirical Model}
+\begin{equation*}
+price_{it} = \sum_{k=-3,k\neq -1}^{3}\beta_{k}\tau_{t+k}w_{i}+\mathbf{X}_{it}'\Gamma+\gamma_{i}+\lambda_{t}+\epsilon_{it}
+\end{equation*}
+
+\quad \\
+
+\vspace{-1cm}
+\begin{itemize}
+\item $price_{it}$: Semen price for bull $i$ at time $t$.
+\item $\tau_{t+k}$: Lags and leads of the treatment indicator (1 if bull $i$ is part of the winner network at time $t=0$).
+\item $w_{i}$: Genetic distance to the winner/runner-up, defined as $2^{-p}$ where $p=1$ for half-brothers, $p=2$ for cousins, etc. 
+\item $\mathbf{X}_{it}$ is the set of genetic traits.
+\item $\gamma_{i}$, $\lambda_{t}$: bull and quarter fixed effects.
+\end{itemize}
+
+
+\end{block}
+
+\begin{block}{Conclusions}
+\begin{itemize}
+\item Reported bull semen price responds positively to winning the World Dairy Expo, bulls on the winner network have a 10\% increase in semen prices after the event.
+\item Winning the WDE impacts close relatives as well, but its short-lived and disappears by the quarter previous to the next Expo.
+\end{itemize}
+\quad\\
+\quad\\
+\end{block}
+
+\end{column} % End of the third column
+\end{columns} % End of all the columns in the poster
+
+\begin{columns}[t]
+\begin{column}{\fourcolwid}
+\begin{textblock}{4}(12.25,-.65)
+\centering
+ \textbf{Contact Info}\\
+ Victor Funes: victorf2@illinois.edu\\
+ Jared Hutchins: jhtchns2@illinois.edu\\
+\end{textblock}
+% \quad \\
+%\vspace{-2cm}
+\footnotesize
+\textbf{References}\\
+\footnotesize
+Schroeder, T., Espinosa, J. and Goodwin, B. (1992). The Value of Genetic Traits in Purebred Dairy Bull Services. \emph{Review of Agricultural Economics 14} (2), 215--226.\\
+Richards, T. and Jeffrey, S. (1996) Establishing Indices of genetic Merit Using Hedonic Pricing: An Application to dairy Bulls in Alberta. \emph{Canadian Journal of Agricultural Economics 44}, 251--264. \\
+Sy, H., Faminow, M. Johnson, G. and Crow, G. (1997). Estimating the Values of Cattle Characteristics Using an Ordered Probit Model. \emph{American Journal of Agricultural Economics 79} (2), 463--476.\\
+\end{column}
+\end{columns}
+\end{frame} % End of the enclosing frame
+\end{document}

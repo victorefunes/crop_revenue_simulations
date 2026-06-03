@@ -1,0 +1,258 @@
+\documentclass[final]{beamer}
+
+\usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{textpos}
+\usepackage{xcolor}
+\graphicspath{{./figs/}}
+\usetheme{confposter} % Use the confposter theme supplied with this template
+
+\setbeamercolor{block title}{fg=illiniblue,bg=white} % Colors of the block titles
+\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
+\setbeamercolor{block alerted title}{fg=white,bg=illiniorange} % Colors of the highlighted block titles
+\setbeamercolor{block alerted body}{fg=black,bg=heritageorange} % Colors of the body of highlighted blocks
+% Many more colors are available for use in beamerthemeconfposter.sty
+
+%-----------------------------------------------------------
+% Define the column widths and overall poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
+% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
+% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\newlength{\fourcolwid}
+\setlength{\paperwidth}{48in} % A0 width: 46.8in
+\setlength{\paperheight}{36in} % A0 height: 33.1in
+\setlength{\sepwid}{0.024\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.22\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.464\paperwidth} % Width of two columns
+\setlength{\threecolwid}{0.708\paperwidth}
+\setlength{\fourcolwid}{0.9508\paperwidth} % Width of three columns
+\setlength{\topmargin}{-0.75in} % Reduce the top margin size
+%-----------------------------------------------------------
+
+\usepackage{graphicx}  % Required for including images
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+\usepackage[expert]{mathdesign}
+\usepackage[percent]{overpic}
+%\usepackage{caption}
+\usepackage{booktabs} % Top and bottom rules for tables\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+\DeclareFontShape{OMX}{cmex}{m}{n}{
+  <-7.5> cmex7
+  <7.5-8.5> cmex8
+  <8.5-9.5> cmex9
+  <9.5-> cmex10
+}{}
+\SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
+\SetSymbolFont{largesymbols}{bold}  {OMX}{cmex}{m}{n}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+
+\title{\Large Crop Rotations, Transition Costs, and Farm Delinquencies} % Poster title
+
+\author{Victor Funes-Leal, Lawson Connor and Eunchun Park} % Author(s)
+
+\institute{University of Arkansas\\ Department of Agricultural Economics and Agribusiness} % Institution(s)
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\addtobeamertemplate{headline}{} 
+{
+%\begin{tikzpicture}[remember picture,overlay] 
+%\node [shift={(-10 cm,-7cm)}] at (current page.north east) %{\includegraphics[scale=2]{BlockI-Logo}}; 
+%\end{tikzpicture} 
+
+\begin{tikzpicture}[remember picture,overlay] 
+	\node [shift={(14 cm,-7cm)}] at (current page.north west) {\includegraphics[scale=0.75]{figs/UA_Logo.eps}}; 
+\end{tikzpicture} 
+}
+
+% {
+% \begin{tikzpicture}[remember picture,overlay] 
+% \node [shift={(-1 cm,-7cm)}] at (current page.north west) {\includegraphics[scale=.1]{bucky}}; 
+% \end{tikzpicture} 
+% }
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{2ex} % White space under equations
+
+\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The first column
+
+%----------------------------------------------------------------------------------------
+%	OBJECTIVES
+%----------------------------------------------------------------------------------------
+
+\begin{block}{Motivation}
+\begin{itemize}
+    \item Operating credit is the financial lifeline of row-crop farms, yet credit-risk models treat revenue as one aggregate stream and ignore how rotation history shapes next year's yields.
+    \item This study quantifies how three Illinois rotation plans differ in cash-flow delinquency risk (the borrower's problem) and peak credit demand (the lender's problem) over a six-year horizon.
+\end{itemize}
+\end{block}
+
+\begin{block}{Research questions}
+\begin{enumerate}
+    \item Does a more complex rotation improve financial outcomes, or do agronomic gains hit diminishing returns versus simple alternation?
+    \item What is the 6-year probability of at least one operating-loan delinquency, conditioning yields on the full rotation history?
+    \item How does the negative price–yield correlation change those probabilities?
+\end{enumerate}
+\end{block}
+
+\begin{block}{Data \& methods}
+\begin{itemize}
+\item \textbf{Yields}: QDANN yield-mapping model, every IL field 2008–2022, productivity defined by quantiles of this yield distribution.
+\item \textbf{Rotations}: 6-year histories from the Cropland Data Layer (CDL).
+\item \textbf{Weather/soil}: GRIDMET, TerraClimate (VPD, PDSI), gSSURGO.
+\item \textbf{Costs}: 2024 Farmdoc Crop Budgets (vary by region and productivity in Central IL).
+\item \textbf{Prices \& costs}: grain-elevator prices; copula embeds the negative price–yield correlation.
+\item \textbf{Credit model}: spring origination $\rightarrow$ 9-month accrual $\rightarrow$ harvest repayment $\rightarrow$ balance.
+rollover
+\end{itemize}
+\end{block}
+\end{column} % End of the first column
+
+
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\twocolwid} % Begin a column which is two columns wide (column 2)
+	
+\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
+
+\begin{column}{\onecolwid}\vspace{-.6in} % The first column within column 2 (column 2.1)
+\begin{block}{Rotation cuts 6-year delinquency risk by a third or more}
+	%\vspace{-0.9in}
+	\begin{figure}
+		\begin{center}
+			\includegraphics[scale=1.2]{figs/fig_p_bar_all.png}\\
+				\caption{\hspace{.05cm}Probability of at least one operating-loan delinquency over the six-year horizon, by region (columns) and productivity zone (rows). Continuous corn (red) is highest everywhere; strict alternation (blue) is lowest.}
+			\label{fig:fig_p_bar_all}
+		\end{center}
+	\end{figure} 
+\end{block}
+\end{column} % End of column 2.1
+
+\begin{column}{\onecolwid}\vspace{-.6in} % The second column within column 2 (column 2.2)
+\begin{block}{Survival curves trace where rotation pulls farms apart}
+		%\vspace{-0.9in}
+		\begin{figure}
+			\begin{center}
+				\includegraphics[scale=1.2]{figs/fig_p_surv_all.png}\\
+				\caption{\hspace{.05cm}Pr(any missed payment) over the six-year horizon. The step structure mirrors the sawtooth: drops concentrate in corn years; soy years are flat. By year 6, alternation (blue) preserves $\approx$ 70–85\% of farms in solvency vs $approx$ 45–70\% under continuous corn (red).}
+				\label{fig:fig_p_cf_all}
+			\end{center}
+		\end{figure} 
+\end{block}
+\end{column}	
+\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
+	
+
+\begin{columns}[t,totalwidth=\twocolwid] % Split up the two columns wide column
+
+\begin{column}{\onecolwid}\vspace{-.6in} % The first column within column 2 (column 2.1)
+\begin{block}{Peak loan demand stays under common credit limits}
+	%\vspace{-0.9in}
+	\begin{figure}
+		\begin{center}
+			\includegraphics[scale=1.2]{figs/fig_peak_loan_all.png}\\
+			\caption{\hspace{.05cm}Distribution of peak gross spring loan (\$/ac) with \$700 / \$900 / \$1200 credit limits overlaid. Medians cluster near \$500–550; rotation shifts the whole distribution down, widening the margin to any binding ceiling.}
+			\label{fig:fig_p_year_all}
+		\end{center}
+	\end{figure} 
+\end{block}
+\end{column} % End of column 2.1
+
+\begin{column}{\onecolwid}\vspace{-.6in} % The second column within column 2 (column 2.2)
+\begin{block}{The natural hedge mostly helps continuous corn}
+		%\vspace{-0.9in}
+		\begin{figure}
+			\begin{center}
+				\includegraphics[scale=1]{figs/fig_p_debt_all.png}\\
+				\caption{\hspace{.05cm}Mean year-end rollover debt: solid = correlated prices/yields (hedge active), dashed = independent (no edge). The vertical gap between dashed and solid is the natural hedge benefit. The gap is widest for continuous corn (red) and nearly closes for the rotation plans.}
+				\label{fig:fig_p_debt_all}
+			\end{center}
+		\end{figure} 
+\end{block}
+\end{column}	
+\end{columns} % End of the split of column 2 - any content after this will now take up 2 columns width
+\end{column} % End of the second column
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The third column
+	
+\begin{block}{Rotation Plans}
+\begin{table}
+    \centering
+    \begin{tabular}{ccc}
+        Code & Pattern  & \% Prevalence\\
+       \textcolor{red}{CCCCCC}  & Corn monoculture & 7\\
+       \textcolor{blue}{CSCSCS} & Perfect rotation & 53\\
+       \textcolor{yellow}{CCSCCS} & 2 corn/1 soy & 6 
+    \end{tabular}
+    \caption{CSCSCS and CCSCCS share the same two crops but differ in when soy lands\\ The lever behind both the agronomic and the price-shock results.}
+    \label{tab:rot_perc}
+\end{table}
+\vspace{1.2cm}
+\end{block}	
+
+\begin{block}{Findings}
+\begin{enumerate}
+    \item Rotation lowers risk not by smoothing it but by periodically arresting debt rollover: a soy harvest retires accumulated balance, resetting the farm to near-zero delinquency before the next corn run rebuilds it.
+    \item The rotation advantage compounds: fewer delinquency events plus periodic soy harvests leave more cash on the balance sheet by year 6; even though corn has the higher gross revenue per acre.
+    \item Rotation and the natural hedge are partial substitutes. Continuous corn relies on the hedge because it never retires its rollover balance; rotations already reset debt to near-zero in soy years, so the hedge has little left to do.
+    \item Rationing is rare at these limits, but rotation lowers peak demand; an observable, verifiable risk factor lenders can price into operating-credit underwriting.
+\end{enumerate}
+\end{block}
+
+\begin{block}
+\centering
+ \textbf{Contact Info}\\
+ Victor Funes-Leal: vf006@uark.edu\\
+ Lawson Connor: lconnor@uark.edu\\
+ Eunchun Park: park@uark.edu
+\end{block}
+
+\end{column} % End of the third column
+\end{columns} % End of all the columns in the poster
+
+%\begin{columns}[t]
+%\begin{column}{\fourcolwid}
+%\begin{textblock}{4}(12.25,-.65)
+%\centering
+% \textbf{Contact Info}\\
+% Victor Funes: vf006@uark.edu\\
+% Lawson Connor: lconnor@uark.edu\\
+% Eunchun Park: park@uark.edu
+%\end{textblock}
+% \quad \\
+%\vspace{-2cm}
+%\footnotesize
+%\textbf{References}\\
+%\footnotesize
+%Schroeder, T., Espinosa, J. and Goodwin, B. (1992). The Value of Genetic Traits in Purebred Dairy Bull Services. \emph{Review of Agricultural Economics 14} (2), 215--226.\\
+%Richards, T. and Jeffrey, S. (1996) Establishing Indices of genetic Merit Using Hedonic Pricing: An Application to dairy Bulls in Alberta. \emph{Canadian Journal of Agricultural Economics 44}, 251--264. \\
+%Sy, H., Faminow, M. Johnson, G. and Crow, G. (1997). Estimating the Values of Cattle Characteristics Using an Ordered Probit Model. \emph{American Journal of Agricultural Economics 79} (2), 463--476.\\
+%\end{column}
+%\end{columns}
+\end{frame} % End of the enclosing frame
+\end{document}

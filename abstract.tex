@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{authblk}
+\usepackage{setspace}
+\doublespacing
+
+\title{Crop Rotations, Transition Costs, and Farm Delinquencies}
+\author{}
+%\author{Lawson Connor}
+%\author{Victor Funes-Leal}
+%\author{Eunchun Park}
+%\affil{Department of Agricultural Economics and Agribusiness\\ University of Arkansas}
+
+\date{}
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+Operating credit is the primary financial lifeline for row crop farmers, yet the relationship between crop rotation decisions and the probability of loan delinquency remains poorly understood. Existing credit risk models treat farm revenue as a single aggregate stream and ignore the agronomic mechanism by which rotation history shapes yields in subsequent years. This omission matters because delinquency is a path-dependent event - a bad year rolls unpaid debt forward at compounding interest, increasing the principal financed in the following year and raising the probability of cascading default even if subsequent harvests are average.
+
+This study has three objectives: to assess whether adopting a more complex rotation pattern improves financial outcomes (delinquency probability, operating debt, present value of net cash flow) or whether the additional agronomic complexity yields diminishing financial returns relative to the simpler alternating strategy. To estimate the probability that a farm incurs at least one operating loan delinquency over a six-year horizon, conditioning yield distributions on the full six-year rotation history of the field. And, to compare delinquency probabilities across rotation strategies  while accounting for the negative correlation between yields and prices.
+
+%This study has three objectives: to estimate the probability that a corn-soybean farm incurs at least one operating loan delinquency over a six-year planning horizon, conditioning yield distributions on the full six-year rotation history of the field. To compare this probability across rotation strategies. And, to quantify the contribution of field-level heterogeneity in soil quality, production costs, and market access to cross-farm variation in delinquency risk.
+
+The analysis uses a field-level panel dataset of corn and soybean yields, estimated using the QDANN yield-mapping model, grain elevator prices, and six-year rotation histories for all fields in Illinois for 2008-2022, identified from the Cropland Data Layer land cover data. Each field observation records the full sequence of crops planted over the preceding six years. Price and cost data are used to calibrate marginal distributions, and the negative correlation between aggregate yields and market prices is estimated from the same panel and embedded in the simulation via copula methods. We also collected weather data from GRIDMET; vapor pressure deficit and the Palmer Drought Severity Index (PDSI) from TerraClimate; and soil characteristics from gSSURGO.
+
+Yield distributions are estimated for each unique six-year rotation state, and a transition path model tracks how the conditioning state evolves as a planned rotation unfolds from a given history. These rotation-conditioned yield generators are embedded in a dynamic operating credit model that simulates the full annual cycle of debt origination at planting, nine-month interest accrual, harvest-time repayment from realized revenue, and balance rollover when revenue is insufficient to retire the obligation. %A farm is classified as delinquent in any year in which the end-of-season balance remains positive after exhausting harvest revenue. 
+
+%The primary outcome - the probability of at least one delinquency over the six-year horizon - is recovered as the share of simulated paths in which cumulative delinquency exceeds zero. Secondary outcomes include the year-specific delinquency probability, the Kaplan-Meier survival curve to first delinquency, the distribution of peak operating debt, and the present value of net cash flow. 
+
+We expect continuous corn rotations to exhibit higher delinquency probabilities than corn-soybean alternations, with the risk differential concentrated in early years of the horizon when rotation penalties from consecutive corn planting are largest and debt rollover from an initial bad year has not yet been arrested by improved agronomic conditions. Incorporating the negative price-yield correlation is expected to reduce estimated delinquency probabilities relative to an independence assumption, as high-yield years that would otherwise generate sufficient repayment capacity are partially offset by lower prices, while low-yield years that would generate delinquency are partially cushioned by elevated prices. 
+
+These findings carry direct implications for operating credit underwriting, crop insurance product design, and agronomic extension recommendations. For lenders, rotation history is an observable, verifiable risk factor that should be incorporated into credit scoring alongside conventional balance sheet measures. For insurers, the path-dependent debt dynamics documented here suggest that revenue protection products calibrated on single-year loss probabilities may underestimate multi-year ruin risk for farms with heavy corn concentration. 
+
+\end{abstract}
+
+\end{document}
