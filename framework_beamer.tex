@@ -1,0 +1,141 @@
+% ============================================================
+%  Framework diagram as a 16:9 beamer frame
+%  Compile with: pdflatex framework_beamer.tex
+%  Slide size: 16:9 (159.2 mm x 89.55 mm content area, beamer default for 169)
+% ============================================================
+%\documentclass[aspectratio=169,11pt]{beamer}
+
+% ----- Plain / clean theme (no Madrid/Warsaw decoration) -----
+%\usetheme{default}
+%\usecolortheme{default}
+%\beamertemplatenavigationsymbolsempty   % no navigation icons
+%\setbeamertemplate{footline}{}          % no footer bar
+%\setbeamertemplate{headline}{}          % no header bar
+%\setbeamertemplate{frametitle continuation}{}
+
+% ----- Fonts: serif for headers + sans for body (matches the talk) -----
+%\usepackage[T1]{fontenc}
+%\usepackage{microtype}
+%\usepackage{charter}                    % serif for headings (Lora stand-in)
+%\usepackage[scaled=0.92]{helvet}        % sans for body     (Carlito stand-in)
+%\renewcommand{\familydefault}{\sfdefault}
+
+% ----- Packages -----
+%\usepackage{xcolor}
+%\usepackage{tikz}
+%\usepackage{varwidth}
+\usetikzlibrary{arrows.meta, positioning, calc}
+
+% ----- Palette (same hex values as the .pptx) -----
+\definecolor{ink}{HTML}{1B1C19}
+\definecolor{paper}{HTML}{FFFFFF}
+\definecolor{muted}{HTML}{585B52}
+\definecolor{rule}{HTML}{C9C2AA}
+\definecolor{corn}{HTML}{C0392B}        % operating credit
+\definecolor{mix}{HTML}{D99A2B}         % price-yield copula
+\definecolor{soy}{HTML}{3F7233}         % yield generator
+\definecolor{soydeep}{HTML}{2A4D22}     % output banner
+\definecolor{soysoft}{HTML}{C9D9BD}     % "Output:" label color
+
+% ----- Beamer styling: clean frame title + minimal margins -----
+%\setbeamercolor{frametitle}{fg=ink, bg=paper}
+%\setbeamerfont{frametitle}{family=\rmfamily, series=\bfseries, size=\Large}
+%\setbeamertemplate{frametitle}{%
+  %\vspace{0.35em}%
+  %\hspace{0.10em}%
+%  \begin{varwidth}{0.95\paperwidth}
+%    {\sffamily\bfseries\fontsize{8.5}{10}\selectfont\color{soydeep}%
+%     S\,I\,M\,U\,L\,A\,T\,I\,O\,N\ \ F\,R\,A\,M\,E\,W\,O\,R\,K}\par
+    %\vspace{1mm}
+%    \insertframetitle\par
+    %\vspace{0.5mm}
+%    {\sffamily\itshape\fontsize{10}{12}\selectfont\color{muted}%
+%     Each component below is itself standard; the combination is new.}
+%  \end{varwidth}%
+%}
+
+% ----- TikZ geometry (in cm) — sized for the 16:9 content area -----
+% Content area is ~15.9 cm wide x ~8.9 cm tall; after frame title leaves
+% roughly 5.5 cm of vertical room for the figure.
+%\newcommand{\boxwidth}{3.6cm}
+%\newcommand{\boxheight}{1.4cm}
+%\newcommand{\boxgap}{1.0cm}
+%\newcommand{\outputw}{12.8cm}            % spans under all three boxes
+%\newcommand{\outputh}{1.05cm}
+
+% ----- Component-box macro (defined at preamble level — beamer strips #
+%       arguments if the macro is defined inside a frame) -----
+% \compbox{name}{x-anchor (left edge)}{title}{subtitle}{color}
+\newcommand{\compbox}[5]{%
+  \begin{scope}
+    % outer frame (colored border)
+    \draw[#5, line width=1.3pt]
+      (#2,0) rectangle ++(\boxwidth,-\boxheight);
+    % colored top stripe
+    \fill[#5] (#2,0) rectangle ++(\boxwidth,-0.08cm);
+    % title
+    \node[anchor=north west, text=ink] at ($(#2,0)+(0.28cm,-0.32cm)$) {%
+      \rmfamily\bfseries\fontsize{12}{14}\selectfont #3};
+    % subtitle (italic, muted)
+    \node[anchor=north west, text=muted] at ($(#2,0)+(0.28cm,-0.90cm)$) {%
+      \sffamily\itshape\fontsize{9.5}{11}\selectfont #4};
+    % invisible anchors for arrows
+    \coordinate (#1-east)  at ($(#2,0)+(\boxwidth, -\boxheight/2)$);
+    \coordinate (#1-west)  at ($(#2,0)+(0,        -\boxheight/2)$);
+    \coordinate (#1-south) at ($(#2,0)+(\boxwidth/2, -\boxheight)$);
+    \coordinate (#1-north) at ($(#2,0)+(\boxwidth/2, 0)$);
+  \end{scope}
+}
+
+%\begin{document}
+
+\begin{frame}{Simulation framework}
+\begin{block}{Three components, one cash-flow loop}
+  \textit{Each component below is itself standard; the combination is new.}  
+\end{block}
+\vspace{1mm}
+\begin{center}
+\begin{tikzpicture}[
+    every node/.style = {inner sep=0pt, outer sep=0pt},
+    arrow/.style      = {-{Latex[length=2.2mm,width=1.8mm]}, line width=0.9pt, ink},
+  ]
+ 
+  % ---------- three component boxes ----------
+  \compbox{yield}{0cm}%
+    {Yield generator}{rotation-conditioned}{soy}
+ 
+  \compbox{cop}%
+    {\boxwidth + \boxgap}%
+    {Price--yield copula}{decomposed correlation}{mix}
+ 
+  \compbox{credit}%
+    {2*\boxwidth + 2*\boxgap}%
+    {Operating credit}{intra-year cash-flow}{corn}
+ 
+  % horizontal arrows between boxes
+  \draw[arrow] (yield-east) -- (cop-west);
+  \draw[arrow] (cop-east)   -- (credit-west);
+ 
+  % downward arrow from middle box to output banner
+  \coordinate (mid-down-end) at ($(cop-south)+(0,-0.7cm)$);
+  \draw[arrow] (cop-south) -- (mid-down-end);
+ 
+  % ---------- output banner, centered under the three-box row ----------
+  \coordinate (row-center) at ($(yield-north)!0.5!(credit-north)$);
+  \coordinate (output-nw)  at ($(row-center)+(-\outputw/2,-\boxheight-0.75cm)$);
+ 
+  \fill[soydeep] (output-nw) rectangle ++(\outputw,-\outputh);
+ 
+  \node[anchor=west] at ($(output-nw)+(0.45cm,-\outputh/2)$) {%
+    {\sffamily\bfseries\fontsize{12}{14}\selectfont\color{soysoft}Output:}%
+    \hspace{0.4em}%
+    {\sffamily\fontsize{11.5}{14}\selectfont\color{paper}%
+     6-year delinquency probability per (region $\times$ zone $\times$ plan)}%
+  };
+ 
+\end{tikzpicture}
+\end{center}
+
+\end{frame}
+
+%\end{document}
