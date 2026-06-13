@@ -213,22 +213,40 @@ and Farm Delinquencies}\\
     
 \end{frame}
 
-\begin{frame}{Motivation}
-\begin{block}{Operating credit is the financial lifeline of row-crop farms.}
-\begin{wideitemize}
-    \item Farmers borrow against planting, accrue interest through the growing season, and retire the balance at harvest.
-    \item When revenue falls short, the unpaid balance \textbf{rolls forward}, compounding at a contractual rate and enlarging next spring's principal.
-\end{wideitemize}
-\end{block}
+%\begin{frame}{Motivation}
+%\begin{block}{Operating credit is the financial lifeline of row-crop farms.}
+%\begin{wideitemize}
+%    \item Farmers borrow against planting, accrue interest through the growing season, and retire the balance at harvest.
+%    \item When revenue falls short, the unpaid balance \textbf{rolls forward}, compounding at a contractual rate and enlarging next spring's principal.
+%\end{wideitemize}
+%\end{block}
 
-\begin{block}{Compunding Chain}
-    \begin{description}
-        \item[Year $t$]: bad harvest $\rightarrow$ unpaid balance \$B.
-        \item[Year $t+1$]: principal grows to \$ $B(1+r)+$ new spring loan.
-        \item[Year $t+2$]: prior shock still in principal: default risk increases.
-        \item[Year $t+k$]: small initial shock $\rightarrow$ delinquency
-    \end{description}
-\end{block}
+%\begin{block}{Compounding Chain}
+%    \begin{description}
+%        \item[Year $t$]: bad harvest $\rightarrow$ unpaid balance \$B.
+%        \item[Year $t+1$]: principal grows to \$ $B(1+r)+$ new spring loan.
+%        \item[Year $t+2$]: prior shock still in principal: default risk increases.
+%        \item[Year $t+k$]: small initial shock $\rightarrow$ delinquency
+%    \end{description}
+%\end{block}
+%\end{frame}
+
+\begin{frame}{Motivation}
+    \begin{columns}[T] % align columns
+    \begin{column}{.65\textwidth}
+    \resizebox{\textwidth}{!}{
+        \includegraphics{figs/fig_p_year_all.png}
+    }
+    \end{column}%
+    \hfill%
+    \begin{column}{.35\textwidth}
+    \begin{itemize}
+    \item \textcolor{cardinalred}{Continuous corn} holds a flat elevated hazard.
+    \item Rotations crash toward zero in \textcolor{green}{soy-harvest years}, then rebuild.
+    \item A soy harvest \textbf{retires accumulated rollover debt}, resetting the farm to near-zero before the next corn run.
+  \end{itemize}
+\end{column}%
+\end{columns}
 \end{frame}
 
 \begin{frame}{Research questions}
