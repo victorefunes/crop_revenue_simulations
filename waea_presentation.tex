@@ -74,6 +74,7 @@
 \definecolor{hickory}{RGB}{157,34,53}
 \definecolor{spoofers}{RGB}{70,70,72}
 
+
 \renewcommand*{\bibfont}{\scriptsize}
 \hypersetup{
 	colorlinks=false,
@@ -232,6 +233,30 @@ and Farm Delinquencies}\\
 %\end{frame}
 
 \begin{frame}{Motivation}
+    \small
+    \begin{block}{Climate Pressure}
+        \begin{itemize}
+            \item US Midwest corn \& soy yield: −7–9\% projected by 2050 (drought + heat)
+            \item Extreme heat $+$ dry spells to co-occur more $\rightarrow$ yield shock variance $\uparrow$.
+        \end{itemize}
+    \end{block}
+    \begin{block}{Global Competitor Expansion}
+        \begin{itemize}
+            \item Brazil now 58\% of global soy exports; US share fell to 28\% (2024/25 USDA).
+            \item US soy exports to China: 60\% avg. pre-trade-war $\rightarrow$ 47\% post (2018–2024).
+            \item Brazil corn exports surging — filling gaps left by Ukraine war disruption.
+            \item Chronic price pressure on US corn-soy revenue $\rightarrow$ thinner debt-repayment margins.
+        \end{itemize}
+    \end{block}
+    \begin{block}{Land \& Input Competition}
+        \begin{itemize}
+            \item Data centers $+$ solar: 1M+ acres of farmland converted; 70\% of solar in Midwest on cropland.
+            \item Farm electricity costs $\uparrow 48\%$ projected 2019–2026 (USDA ERS).
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Motivation}
     \begin{columns}[T] % align columns
     \begin{column}{.55\textwidth}
     \resizebox{\textwidth}{!}{
@@ -260,6 +285,7 @@ and Farm Delinquencies}\\
         \item \textcolor{red}{\textbf{Question 2}}: What is the 6-year delinquency probability, conditioning on yields on the full six-year rotation history of the field?
         \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
         \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, these issues are not accounted for.
+        \item \textbf{Sustainable practices}: Crop rotation reduces yield variance, severs the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and financial resilience.
     \end{wideitemize}
 \end{frame}
 
@@ -280,7 +306,7 @@ and Farm Delinquencies}\\
 
 \begin{block}{Farm credit risk: Farm survival and exit decisions}
     \begin{itemize}
-        \item \textit{Key Papers}: \cite{Featherstone1988, Ifft2015, Kim2020}
+        \item \textit{Key Papers}: \cite{Featherstone1988, Ifft2015, Kim2020, Lee2024}
         \item \textit{What's missing}: Yield as a single aggregate. No rotation state.
     \end{itemize}
 \end{block}
@@ -453,8 +479,8 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \hfill%
 \begin{column}{.35\textwidth}
   \begin{wideitemize}
-  \item $\approx 55\%$: Corn monoculture (central/high)
-  \item $\approx 30\%$: Perfect rotation (same cell)
+  \item $\approx 55\%$: \textcolor[HTML]{A50026}{Corn monoculture} (central/high)
+  \item $\approx 30\%$: \textcolor[HTML]{313695}{Perfect rotation} (same cell)
   \item $-25 pp$: Risk reduction from rotating
   \end{wideitemize}
 \end{column}%
@@ -559,25 +585,25 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
-\begin{frame}{Year-2 soy price shock moves only the soy-in-yr-2 plan}
-\begin{columns}[T] % align columns
-\begin{column}{.65\textwidth}
-\resizebox{\textwidth}{!}{
-  \includegraphics{figs/fig_price_sensitivity_soy_yr2.png}
-}
-\end{column}%
-\hfill%
-\begin{column}{.35\textwidth}
-\begin{itemize}
-    \item This is a kind of placebo
-    \item $+25\%$ soy/corn price ratio in year 2 only.
-    \item CCCCCC and CCSCCS plant no soy in year 2 $\rightarrow$ null.
-    \item CSCSCS plants soy in year 2 $\rightarrow$ responds.
-    \item Nulls validate the cash-flow mechanism, not an aggregate price effect.
-\end{itemize}
-\end{column}%
-\end{columns}
-\end{frame}
+%\begin{frame}{Year-2 soy price shock moves only the soy-in-yr-2 plan}
+%\begin{columns}[T] % align columns
+%\begin{column}{.65\textwidth}
+%\resizebox{\textwidth}{!}{
+%  \includegraphics{figs/fig_price_sensitivity_soy_yr2.png}
+%}
+%\end{column}%
+%\hfill%
+%\begin{column}{.35\textwidth}
+%\begin{itemize}
+%    \item This is a kind of placebo
+%    \item $+25\%$ soy/corn price ratio in year 2 only.
+%    \item CCCCCC and CCSCCS plant no soy in year 2 $\rightarrow$ null.
+%    \item CSCSCS plants soy in year 2 $\rightarrow$ responds.
+%    \item Nulls validate the cash-flow mechanism, not an aggregate price effect.
+%\end{itemize}
+%\end{column}%
+%\end{columns}
+%\end{frame}
 
 \begin{frame}{Implications}
 \begin{block}{Lenders}
@@ -600,14 +626,21 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{frame}
 
 \begin{frame}{Takeaways}
+\begin{block}{Key figures}
+    \begin{itemize}
+        \item Rotation cuts delinquency by as much as 25pp.
+        \item 92-100\% of total delinquency risk comes from price uncertainty.
+        \item By year 3, the gap between CCCCCC and CSCSCS is already 15–20 percentage points.
+    \end{itemize}
+\end{block}
 \begin{block}{Three things to remember}
     \begin{enumerate}
-        \item \textcolor{razorbackred}{Rotation reduces delinquency through a debt-reset channel}.
+        \item \textcolor{razorbackred}{Rotation cuts multi-year delinquency through periodic debt resets}.
         
         The mechanism is the soy-year sawtooth, not yield smoothing.
-        \item \textcolor{springwater}{Price dominates revenue variance — but rotation is what does the work}.
+        \item \textcolor{springwater}{Price uncertainty dominates both revenue variance and delinquency causation}.
 
-        Hedge and rotation are partial substitutes; rotation is the cheaper, more reliable instrument.
+        The natural hedge is modest and largely redundant where rotation operates.
         \item \textcolor{pine}{Rotation history is a missing variable in credit-risk and crop-insurance models}.
 
         Observable, verifiable, predictive — and absent from current practice.
