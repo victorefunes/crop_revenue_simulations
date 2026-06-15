@@ -213,30 +213,53 @@ and Farm Delinquencies}\\
     
 \end{frame}
 
-\begin{frame}{Motivation}
-\begin{block}{Operating credit is the financial lifeline of row-crop farms.}
-\begin{wideitemize}
-    \item Farmers borrow against planting, accrue interest through the growing season, and retire the balance at harvest.
-    \item When revenue falls short, the unpaid balance \textbf{rolls forward}, compounding at a contractual rate and enlarging next spring's principal.
-\end{wideitemize}
-\end{block}
+%\begin{frame}{Motivation}
+%\begin{block}{Operating credit is the financial lifeline of row-crop farms.}
+%\begin{wideitemize}
+%    \item Farmers borrow against planting, accrue interest through the growing season, and retire the balance at harvest.
+%    \item When revenue falls short, the unpaid balance \textbf{rolls forward}, compounding at a contractual rate and enlarging next spring's principal.
+%\end{wideitemize}
+%\end{block}
 
-\begin{block}{Compunding Chain}
-    \begin{description}
-        \item[Year $t$]: bad harvest $\rightarrow$ unpaid balance \$B.
-        \item[Year $t+1$]: principal grows to \$ $B(1+r)+$ new spring loan.
-        \item[Year $t+2$]: prior shock still in principal: default risk increases.
-        \item[Year $t+k$]: small initial shock $\rightarrow$ delinquency
-    \end{description}
-\end{block}
+%\begin{block}{Compounding Chain}
+%    \begin{description}
+%        \item[Year $t$]: bad harvest $\rightarrow$ unpaid balance \$B.
+%        \item[Year $t+1$]: principal grows to \$ $B(1+r)+$ new spring loan.
+%        \item[Year $t+2$]: prior shock still in principal: default risk increases.
+%        \item[Year $t+k$]: small initial shock $\rightarrow$ delinquency
+%    \end{description}
+%\end{block}
+%\end{frame}
+
+\begin{frame}{Motivation}
+    \begin{columns}[T] % align columns
+    \begin{column}{.55\textwidth}
+    \resizebox{\textwidth}{!}{
+        \includegraphics{figs/fred_farm_delinquency_plot.png}
+    }
+    \footnotesize
+    These shocks operate through prices. This paper quantifies how rotation history shapes the path from price shock to delinquency.
+    \end{column}%
+    \hfill%
+    \begin{column}{.45\textwidth}
+    \small
+    \begin{itemize}
+    \item \textcolor{cardinalred}{2015-16} \textbf{Commodity price collapse}: Corn falls from \$7 $\rightarro$ \$3.50/bu. Farm income drops 45\% in 3 years. Operating-loan stress builds.
+    \item \textcolor{springwater}{2018-19} \textbf{US-China trade war}: Soy exports to China collapse. U.S. world soy export share falls from 38\% $\rightarrow$ 28\% as Brazil captures the gap.
+    \item \textcolor{pine}{2020} \textbf{COVID + CFAP payments}: Delinquency spikes to 2.3\% (peak). CFAP/ARC-CO transfers temporarily mask rollover risk through 2021. 
+    \item \textcolor{hickory}{2022} \textbf{Russia–Ukraine war}: Wheat/corn price spike then collapse. Ukraine recovers export corridor; Black Sea grain competes again by 2023.
+    \item \textcolor{goldenoak}{2024-} \textbf{Second uptick underway}: NSA rate at 1.4\% and climbing. Iran–Israel tensions and U.S. export-share erosion sustain pressure.
+  \end{itemize}
+\end{column}%
+\end{columns}
 \end{frame}
 
 \begin{frame}{Research questions}
     \begin{wideitemize}
         \item \textcolor{red}{\textbf{Question 1}}: Does a more complex rotation improve financial outcomes, or do agronomic gains hit diminishing returns versus simple alternation?
-        \item \textcolor{red}{\textbf{Question 2}}: What is the 6-year delinquency probability, conditioning yields on the full six-year rotation history of the field?
-        \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and does it substitute for or complement rotation?
-        \item Current credit-risk models don't see a problem because they treat revenue as one aggregate stream and predict default from one-year loss probabilities.
+        \item \textcolor{red}{\textbf{Question 2}}: What is the 6-year delinquency probability, conditioning on yields on the full six-year rotation history of the field?
+        \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
+        \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, these issues are not accounted for.
     \end{wideitemize}
 \end{frame}
 
@@ -374,24 +397,49 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
     \end{block}
 \end{frame}
 
-\begin{frame}{Decomposing yield shocks: aggregate vs idiosyncratic}
-  \begin{block}{The decomposition}
-      \begin{equation*}
-          \text{Yield Shock}=\text{\textcolor{razorbackred}{Aggregate risk}}+\text{\textcolor{springwater}{Idiosyncratic risk}}
-      \end{equation*} 
-  \begin{description}
-      \item[\textcolor{razorbackred}{Aggregate risk}] $\approx 40\%$ of total variance, National weather shocks (drought, flood). Correlates with price at $\rho \approx -0.45$. Yields the hedge.
-      \item[\textcolor{springwater}{Idiosyncratic risk}] $\approx 60\%$ of total variance, Local hail, soil, management. Independent of price ($\rho = 0$). No hedge, pure noise.
-  \end{description}
- \end{block}  
-\begin{block}{Why this matters}
-\small
-    \begin{itemize}
-        \item Treating the aggregate $\rho$ as if it applied to the whole field-level yield shock overstates the hedge. 
-        \item Only the 40\% aggregate piece correlates with price; the 60\% idiosyncratic piece is hedge-free. 
-        \item Implemented via Gaussian copula on the marginals, so empirical yield distributions are preserved exactly.
-        \item This is what makes the variance decomposition we'll see come out 86–89\% price.
-    \end{itemize}
+%\begin{frame}{Decomposing yield shocks: aggregate vs idiosyncratic}
+%      \begin{align*}
+%          \text{Yield Shock} &= \text{\textcolor{razorbackred}{Aggregate risk}}+\text{\textcolor{springwater}{Idiosyncratic risk}}\\
+%          Y_{it} &= (\alpha_{i}+\gamma_{t})+\varepsilon_{it}
+%      \end{align*} 
+%  \begin{description}
+%    \item [Yield shock] Year-to-year deviation of a field's yield from its rotation-state mean — the part the farmer cannot predict at planting.
+%      \item[\textcolor{razorbackred}{Aggregate risk}] $\approx 40\%$ of total variance, National weather shocks (drought, flood). Correlates with price at $\rho \approx -0.45$. Yields the hedge.
+%      \item[\textcolor{springwater}{Idiosyncratic risk}] $\approx 60\%$ of total variance, Local hail, soil, management. Independent of price ($\rho = 0$). No hedge, pure noise.
+%  \end{description}
+%\begin{block}{Why this matters}
+%\footnotesize
+%    \begin{itemize}
+%        \item Treating the aggregate $\rho$ as if it applied to the whole field-level yield shock overstates the hedge. 
+%        \item Only the 40\% aggregate piece correlates with price; the 60\% idiosyncratic piece is hedge-free. 
+%        \item Implemented via Gaussian copula on the marginals, so empirical yield distributions are preserved exactly.
+%        \item This is what makes the variance decomposition we'll see come out 86–89\% price.
+%    \end{itemize}
+%\end{block}
+%\end{frame}
+
+\begin{frame}{Decomposing Yield Variance: Aggregate vs. Idiosyncratic}
+\begin{block}{Yield Shock}
+    Year-to-year deviation of field yield from its rotation-state mean — the part unpredictable at planting (two-way FE residual, field + year fixed effects).
+    \begin{equation*}
+        \textcolor{red}{\hat{\varepsilon}_{it}}=Y_{it}-\textcolor{green}{(\hat{\alpha}_{i}+\hat{\gamma}_{t})}
+    \end{equation*}
+    
+    \begin{table}
+        \begin{tabular}{lrll}
+        \hline\\
+           Field FE only  & $\approx 0.20$ & Permanent field productivity & Fixed characteristics predictable\\
+            & & &from field identity\\
+           Year FE only  & $\approx 0.65$ & Common annual shocks & Systematic/covariate risk,\\
+           & & & not iversifiable\\
+           Year FE $|$ Field FE  & $\approx 0.62$  & Incremental year FE & \textcolor{green}{Aggregate shock (year FE | field FE)}\\
+           Both FEs & $\approx 0.82$ & Total explained & \\
+           Residual & $\approx 0.18$ & True idiosyncratic shock & \textcolor{red}{Idiosyncratic shock (residual)}\\
+           \hline
+        \end{tabular}
+        \caption{Field panel — variance decomposition}
+        \label{tab:var_decomp}
+    \end{table}
 \end{block}
 \end{frame}
 
@@ -426,6 +474,7 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
   \item \textcolor{cardinalred}{Continuous corn} holds a flat elevated hazard.
   \item Rotations crash toward zero in \textcolor{green}{soy-harvest years}, then rebuild.
   \item A soy harvest \textbf{retires accumulated rollover debt}, resetting the farm to near-zero before the next corn run.
+  \item However, this is a consequence of the data coming from a period where soybean returns were higher than those of corn.
   \end{itemize}
 \end{column}%
 \end{columns}
