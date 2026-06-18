@@ -127,7 +127,8 @@
 \setbeamersize{text margin left=1em,text margin right=1em} 
 %\setbeamertemplate{footline}{\hspace*{.5cm}\scriptsize{\insertauthor
 %\hspace*{50pt} \hfill\insertframenumber\hspace*{-5cm}}}
-\setbeamertemplate{footline}[frame number]
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{page number in head/foot}{}
 
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 
@@ -236,7 +237,7 @@ and Farm Delinquencies}\\
     \small
     \begin{block}{Climate Pressure}
         \begin{itemize}
-            \item US Midwest corn \& soy yield: −7–9\% projected by 2050 (drought + heat)
+            \item US Midwest corn \& soy yield: -7-9\% projected by 2050 (drought + heat)
             \item Extreme heat $+$ dry spells to co-occur more $\rightarrow$ yield shock variance $\uparrow$.
         \end{itemize}
     \end{block}
@@ -267,9 +268,9 @@ and Farm Delinquencies}\\
     \end{column}%
     \hfill%
     \begin{column}{.45\textwidth}
-    \small
+    \footnotesize
     \begin{itemize}
-    \item \textcolor{cardinalred}{2015-16} \textbf{Commodity price collapse}: Corn falls from \$7 $\rightarro$ \$3.50/bu. Farm income drops 45\% in 3 years. Operating-loan stress builds.
+    \item \textcolor{cardinalred}{2015-16} \textbf{Commodity price collapse}: Corn falls from \$7 $\rightarrow$ \$3.50/bu. Farm income drops by 45\% over 3 years. Operating-loan stress builds.
     \item \textcolor{springwater}{2018-19} \textbf{US-China trade war}: Soy exports to China collapse. U.S. world soy export share falls from 38\% $\rightarrow$ 28\% as Brazil captures the gap.
     \item \textcolor{pine}{2020} \textbf{COVID + CFAP payments}: Delinquency spikes to 2.3\% (peak). CFAP/ARC-CO transfers temporarily mask rollover risk through 2021. 
     \item \textcolor{hickory}{2022} \textbf{Russia–Ukraine war}: Wheat/corn price spike then collapse. Ukraine recovers export corridor; Black Sea grain competes again by 2023.
@@ -463,7 +464,7 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
            Residual & $\approx 0.18$ & True idiosyncratic shock & \textcolor{red}{Idiosyncratic shock (residual)}\\
            \hline
         \end{tabular}
-        \caption{Field panel — variance decomposition}
+        \caption{Field panel - variance decomposition}
         \label{tab:var_decomp}
     \end{table}
 \end{block}
@@ -567,23 +568,73 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
-\begin{frame}{Price dominates revenue variance}
-\begin{columns}[T] % align columns
-\begin{column}{.65\textwidth}
-\resizebox{\textwidth}{!}{
-  \includegraphics{figs/fig_revenue_variance_decomp.png}
-}
-\end{column}%
-\hfill%
-\begin{column}{.35\textwidth}
-  \begin{itemize}
-  \item \textcolor{razorbackred}{86-89\% of gross revenue variance is attributable to price}.
-  \item Stable across regions, zones, and plans.
-  \item \textbf{Implication}: the natural price–yield hedge can only do so much at the field level; the dominant source of variance isn't what the correlation is between.
-  \end{itemize}
-\end{column}%
-\end{columns}
+\begin{frame}{Shapley Decomposition}
+\begin{block}{What causes delinquency?}
+    \begin{itemize}
+        \item Variance decomposition answers: "What share of revenue variance comes from price?" \textcolor{green}{86-89\% price, 11-14\% yield}.
+        \item Shapley decomposition answers: "What share of the probability of crossing the default threshold is caused by price?" \textcolor{red}{92-100\% price}.
+    \end{itemize}
+\end{block}
+\begin{block}{How it works}
+    \begin{description}
+        \item[$V(A)$]: $\Pr(delinquency)$ when sources in $A$ are stochastic, sources outside $A$ fixed at their means.
+        \item[$V(\emptyset)$] Both fixed at means $\rightarrow$ baseline (zero stochastic risk).
+        \item[$V(\{P\})$] Only price stochastic $\rightarrow$ Delinquency due to price only. 
+        \item[$V(\{Y\})$] Only yield stochastic $\rightarrow$ Delinquency due to yield only.
+        \item[$V(\{P,Y\})$] Both stochastic $\rightarrow$ full delinquency probability.
+    \end{description}
+    \begin{equation*}
+        \phi_{P}=\frac{1}{2}\left[V(\{P\})-V(\emptyset)\right]+\frac{1}{2}\left[V(\{P,Y\})-V(\{Y\})\right]
+    \end{equation*}
+\end{block}
 \end{frame}
+
+\begin{frame}{Shapley Decomposition}
+    \begin{figure}[ht]
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[scale = 0.25]{figs/fig_revenue_variance_decomp.png}
+            \caption{Price dominates revenue variance}
+            \label{fig:fig_revenue_variance_decomp}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[scale = 0.3]{figs/fig_shapley_price_share.png}
+            \caption{Shapley values}
+            \label{fig:fig_shapley_price_share}
+        \end{minipage}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Price dominates revenue variance}
+    \begin{wideitemize}
+       \item Variance share: 86-89\% of gross revenue variance is attributable to price. 
+       \item Shapley share: 96\% of gross revenue is due to price.
+       \item Stable across regions, zones, and plans. 
+       \item \textbf{Implication}: the natural price–yield hedge can only do so much at the field level; the dominant source of variance isn't what the correlation is between. 
+       \item Yield has a physical lower bound (zero-yield is rare in Illinois). Price has no such bound; left tails are long. 
+       \item The default threshold is a fixed dollar hurdle. A price draw of 30\% below the median moves revenue far more than an equal-sized yield draw.
+    \end{wideitemize}
+\end{frame}
+
+%\begin{frame}{Price dominates revenue variance}
+%\begin{columns}[T] % align columns
+%\begin{column}{.65\textwidth}
+%\resizebox{\textwidth}{!}{
+%  \includegraphics{figs/fig_revenue_variance_decomp.png}
+%}
+%\end{column}%
+%\hfill%
+%\begin{column}{.35\textwidth}
+%  \begin{itemize}
+%  \item \textcolor{razorbackred}{86-89\% of gross revenue variance is attributable to price}.
+%  \item Stable across regions, zones, and plans.
+%  \item \textbf{Implication}: the natural price–yield hedge can only do so much at the field level; the dominant source of variance isn't what the correlation is between.
+%  \end{itemize}
+%\end{column}%
+%\end{columns}
+%\end{frame}
 
 %\begin{frame}{Year-2 soy price shock moves only the soy-in-yr-2 plan}
 %\begin{columns}[T] % align columns
