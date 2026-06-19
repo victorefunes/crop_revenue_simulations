@@ -233,29 +233,29 @@ and Farm Delinquencies}\\
 %\end{block}
 %\end{frame}
 
-\begin{frame}{Motivation}
-    \small
-    \begin{block}{Climate Pressure}
-        \begin{itemize}
-            \item US Midwest corn \& soy yield: -7-9\% projected by 2050 (drought + heat)
-            \item Extreme heat $+$ dry spells to co-occur more $\rightarrow$ yield shock variance $\uparrow$.
-        \end{itemize}
-    \end{block}
-    \begin{block}{Global Competitor Expansion}
-        \begin{itemize}
-            \item Brazil now 58\% of global soy exports; US share fell to 28\% (2024/25 USDA).
-            \item US soy exports to China: 60\% avg. pre-trade-war $\rightarrow$ 47\% post (2018–2024).
-            \item Brazil corn exports surging — filling gaps left by Ukraine war disruption.
-            \item Chronic price pressure on US corn-soy revenue $\rightarrow$ thinner debt-repayment margins.
-        \end{itemize}
-    \end{block}
-    \begin{block}{Land \& Input Competition}
-        \begin{itemize}
-            \item Data centers $+$ solar: 1M+ acres of farmland converted; 70\% of solar in Midwest on cropland.
-            \item Farm electricity costs $\uparrow 48\%$ projected 2019–2026 (USDA ERS).
-        \end{itemize}
-    \end{block}
-\end{frame}
+%\begin{frame}{Motivation}
+%    \small
+%    \begin{block}{Climate Pressure}
+%        \begin{itemize}
+%            \item US Midwest corn \& soy yield: -7-9\% projected by 2050 (drought + heat)
+%            \item Extreme heat $+$ dry spells to co-occur more $\rightarrow$ yield shock variance $\uparrow$.
+%        \end{itemize}
+%    \end{block}
+%    \begin{block}{Global Competitor Expansion}
+%        \begin{itemize}
+%            \item Brazil now 58\% of global soy exports; US share fell to 28\% (2024/25 USDA).
+%            \item US soy exports to China: 60\% avg. pre-trade-war $\rightarrow$ 47\% post (2018–2024).
+%            \item Brazil corn exports surging — filling gaps left by Ukraine war disruption.
+%            \item Chronic price pressure on US corn-soy revenue $\rightarrow$ thinner debt-repayment margins.
+%        \end{itemize}
+%    \end{block}
+%    \begin{block}{Land \& Input Competition}
+%        \begin{itemize}
+%            \item Data centers $+$ solar: 1M+ acres of farmland converted; 70\% of solar in Midwest on cropland.
+%            \item Farm electricity costs $\uparrow 48\%$ projected 2019–2026 (USDA ERS).
+%        \end{itemize}
+%    \end{block}
+%\end{frame}
 
 \begin{frame}{Motivation}
     \begin{columns}[T] % align columns
@@ -268,10 +268,9 @@ and Farm Delinquencies}\\
     \end{column}%
     \hfill%
     \begin{column}{.45\textwidth}
-    \footnotesize
     \begin{itemize}
-    \item \textcolor{cardinalred}{2015-16} \textbf{Commodity price collapse}: Corn falls from \$7 $\rightarrow$ \$3.50/bu. Farm income drops by 45\% over 3 years. Operating-loan stress builds.
-    \item \textcolor{springwater}{2018-19} \textbf{US-China trade war}: Soy exports to China collapse. U.S. world soy export share falls from 38\% $\rightarrow$ 28\% as Brazil captures the gap.
+    %\item \textcolor{cardinalred}{2015-16} \textbf{Commodity price collapse}: Corn falls from \$7 $\rightarrow$ \$3.50/bu. Farm income drops by 45\% over 3 years. Operating-loan stress builds.
+    %\item \textcolor{springwater}{2018-19} \textbf{US-China trade war}: Soy exports to China collapse. U.S. world soy export share falls from 38\% $\rightarrow$ 28\% as Brazil captures the gap.
     \item \textcolor{pine}{2020} \textbf{COVID + CFAP payments}: Delinquency spikes to 2.3\% (peak). CFAP/ARC-CO transfers temporarily mask rollover risk through 2021. 
     \item \textcolor{hickory}{2022} \textbf{Russia–Ukraine war}: Wheat/corn price spike then collapse. Ukraine recovers export corridor; Black Sea grain competes again by 2023.
     \item \textcolor{goldenoak}{2024-} \textbf{Second uptick underway}: NSA rate at 1.4\% and climbing. Iran–Israel tensions and U.S. export-share erosion sustain pressure.
@@ -282,11 +281,11 @@ and Farm Delinquencies}\\
 
 \begin{frame}{Research questions}
     \begin{wideitemize}
-        \item \textcolor{red}{\textbf{Question 1}}: Does a more complex rotation improve financial outcomes, or do agronomic gains hit diminishing returns versus simple alternation?
-        \item \textcolor{red}{\textbf{Question 2}}: What is the 6-year delinquency probability, conditioning on yields on the full six-year rotation history of the field?
+        \item \textcolor{red}{\textbf{Question 1}}: What is the net benefit of complex rotation after accounting for alternative revenue hedging options?
+        \item \textcolor{red}{\textbf{Question 2}}: How can we estimate delinquency probabilities conditioning on yields on the full six-year rotation history of the field?
         \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
-        \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, these issues are not accounted for.
-        \item \textbf{Sustainable practices}: Crop rotation reduces yield variance, severs the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and financial resilience.
+        \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, crop rotation effects are not accounted for.
+        \item \textbf{Sustainable practices}: We show that, crop rotation reduces the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and financial resilience.
     \end{wideitemize}
 \end{frame}
 
@@ -445,30 +444,30 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 %\end{block}
 %\end{frame}
 
-\begin{frame}{Decomposing Yield Variance: Aggregate vs. Idiosyncratic}
-\begin{block}{Yield Shock}
-    Year-to-year deviation of field yield from its rotation-state mean — the part unpredictable at planting (two-way FE residual, field + year fixed effects).
-    \begin{equation*}
-        \textcolor{red}{\hat{\varepsilon}_{it}}=Y_{it}-\textcolor{green}{(\hat{\alpha}_{i}+\hat{\gamma}_{t})}
-    \end{equation*}
+%\begin{frame}{Decomposing Yield Variance: Aggregate vs. Idiosyncratic}
+%\begin{block}{Yield Shock}
+%    Year-to-year deviation of field yield from its rotation-state mean — the part unpredictable at planting (two-way FE residual, field + year fixed effects).
+%    \begin{equation*}
+%        \textcolor{red}{\hat{\varepsilon}_{it}}=Y_{it}-\textcolor{green}{(\hat{\alpha}_{i}+\hat{\gamma}_{t})}
+%    \end{equation*}
     
-    \begin{table}
-        \begin{tabular}{lrll}
-        \hline\\
-           Field FE only  & $\approx 0.20$ & Permanent field productivity & Fixed characteristics predictable\\
-            & & &from field identity\\
-           Year FE only  & $\approx 0.65$ & Common annual shocks & Systematic/covariate risk,\\
-           & & & not iversifiable\\
-           Year FE $|$ Field FE  & $\approx 0.62$  & Incremental year FE & \textcolor{green}{Aggregate shock (year FE | field FE)}\\
-           Both FEs & $\approx 0.82$ & Total explained & \\
-           Residual & $\approx 0.18$ & True idiosyncratic shock & \textcolor{red}{Idiosyncratic shock (residual)}\\
-           \hline
-        \end{tabular}
-        \caption{Field panel - variance decomposition}
-        \label{tab:var_decomp}
-    \end{table}
-\end{block}
-\end{frame}
+%    \begin{table}
+%        \begin{tabular}{lrll}
+%        \hline\\
+%           Field FE only  & $\approx 0.20$ & Permanent field productivity & Fixed characteristics predictable\\
+%            & & &from field identity\\
+%           Year FE only  & $\approx 0.65$ & Common annual shocks & Systematic/covariate risk,\\
+%           & & & not iversifiable\\
+%           Year FE $|$ Field FE  & $\approx 0.62$  & Incremental year FE & \textcolor{green}{Aggregate shock (year FE | field FE)}\\
+%           Both FEs & $\approx 0.82$ & Total explained & \\
+%           Residual & $\approx 0.18$ & True idiosyncratic shock & \textcolor{red}{Idiosyncratic shock (residual)}\\
+%           \hline
+%        \end{tabular}
+%        \caption{Field panel - variance decomposition}
+%        \label{tab:var_decomp}
+%    \end{table}
+%\end{block}
+%\end{frame}
 
 \begin{frame}{Rotation cuts 6-year delinquency risk by a third or more}
 \begin{columns}[T] % align columns
@@ -488,7 +487,7 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
-\begin{frame}{Soy years reset the debt cycle — the sawtooth}
+\begin{frame}{Soy years dampen the debt cycle — the sawtooth}
 \begin{columns}[T] % align columns
 \begin{column}{.65\textwidth}
 \resizebox{\textwidth}{!}{
