@@ -159,8 +159,8 @@
 }
 
 \title[]{\textcolor{razorbackred}{Crop Rotations, Transition Costs,
-and Farm Delinquencies}\\
-\small \textit{Why rotation protects the farm balance sheet, even when price risk dominates revenue variance}}
+and Farm Delinquencies}}
+%\small \textit{Why rotation protects the farm balance sheet, even when price risk dominates revenue variance}}
 \author[]{Victor Funes-Leal\inst{1} \and Lawson Connor\inst{1} \and Eunchun Park\inst{1}}
 \institute[]{\inst{1} Department of Agricultural Economics and Agribusiness, University of Arkansas}
 \date{}
@@ -257,6 +257,16 @@ and Farm Delinquencies}\\
 %    \end{block}
 %\end{frame}
 
+\begin{frame}{Research questions}
+    \begin{wideitemize}
+        \item \textcolor{red}{\textbf{Question 1}}: What is the net benefit of complex rotation after accounting for alternative revenue hedging options?
+        \item \textcolor{red}{\textbf{Question 2}}: How can we estimate delinquency probabilities conditioning on yields on the full six-year rotation history of the field?
+        \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
+        \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, crop rotation effects are not accounted for.
+        \item \textbf{Sustainable practices}: We show that, crop rotation reduces the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and financial resilience.
+    \end{wideitemize}
+\end{frame}
+
 \begin{frame}{Motivation}
     \begin{columns}[T] % align columns
     \begin{column}{.55\textwidth}
@@ -277,16 +287,6 @@ and Farm Delinquencies}\\
   \end{itemize}
 \end{column}%
 \end{columns}
-\end{frame}
-
-\begin{frame}{Research questions}
-    \begin{wideitemize}
-        \item \textcolor{red}{\textbf{Question 1}}: What is the net benefit of complex rotation after accounting for alternative revenue hedging options?
-        \item \textcolor{red}{\textbf{Question 2}}: How can we estimate delinquency probabilities conditioning on yields on the full six-year rotation history of the field?
-        \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
-        \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, crop rotation effects are not accounted for.
-        \item \textbf{Sustainable practices}: We show that, crop rotation reduces the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and financial resilience.
-    \end{wideitemize}
 \end{frame}
 
 \begin{frame}{Contributions to literature}
@@ -341,9 +341,9 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{block}
 
 \begin{block}{Lower-Tail Dominance}
-    \begin{equation}
+    \begin{equation*}
         F_{CS}(y)\leq F_{CC}(y)\,\text{ for all }y\leq\overline{y}(c,s)
-    \end{equation}
+    \end{equation*}
     Verified in all $(c,s)$ cells at the 10$^{th}$ percentile
 \end{block}
     
@@ -478,28 +478,63 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{column}%
 \hfill%
 \begin{column}{.35\textwidth}
-  \begin{wideitemize}
+\footnotesize
+  \begin{itemize}
+  \item The rotation effect is large and monotone everywhere.
+  \item Northern and Central IL show the largest impact (perfect rotation cuts delinquencies by 30\%), Southern IL has a lower absolute reduction, but a similar relative reduction.
+  \item Productivity zone barely matters: it is not related to soil quality.
   \item $\approx 55\%$: \textcolor[HTML]{A50026}{Corn monoculture} (central/high)
   \item $\approx 30\%$: \textcolor[HTML]{313695}{Perfect rotation} (same cell)
   \item $-25 pp$: Risk reduction from rotating
-  \end{wideitemize}
+  \end{itemize}
 \end{column}%
 \end{columns}
 \end{frame}
 
+\begin{frame}{Effects of yield shocks}
+    \begin{columns}[T] 
+        \begin{column}{.6\textwidth}
+            \resizebox{1.05\textwidth}{!}{
+              \includegraphics{figs/fig_yield_compare_corr_vs_indep.png}
+            }
+    \end{column}%
+        \hfill%
+        \footnotesize
+    \begin{column}{.4\textwidth}
+        \begin{itemize}
+          \item Experiment: $-12\%$ corn yield shock in year 3 only. Reported as change vs. baseline. 
+          \item Corresponds to the effect of an approximate 2 hPa average drop in VPD \cite[Chapter~1]{Pizzo2025}
+          \item Two rows per panel:  \textbf{correlated prices} (natural hedge active) vs. \textbf{independent prices} (no hedge).
+         \item CCSCCS: null control: plants soy in yr 3 $\rightarrow$ corn shock doesn't hit yr-3 revenue $\rightarrow \approx 0$ change expected.
+         \item Continuous corn: yield shock compounds
+         \item 2 Corn/1 soy: null effect (counterfactual)
+         \item Perfect rotation: larger effect than continuous corn
+         \item Hedge provides no insulation: Correlated vs. independent rows are nearly identical. Rotation's protection comes from debt-timing — not from hedging yield risk
+          \end{itemize}
+        \end{column}%
+    \end{columns}
+\end{frame}
+
 \begin{frame}{Soy years dampen the debt cycle — the sawtooth}
 \begin{columns}[T] % align columns
-\begin{column}{.65\textwidth}
-\resizebox{\textwidth}{!}{
+\begin{column}{.6\textwidth}
+\resizebox{1.1\textwidth}{!}{
   \includegraphics{figs/fig_p_year_all.png}
 }
 \end{column}%
 \hfill%
-\begin{column}{.35\textwidth}
+\footnotesize
+\begin{column}{.4\textwidth}
   \begin{itemize}
   \item \textcolor{cardinalred}{Continuous corn} holds a flat elevated hazard.
   \item Rotations crash toward zero in \textcolor{green}{soy-harvest years}, then rebuild.
   \item A soy harvest \textbf{retires accumulated rollover debt}, resetting the farm to near-zero before the next corn run.
+  \item The "debt-rest" occurs because:
+  \begin{enumerate}
+      \item Soybeans have lower spring operating costs than corn.
+      \item Soybean harvest revenue is sufficient to clear that lower hurdle under typical conditions.
+      \item The credit recursion has no smoothing; it has a discrete repayment event
+  \end{enumerate}
   \item However, this is a consequence of the data coming from a period where soybean returns were higher than those of corn.
   \end{itemize}
 \end{column}%
@@ -508,15 +543,18 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 
 \begin{frame}{Survival curves show where rotation pulls farms apart}
 \begin{columns}[T] % align columns
-\begin{column}{.65\textwidth}
+\begin{column}{.6\textwidth}
 \resizebox{\textwidth}{!}{
-  \includegraphics{figs/fig_p_surv_all.png}
+  \includegraphics[scale = 1.1]{figs/fig_p_surv_all.png}
 }
 \end{column}%
 \hfill%
-\begin{column}{.35\textwidth}
+\begin{column}{.4\textwidth}
   \begin{itemize}
   \item Drops concentrate in corn years; soy years are flat.
+  \item Continuous corn has no recovery mechanism.
+  \item The south row is distinctively different in shape, not just level.
+  \item Productivity zone again barely matters.
   \item By year 3, the curves have already separated by 15–20 pp; the earliest events do the lasting damage.
   \item By year 6, alternation preserves 70–85\% of farms in solvency; continuous corn 45–70\%.
   \end{itemize}
@@ -548,74 +586,74 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
-\begin{frame}{Peak loan demand stays under common credit limits}
-\begin{columns}[T] % align columns
-\begin{column}{.65\textwidth}
-\resizebox{\textwidth}{!}{
-  \includegraphics{figs/fig_peak_loan_all.png}
-}
-\end{column}%
-\hfill%
-\begin{column}{.35\textwidth}
-  \textbf{What this tells lenders}:
-  \begin{itemize}
-  \item Medians cluster near \$/ac 500–550. Rationing at the \$700, \$900, \$1,200 ceilings is rare.
-  \item But rotation shifts the whole distribution down, widening the safety margin.
-  \item Rotation history is an observable, verifiable risk factor lenders can price into operating-credit underwriting.
-  \end{itemize}
-\end{column}%
-\end{columns}
-\end{frame}
+%\begin{frame}{Peak loan demand stays under common credit limits}
+%\begin{columns}[T] % align columns
+%\begin{column}{.6\textwidth}
+%\resizebox{1.1\textwidth}{!}{
+%  \includegraphics{figs/fig_peak_loan_all.png}
+%}
+%\end{column}%
+%\hfill%
+%\begin{column}{.4\textwidth}
+%  \textbf{What this tells lenders}:
+%  \begin{itemize}
+%  \item Medians cluster near \$/ac 500–550. Rationing at the \$700, \$900, \$1,200 ceilings is rare.
+%  \item But rotation shifts the whole distribution down, widening the safety margin.
+%  \item Rotation history is an observable, verifiable risk factor lenders can price into operating-credit underwriting.
+%  \end{itemize}
+%\end{column}%
+%\end{columns}
+%\end{frame}
 
-\begin{frame}{Shapley Decomposition}
-\begin{block}{What causes delinquency?}
-    \begin{itemize}
-        \item Variance decomposition answers: "What share of revenue variance comes from price?" \textcolor{green}{86-89\% price, 11-14\% yield}.
-        \item Shapley decomposition answers: "What share of the probability of crossing the default threshold is caused by price?" \textcolor{red}{92-100\% price}.
-    \end{itemize}
-\end{block}
-\begin{block}{How it works}
-    \begin{description}
-        \item[$V(A)$]: $\Pr(delinquency)$ when sources in $A$ are stochastic, sources outside $A$ fixed at their means.
-        \item[$V(\emptyset)$] Both fixed at means $\rightarrow$ baseline (zero stochastic risk).
-        \item[$V(\{P\})$] Only price stochastic $\rightarrow$ Delinquency due to price only. 
-        \item[$V(\{Y\})$] Only yield stochastic $\rightarrow$ Delinquency due to yield only.
-        \item[$V(\{P,Y\})$] Both stochastic $\rightarrow$ full delinquency probability.
-    \end{description}
-    \begin{equation*}
-        \phi_{P}=\frac{1}{2}\left[V(\{P\})-V(\emptyset)\right]+\frac{1}{2}\left[V(\{P,Y\})-V(\{Y\})\right]
-    \end{equation*}
-\end{block}
-\end{frame}
+%\begin{frame}{Shapley Decomposition}
+%\begin{block}{What causes delinquency?}
+%    \begin{itemize}
+%        \item Variance decomposition answers: "What share of revenue variance comes from price?" \textcolor{green}{86-89\% price, 11-14\% yield}.
+%        \item Shapley decomposition answers: "What share of the probability of crossing the default threshold is caused by price?" \textcolor{red}{92-100\% price}.
+%    \end{itemize}
+%\end{block}
+%\begin{block}{How it works}
+%    \begin{description}
+%        \item[$V(A)$]: $\Pr(delinquency)$ when sources in $A$ are stochastic, sources outside $A$ fixed at their means.
+%        \item[$V(\emptyset)$] Both fixed at means $\rightarrow$ baseline (zero stochastic risk).
+%        \item[$V(\{P\})$] Only price stochastic $\rightarrow$ Delinquency due to price only. 
+%        \item[$V(\{Y\})$] Only yield stochastic $\rightarrow$ Delinquency due to yield only.
+%        \item[$V(\{P,Y\})$] Both stochastic $\rightarrow$ full delinquency probability.
+%    \end{description}
+%    \begin{equation*}
+%        \phi_{P}=\frac{1}{2}\left[V(\{P\})-V(\emptyset)\right]+\frac{1}{2}\left[V(\{P,Y\})-V(\{Y\})\right]
+%    \end{equation*}
+%\end{block}
+%\end{frame}
 
-\begin{frame}{Shapley Decomposition}
-    \begin{figure}[ht]
-        \begin{minipage}[b]{0.45\linewidth}
-            \centering
-            \includegraphics[scale = 0.25]{figs/fig_revenue_variance_decomp.png}
-            \caption{Price dominates revenue variance}
-            \label{fig:fig_revenue_variance_decomp}
-        \end{minipage}
-        \hspace{0.5cm}
-        \begin{minipage}[b]{0.45\linewidth}
-            \centering
-            \includegraphics[scale = 0.3]{figs/fig_shapley_price_share.png}
-            \caption{Shapley values}
-            \label{fig:fig_shapley_price_share}
-        \end{minipage}
-    \end{figure}
-\end{frame}
+%\begin{frame}{Shapley Decomposition}
+%    \begin{figure}[ht]
+%        \begin{minipage}[b]{0.45\linewidth}
+%            \centering
+%            \includegraphics[scale = 0.25]{figs/fig_revenue_variance_decomp.png}
+%            \caption{Price dominates revenue variance}
+%            \label{fig:fig_revenue_variance_decomp}
+%        \end{minipage}
+%        \hspace{0.5cm}
+%        \begin{minipage}[b]{0.45\linewidth}
+%            \centering
+%            \includegraphics[scale = 0.3]{figs/fig_shapley_price_share.png}
+%            \caption{Shapley values}
+%            \label{fig:fig_shapley_price_share}
+%        \end{minipage}
+%    \end{figure}
+%\end{frame}
 
-\begin{frame}{Price dominates revenue variance}
-    \begin{wideitemize}
-       \item Variance share: 86-89\% of gross revenue variance is attributable to price. 
-       \item Shapley share: 96\% of gross revenue is due to price.
-       \item Stable across regions, zones, and plans. 
-       \item \textbf{Implication}: the natural price–yield hedge can only do so much at the field level; the dominant source of variance isn't what the correlation is between. 
-       \item Yield has a physical lower bound (zero-yield is rare in Illinois). Price has no such bound; left tails are long. 
-       \item The default threshold is a fixed dollar hurdle. A price draw of 30\% below the median moves revenue far more than an equal-sized yield draw.
-    \end{wideitemize}
-\end{frame}
+%\begin{frame}{Price dominates revenue variance}
+%    \begin{wideitemize}
+%       \item Variance share: 86-89\% of gross revenue variance is attributable to price. 
+%       \item Shapley share: 96\% of gross revenue is due to price.
+%       \item Stable across regions, zones, and plans. 
+%       \item \textbf{Implication}: the natural price–yield hedge can only do so much at the field level; the dominant source of variance isn't what the correlation is between. 
+%       \item Yield has a physical lower bound (zero-yield is rare in Illinois). Price has no such bound; left tails are long. 
+%       \item The default threshold is a fixed dollar hurdle. A price draw of 30\% below the median moves revenue far more than an equal-sized yield draw.
+%    \end{wideitemize}
+%\end{frame}
 
 %\begin{frame}{Price dominates revenue variance}
 %\begin{columns}[T] % align columns
@@ -690,7 +728,7 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
         The mechanism is the soy-year sawtooth, not yield smoothing.
         \item \textcolor{springwater}{Price uncertainty dominates both revenue variance and delinquency causation}.
 
-        The natural hedge is modest and largely redundant where rotation operates.
+        The natural hedge is modest and largely redundant where rotation is in effect.
         \item \textcolor{pine}{Rotation history is a missing variable in credit-risk and crop-insurance models}.
 
         Observable, verifiable, predictive — and absent from current practice.
