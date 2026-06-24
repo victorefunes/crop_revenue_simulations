@@ -259,15 +259,18 @@ and Farm Delinquencies}}
 
 \begin{frame}{Research questions}
     \begin{wideitemize}
-        \item \textcolor{red}{\textbf{Question 1}}: What is the net benefit of complex rotation after accounting for alternative revenue hedging options?
-        \item \textcolor{red}{\textbf{Question 2}}: How can we estimate delinquency probabilities conditioning on yields on the full six-year rotation history of the field?
-        \item \textcolor{red}{\textbf{Question 3}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
-        \item If revenue is treated as one aggregate stream and default is predicted from one-year loss probabilities, crop rotation effects are not accounted for.
-        \item \textbf{Sustainable practices}: We show that, crop rotation reduces the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and financial resilience.
+        \item \textcolor{red}{\textbf{Question 1}}: How can we estimate delinquency probabilities conditioning on yields on the full six-year rotation history of the field? 
+
+        If revenue is treated as one aggregate stream and debt default is predicted from one-year loss probabilities, crop rotation effects are not accounted for.
+        \item \textcolor{red}{\textbf{Question 2}}: How does the negative price–yield correlation change those probabilities, and do its effects act as a substitute for or complement to rotation?
+        
+        \item \textbf{Sustainable practices}: We show that, crop rotation reduces the debt-rollover chain, and lowers multi-year delinquency risk. It is the link between agronomic sustainability and finncial resilience.
     \end{wideitemize}
 \end{frame}
 
-\begin{frame}{Motivation}
+
+
+\begin{frame}{Background}
     \begin{columns}[T] % align columns
     \begin{column}{.55\textwidth}
     \resizebox{\textwidth}{!}{
@@ -283,7 +286,7 @@ and Farm Delinquencies}}
     %\item \textcolor{springwater}{2018-19} \textbf{US-China trade war}: Soy exports to China collapse. U.S. world soy export share falls from 38\% $\rightarrow$ 28\% as Brazil captures the gap.
     \item \textcolor{pine}{2020} \textbf{COVID + CFAP payments}: Delinquency spikes to 2.3\% (peak). CFAP/ARC-CO transfers temporarily mask rollover risk through 2021. 
     \item \textcolor{hickory}{2022} \textbf{Russia–Ukraine war}: Wheat/corn price spike then collapse. Ukraine recovers export corridor; Black Sea grain competes again by 2023.
-    \item \textcolor{goldenoak}{2024-} \textbf{Second uptick underway}: NSA rate at 1.4\% and climbing. Iran–Israel tensions and U.S. export-share erosion sustain pressure.
+   \item \textcolor{goldenoak}{2024-} \textbf{Second uptick underway}: NSA rate at 1.4\% and climbing. Iran–Israel tensions and U.S. export-share erosion sustain pressure.
   \end{itemize}
 \end{column}%
 \end{columns}
@@ -332,7 +335,7 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \begin{frame}{Simulation framework}
 \begin{block}{Nonparametric conditional distribution $F_{Y|s,c,z}$}
     \begin{itemize}
-        \item State s = 6-character rotation history (e.g., 'CSCSCS', 'CCCCCC') — up to 64 states per cell
+        \item State s = 6-character rotation history (e.g., 'CSCSCS', 'CCCCCC').
         \item Two-way FE residuals: $y_{f,t} = \alpha_f + \gamma_t + \varepsilon_{f,t}$. Field FE removes permanent productivity; year FE removes common shocks. 
         \item Residual pool: $20,000$ bootstrap draws per state. (With replacement when $n < 20,000$).
         \item Simulation draws: $\overline{Y}=\mu(s)+\tilde{\varepsilon}$, where $\tilde{\varepsilon}\sim $ empirical residual pool.
@@ -404,24 +407,24 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \textbf{Delinquency rule}: $remaining\_balance >0$ at year-end ("end-balance-positive"). Robustness: "over-limit" rule (balance $>$ credit ceiling). 
 \end{frame}
 
-\begin{frame}{The credit recursion}
-    \begin{block}{Five equations define delinquency}
-       \begin{enumerate}
-        \item Spring origination: $L_{t} = C_{t} + B_{t-1}$
-        \item Nine-month accrual: $H_{t} = L_{t}\times (1 + i)^{9/12}$
-        \item Harvest revenue: $R_t = P_t\times Y_t$
-        \item Repayment: $M_t = \min(R_t, H_t)$
-        \item Carry forward $B_t = H_t - M_t\rightarrow \text{delinquency if } B_t > 0$
-    \end{enumerate}
-       A farm is delinquent if: $Debt\_carried_{t}>0$
-    \end{block}
-    \begin{block}{Why this recursion?}
-        \small\begin{itemize}
-            \item The simple-profit alternative is $Profit_{t} = P_{t}Y_{t} - Cost_{t}$; it sums to the same NPV but loses the path. 
-            \item Eq. (5) is what carries the bad year forward: $shortfall \times (1+r)^{9/12}$ becomes next year's principal. A small year-1 shock can therefore compound into multi-year delinquency, the channel that current credit-risk models miss.
-        \end{itemize}
-    \end{block}
-\end{frame}
+%\begin{frame}{The credit recursion}
+%    \begin{block}{Five equations define delinquency}
+%       \begin{enumerate}
+%        \item Spring origination: $L_{t} = C_{t} + B_{t-1}$
+%        \item Nine-month accrual: $H_{t} = L_{t}\times (1 + i)^{9/12}$
+%        \item Harvest revenue: $R_t = P_t\times Y_t$
+%        \item Repayment: $M_t = \min(R_t, H_t)$
+%        \item Carry forward $B_t = H_t - M_t\rightarrow \text{delinquency if } B_t > 0$
+%    \end{enumerate}
+%       A farm is delinquent if: $Debt\_carried_{t}>0$
+%    \end{block}
+%    \begin{block}{Why this recursion?}
+%       \small\begin{itemize}
+%           \item The simple-profit alternative is $Profit_{t} = P_{t}Y_{t} - Cost_{t}$; it sums to the same NPV but loses the path. 
+%            \item Eq. (5) is what carries the bad year forward: $shortfall \times (1+r)^{9/12}$ becomes next year's principal. A small year-1 shock can therefore compound into multi-year delinquency, the channel that current credit-risk models miss.
+%        \end{itemize}
+%    \end{block}
+%\end{frame}
 
 %\begin{frame}{Decomposing yield shocks: aggregate vs idiosyncratic}
 %      \begin{align*}
@@ -491,28 +494,24 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
-\begin{frame}{Effects of yield shocks}
-    \begin{columns}[T] 
-        \begin{column}{.6\textwidth}
-            \resizebox{1.05\textwidth}{!}{
-              \includegraphics{figs/fig_yield_compare_corr_vs_indep.png}
-            }
-    \end{column}%
-        \hfill%
-        \footnotesize
-    \begin{column}{.4\textwidth}
-        \begin{itemize}
-          \item Experiment: $-12\%$ corn yield shock in year 3 only. Reported as change vs. baseline. 
-          \item Corresponds to the effect of an approximate 2 hPa average drop in VPD \cite[Chapter~1]{Pizzo2025}
-          \item Two rows per panel:  \textbf{correlated prices} (natural hedge active) vs. \textbf{independent prices} (no hedge).
-         \item CCSCCS: null control: plants soy in yr 3 $\rightarrow$ corn shock doesn't hit yr-3 revenue $\rightarrow \approx 0$ change expected.
-         \item Continuous corn: yield shock compounds
-         \item 2 Corn/1 soy: null effect (counterfactual)
-         \item Perfect rotation: larger effect than continuous corn
-         \item Hedge provides no insulation: Correlated vs. independent rows are nearly identical. Rotation's protection comes from debt-timing — not from hedging yield risk
-          \end{itemize}
-        \end{column}%
-    \end{columns}
+\begin{frame}{Rotation benefits}
+    \begin{columns}[T] % align columns
+   \begin{column}{.55\textwidth}
+    \resizebox{\textwidth}{!}{
+        \includegraphics{figs/corn_rot_plot.png}
+        }
+    \textbf{Note:} Coefficients of a linear regression of corn yields on rotation patterns. Base level is corn monoculture.     
+   \end{column}%
+   \hfill%
+   \begin{column}{.45\textwidth}
+    \begin{itemize}
+    \item Rotating crops brings a series of benefits in terms of soil health (soybeans fix atmospheric nitrogen, break pest and disease cycles)
+    \item We show that rotation also has financial benefits, including a lower probability of farm delinquencies and risk reduction.
+    \item Rotating farms benefit less from the natural hedge provided by the negative price-yield correlation because rotation has already done the work the hedge would otherwise do.
+    \item $\hat{\beta}_{CCSCCS}=1.18$, $\hat{\beta}_{CSCSCS} = 3.1$
+  \end{itemize}
+\end{column}%
+\end{columns}  
 \end{frame}
 
 \begin{frame}{Soy years dampen the debt cycle — the sawtooth}
@@ -541,6 +540,55 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
+\begin{frame}{Effects of yield shocks}
+    \begin{columns}[T] 
+        \begin{column}{.6\textwidth}
+            \resizebox{1.05\textwidth}{!}{
+              \includegraphics{figs/fig_yield_compare_corr_vs_indep.png}
+            }
+    \end{column}%
+        \hfill%
+        \footnotesize
+    \begin{column}{.4\textwidth}
+        \begin{itemize}
+          \item Experiment: $-12\%$ corn yield shock in year 3 only. Reported as change vs. baseline. 
+          \item Corresponds to the effect of an approximate 2 hPa average drop in VPD \cite[Chapter~1]{Pizzo2025}
+          \item Two rows per panel:  \textbf{correlated prices} (natural hedge active) vs. \textbf{independent prices} (no hedge).
+         \item CCSCCS: null control: plants soy in yr 3 $\rightarrow$ corn shock doesn't hit yr-3 revenue $\rightarrow \approx 0$ change expected.
+         \item Continuous corn: yield shock compounds
+         \item 2 Corn/1 soy: null effect (counterfactual)
+         \item Perfect rotation: larger effect than continuous corn
+         \item Hedge provides no insulation: Correlated vs. independent rows are nearly identical. Rotation's protection comes from debt-timing — not from hedging yield risk
+          \end{itemize}
+        \end{column}%
+    \end{columns}
+\end{frame}
+
+\begin{frame}{The natural hedge mostly helps continuous corn}
+\begin{columns}[T] % align columns
+\begin{column}{.65\textwidth}
+\resizebox{\textwidth}{!}{
+  \includegraphics{figs/fig_p_debt_all.png}
+}
+\end{column}%
+\hfill%
+\begin{column}{.35\textwidth}
+  \textbf{Details}:
+
+  \textbf{Solid lines}: correlated prices/yields (hedge active).
+
+  \textbf{Dashed lines}: independent (no hedge).
+
+  The vertical gap is the hedge benefit.
+  \begin{itemize}
+    \item The natural hedge is a mitigating factor for the effect of rotation.
+    \item The gap is widest for \textcolor{cardinalred}{continuous corn} and nearly closes for rotations.
+    \item Hedge and rotation are partial substitutes.
+  \end{itemize}
+\end{column}%
+\end{columns}
+\end{frame}
+
 \begin{frame}{Survival curves show where rotation pulls farms apart}
 \begin{columns}[T] % align columns
 \begin{column}{.6\textwidth}
@@ -562,29 +610,26 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \end{columns}
 \end{frame}
 
-\begin{frame}{The natural hedge mostly helps continuous corn}
+\begin{frame}{Probability of delinquency with price-yield correlation}
 \begin{columns}[T] % align columns
-\begin{column}{.65\textwidth}
-\resizebox{\textwidth}{!}{
-  \includegraphics{figs/fig_p_debt_all.png}
+\begin{column}{.6\textwidth}
+\resizebox{1.1\textwidth}{!}{
+  \includegraphics{figs/fig_p_bar_corr.png}
 }
 \end{column}%
 \hfill%
-\begin{column}{.35\textwidth}
-  \textbf{Details}:
-
-  \textbf{Solid lines}: correlated prices/yields (hedge active).
-
-  \textbf{Dashed lines}: independent (no hedge).
-
-  The vertical gap is the hedge benefit.
-  
-  The gap is widest for \textcolor{cardinalred}{continuous corn} and nearly closes for rotations.
-  
-  Hedge and rotation are partial substitutes.
+\begin{column}{.4\textwidth}
+\footnotesize
+  \begin{itemize}
+  \item Price-yield correlation dampens the effects of rotations (2.4 pp for continuous corn, 1-2 pp for rotation plans); baseline risk is 30–55\%.
+  \item The hedge benefit is real but small everywhere. The hedge is most valuable for continuous corn: rotation has already driven carried debt to near zero in soybean years, when a good national yield depresses price, there is no accumulated rollover balance for the hedge to protect against. 
+  \item The southern row is the exception; the faded-to-solid gap for CCCCCC is notably wider (7–9 pp rather than 2–4 pp).
+  \item The rotation effect dwarfs the hedge effect. The rotation effect is an order of magnitude larger than the hedge effect.
+\end{itemize}
 \end{column}%
 \end{columns}
 \end{frame}
+
 
 %\begin{frame}{Peak loan demand stays under common credit limits}
 %\begin{columns}[T] % align columns
@@ -739,6 +784,17 @@ We use a field-level panel that covers the entire state of Illinois from 2008 to
 \begin{frame}{}
 	\centering \Huge
 	\emph{Thank You!}
+
+\begin{block}{Acknowledgments}
+  \small
+    \begin{itemize}
+        \item Department of Statistics, Rice University
+        \item Department of Statistics and Probability, Michigan State University
+        \item Tim Bowles and Agroecology Lab, University of California, Berkeley
+        \item Land Core Inc.
+        \item FFAR and USDA-AFRI
+    \end{itemize}  
+\end{block}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
