@@ -11,6 +11,9 @@
 \DeclareMathOperator*{\rint}{\ThisStyle{\rotatebox{15}{$\SavedStyle\!\int\!$}}}
 \usepackage{indentfirst}
 \usepackage{xurl}
+%\usepackage{caption}
+%\usepackage{subcaption}
+\usepackage{subfig}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
 \usepackage{float}
 \usepackage{pgfplots}
@@ -205,11 +208,23 @@ The simulation requires three empirical inputs: rotation-conditioned yield distr
 \subsection{\label{subsec:panel}The Illinois field panel}
 The yield panel covers every corn-planted field in Illinois from 2008 to 2022, a span chosen to balance the availability of high-resolution yield maps (which begin in 2008) and the need for a sufficiently long window to estimate rotation-conditional moments in sparse cells. The panel is constructed by intersecting four geospatial layers at the field-by-year level: the Cropland Data Layer (CDL)\footnote{\url{https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php}} for crop identification and rotation history, the Quantitative Domain Adversarial Neural Network (QDANN) yield-mapping product \citep{Ma2024} for realized yields, GRIDMET\footnote{\url{https://www.climatologylab.org/gridmet.html}} and TerraClimate for weather covariates, and the Gridded Soil Survey Geographic (gSSURGO) Database\footnote{\url{https://www.nrcs.usda.gov/resources/data-and-reports/gridded-soil-survey-geographic-gssurgo-database}} for soil characteristics.
 
-
-
 Field boundaries are defined as contiguous CDL pixels of the same crop in a given year, aggregated to a stable spatial unit using the Common Land Unit (CLU) layer \citep{Yan2016}. Six-year rotation histories are constructed by intersecting each field's geometry with the CDL layer for each of the preceding five years. Histories that overlap multiple CDL classes by more than a small threshold were dropped to preserve a clean state definition. The resulting panel contains field-year observations with $(s, c, z, Y)$ as the primitive record, where $s$ is the six-year rotation state, $c$ is the climate region, $z$ is the productivity zone, and $Y$ is the QDANN-estimated yield.
 
-The three climate regions (northern, central, southern Illinois) follow the standard partition used by the \textbf{Illinois Farm Business Farm Management}\footnote{\url{https://www.fbfm.org/}} and the University of Illinois' \textbf{Farmdoc}\footnote{\url{https://farmdoc.illinois.edu/}}; the three productivity zones (high, medium, low) are constructed by partitioning the NCCPI soil productivity index from gSSURGO into terciles. The full grid is $3 \times 3 = 9$ cells, each containing the three rotation plans of interest. Within each cell, the panel contains hundreds of thousands to thousands of field-year observations across the fifteen-year window, sufficient to estimate the conditional yield distribution nonparametrically in all but the rarest rotation states.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{figs/map_regions.png}
+    \caption{Counties within each region}
+    \label{fig:map_regions} 
+\end{figure}
+
+The three climate regions (northern, central, southern Illinois in Figure \ref{fig:map_regions}) follow the standard partition used by the \textbf{Illinois Farm Business Farm Management}\footnote{\url{https://www.fbfm.org/}} and the University of Illinois' \textbf{Farmdoc}\footnote{\url{https://farmdoc.illinois.edu/}}; the three productivity zones (high, medium, and low on Figure \ref{fig:map_zones}) are constructed by partitioning the average yield distribution into terciles. The full grid is $3 \times 3 = 9$ cells, each containing the three rotation plans of interest. Within each cell, the panel contains hundreds of thousands to thousands of field-year observations across the fifteen-year window, sufficient to estimate the conditional yield distribution nonparametrically in all but the rarest rotation states.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{figs/map_zones.png}
+    \caption{Spatial distribution of productivity zones}
+    \label{fig:map_zones} 
+\end{figure}
 
 Yields are detrended at the county level using a linear time trend, and the resulting trend is then entered into the simulation. The trend captures long-run technological change in hybrids, fertilizer, and management; the simulation operates on residuals, which are the year-to-year deviations that drive credit risk.
 
@@ -670,6 +685,8 @@ Figure \ref{fig:fig_shapley_abs} reports the absolute Shapley values $\phi_P$ an
     \caption{Shapley decomposition of six-year delinquency probability into price (red) and yield (blue) components, in percentage points.}
     \label{fig:fig_shapley_abs} 
 \end{figure}
+
+
 
 \newpage
 \bibliographystyle{apalike}
