@@ -28,94 +28,91 @@
 \usepackage{authblk}
 \sisetup{table-number-alignment=center, table-figures-integer=2, table-figures-decimal=1}
 \usepackage{ragged2e}
+ 
 \makeatletter
 \renewcommand{\TPTnoteSettings}{\footnotesize\RaggedRight}
-
 \makeatother
-
+ 
 \doublespacing
-
+ 
 \title{Crop Rotations, Transition Costs, and the Path Dependence of Farm Delinquency}
-
+ 
 \author[1]{Victor Funes-Leal}
-
 \author[2]{Lawson Connor}
-
 \author[3]{Eunchun Park}
-
+ 
 \affil[1,2,3]{Department of Agricultural Economics and Agribusiness, University of Arkansas}
-
+ 
 \date{}
-
+ 
 \begin{document}
-
+ 
 \maketitle
-
+ 
 \begin{abstract}
-
-Operating credit in row-crop agriculture is path-dependent: unpaid loan balances roll forward and compound, so a single bad year can initiate a multi-year delinquency spiral. Yet credit underwriting and crop insurance pricing treat farm revenue as an aggregate stream, ignoring how crop rotation history shapes both yield distributions and the cash-flow process that determines whether harvest revenue retires the operating loan. This paper develops a simulation framework that couples field-level, rotation-conditioned yield distributions, estimated from a fifteen-year Illinois corn panel, with an explicit operating-credit model that tracks origination, accrual, repayment, and balance rollover. Delinquency risk follows a sawtooth pattern: soybean-harvest years periodically retire accumulated rollover debt, reducing the six-year cumulative delinquency probability by up to 25 percentage points relative to continuous corn. A Shapley decomposition assigns 92-100 percent of delinquency risk to price uncertainty, with the natural price-yield hedge contributing only one to two percentage points (largely redundant where rotation has already reset the debt balance). A placebo test confirms that the rotation channel operates via the timing of debt retirement, rather than aggregate price effects. Rotation history is an observable risk factor that current credit and insurance instruments systematically ignore.
-
+Operating credit in row-crop agriculture is path-dependent: unpaid loan balances roll forward and compound, so a single bad year can initiate a multi-year delinquency spiral. Yet credit underwriting and crop insurance pricing treat farm revenue as an aggregate stream, ignoring how crop rotation history shapes both yield distributions and the cash-flow process that determines whether harvest revenue retires the operating loan. This paper develops a simulation framework that couples field-level, rotation-conditioned yield distributions, estimated from a fifteen-year Illinois corn panel, with an explicit operating-credit model that tracks origination, accrual, repayment, and balance rollover. Delinquency risk follows a sawtooth pattern: soybean-harvest years periodically retire accumulated rollover debt, reducing the six-year cumulative delinquency probability by up to 25 percentage points relative to continuous corn. A Shapley decomposition assigns 92--100 percent of delinquency risk to price uncertainty, with the natural price--yield hedge contributing only one to two percentage points (largely redundant where rotation has already reset the debt balance). A placebo test confirms that the rotation channel operates via the timing of debt retirement, rather than aggregate price effects. Rotation history is an observable risk factor that current credit and insurance instruments systematically ignore.
 \end{abstract}
-
+ 
 \noindent\textbf{Keywords:} Crop rotation; Operating credit; Farm delinquency; Price-yield dependence; Revenue risk
-
+ 
 \noindent\textbf{JEL Codes:} Q14, Q12, G21
-
+ 
 \clearpage
-
+ 
 \section{\label{sec:introduction}Introduction}
-
-Operating credit is the financial lifeline of row-crop farms in the United States. Farmers borrow against the spring planting decision, accrue interest through the growing season, and retire the balance at harvest. When revenue falls short, the unpaid balance rolls forward, compounds at the operating-loan rate, and enlarges next spring's principal. A bad year is not a single shock: it is the first link in a chain whose length depends on what was planted in years $t-5$ through $t$.
-
-Lenders, insurers, and regulators do not see this chain. Credit underwriting collapses farm revenue into a single expected value and a variance, then reads off default probabilities from balance-sheet ratios \citep{Featherstone2006, Ifft2015}. Revenue-protection insurance prices a single-year shortfall against a county-level APH baseline \citep{Goodwin2004}; the five-year rolling window adjusts automatically, but it does not model how the sequence of prior crops shapes what next year's yield is likely to be. Agronomy has known for decades that yields depend on that sequence: the corn-after-corn penalty, the soybean nitrogen credit, the compounding benefits of diverse rotations \citep{Bullock1992, Seifert2017}. But agronomists stop at the yield; they do not run it through a credit-flow model. Meanwhile, rotation diversity across the Midwest has been declining for a century, fastest on the most productive ground, driven partly by the infrastructure of corn demand (ethanol plants, elevators) that raises the relative return to continuous corn \citep{socolar2021}. The financial case for rotation has not yet been made in terms that lenders and insurers can act on.
-
-This paper does that. We develop a simulation framework that couples field-level, rotation-conditioned yield distributions, estimated from a fifteen-year panel covering every corn field in Illinois, with an explicit operating-credit cash-flow model that tracks origination, accrual, repayment, and rollover. The result is a six-year delinquency probability for each rotation plan, conditional on the field's agronomic history. A Gaussian copula handles the negative price-yield correlation, calibrated at the field level ($\rho^* \approx -0.354$) rather than the aggregate ($\hat\rho = -0.45$), since only the systematic component of a field's (specifically the year fixed effect, accounting for 62 percent of within-field variance) actually moves national supply and therefore national price \citep{Finger2012, Ramsey2019}.
-
-Three findings emerge.
-
-\textbf{First, the per-year delinquency hazard is a sawtooth, not a trend.} Under continuous corn, the annual default probability sits at a flat 12-15 percent in northern and central Illinois and around 6-7 percent in the south, with no improvement year over year. Under either rotation plan, it drops to near zero in soybean-harvest years and rebuilds during corn years. The mechanism is a debt reset: soy is planted on a smaller spring loan, retires the rollover balance from prior corn years, and resets the carried-debt clock before the next corn run. Cumulative six-year delinquency falls from roughly 55 percent under continuous corn in central Illinois's high-productivity zone to 30 percent under strict alternation, a 25-point reduction concentrated entirely in the soybean years.
-
-\textbf{Second, price risk dominates; the natural hedge does less than the literature implies.} Ninety-two to 100 percent of delinquency causation traces to price uncertainty, not yield. The negative price-yield correlation does reduce delinquency, but only by one to two percentage points, not the five to ten one might expect from aggregate hedge estimates. Rotation and the hedge are substitutes in the cash-flow space: continuous-corn borrowers lean on the hedge because they have nothing else arresting their rollover spiral; rotation borrowers have already driven carried debt to near zero in soybean years, so the hedge has little left to do.
-
-\textbf{Third, the rotation effect arrives early and stays.} Survival curves separate within the first corn-soy cycle. By year 3, the gap between continuous corn and strict alternation is already 15-20 percentage points across all nine region $\times$ zone cells. Early delinquency events under continuous corn tend to be permanent: once the rollover balance grows, the revenue threshold required to clear it rises, and without a soybean reset the farm cannot recover on its own.
-
-The framework combines a rotation-conditioned nonparametric yield generator, an operating-credit recursion that preserves within-year debt flow, and a field-level copula (none individually new), but their combination produces a rotation-conditional, multi-year default probability comparable across plans, regions, and productivity zones. The components draw on \citet{Burt1963} and \citet{Livingston2015} for the dynamic-state structure, \citet{Featherstone2006} and \citet{IfftKuethe2013, IfftKuethe2015} for credit calibration, and \citet{Ramsey2019} for the copula specification.
-
-For lenders, rotation history is an observable risk factor (publicly available from CDL imagery) that predicts a factor-of-two difference in six-year default probability between otherwise-identical farms. For insurers, revenue-protection products calibrated on single-year loss ratios systematically misprice the multi-year exposure of corn-heavy producers. Section~\ref{sec:implications} develops both implications.
-
-The paper proceeds as follows. Section~\ref{sec:framing} places the contribution in the literature on rotation effects, dynamic crop-choice models, and farm credit risk. Section~\ref{sec:data} describes the field-level Illinois panel and the calibration of yield, price, and cost distributions. Section~\ref{sec:simulation} develops the simulation model. Section~\ref{sec:results} presents the main results. Section~\ref{sec:robustness} reports the variance and Shapley decompositions and survival-curve analysis. Section~\ref{sec:implications} discusses implications for lenders and insurers. Section~\ref{sec:conclusion} concludes.
-
+ 
+Operating credit is the financial lifeline of row-crop farms in the United States. Farmers borrow against the spring planting decision, accrue interest through the growing season, and retire the balance at harvest from realized revenue. When harvest revenue falls short of the obligation, the unpaid balance rolls forward to the next year's operating note, compounds at a contractually fixed rate, and enlarges the principal financed in the next planting cycle. A bad year is not a single shock but the first link in a chain: what the borrower carries into year $t+1$ is jointly determined by the realized revenue draw and the agronomic state of the field, both of which depend on what was planted in years $t-5$ through $t$.
+ 
+This path dependence is invisible to the credit-risk models that lenders, insurers, and regulators currently use. Operating-credit underwriting treats farm revenue as an aggregate stream, summarized by expected value and variance, and predicts default using balance-sheet ratios calibrated to one-year loss probabilities \citep{Featherstone2006, Ifft2015}. Crop insurance, the dominant federal risk-management instrument, prices revenue protection against single-year shortfalls from a county-level Actual Production History (APH) baseline \citep{Goodwin2004}; the rolling-five-year APH window adjusts the baseline mechanically but does not model how rotation history shapes the conditional yield distribution from which next year's revenue is drawn. Agronomy has long documented that yields depend on the sequence of crops in prior years: the corn-following-corn yield penalty, the soybean nitrogen credit, and the productivity gains from diverse rotations are textbook material \citep{Bullock1992, Seifert2017}, but the agronomic literature stops at agronomy. Yield is the endpoint, not a state variable that feeds a financial process. Despite these documented yield benefits, rotation diversity in the U.S.\ Midwest has been in a century-long decline, with simplification concentrated on the most productive land and reinforced by proximity to corn-demanding policy infrastructure, such as biofuel plants and grain elevators \citep{socolar2021}. The financial case for rotation, if it exists, has not yet been made in terms that the parties pricing farm credit risk can act on.
+ 
+This paper does that. We develop a simulation framework that couples field-level, rotation-conditioned yield distributions, estimated from a fifteen-year panel covering every corn field in Illinois, with an explicit operating-credit cash-flow model that tracks intra-year debt origination, nine-month interest accrual, harvest-time repayment, and balance rollover under insufficient revenue. The framework produces a multi-year delinquency probability (the probability that a farm incurs at least one operating-loan default over a six-year horizon), differentiated by the producer's rotation plan and conditional on the six-year history of crops planted in the field. Embedded in the simulation is a copula representation of the negative correlation between aggregate yields and market prices, calibrated from the same panel and decomposed into systematic and idiosyncratic components so that the natural hedge enters at the appropriate field-level intensity rather than the aggregate intensity \citep{Finger2012, Ramsey2019}.
+ 
+The simulation produces three findings that, taken together, reframe how rotation choice should be understood in financial terms.
+ 
+\textbf{First, the time path of delinquency risk is not a smooth curve; it is a sawtooth.} Under continuous corn, the annual probability of operating-loan default is roughly flat at 12--15 percent in the high-pressure northern and central Illinois regions and around 6--7 percent in the south, with no year-to-year decline. Under either rotation plan, the per-year probability drops to near zero in soybean-harvest years and rebuilds during corn years. The mechanism is not statistical noise: a soybean harvest retires the accumulated rollover balance because soy is planted at a lower spring loan, harvested early, and benefits from a more favorable price-cost ratio in the years studied. Rotation protects against multi-year ruin not by uniformly reducing risk but by \textit{periodically arresting} the debt-rollover process that converts a bad year into a multi-year default. The cumulative six-year delinquency probability falls from about 55 percent under continuous corn in central Illinois's high-productivity zone to about 30 percent under strict alternation, a 25-percentage-point reduction concentrated entirely in the soybean years.
+ 
+\textbf{Second, price risk dominates revenue variance, and the negative price--yield correlation provides only a modest natural hedge at the field level.} A variance decomposition of gross revenue assigns 86--89 percent of variation to price and 11--14 percent to yield across all regions, zones, and rotation plans. A Shapley attribution of delinquency risk to its two stochastic inputs is even more lopsided: price uncertainty explains 92--100 percent of the probability of delinquency, with yield uncertainty accounting for the residual. The negative price--yield correlation does reduce delinquency, but the reduction is small (generally one to two percentage points) and concentrated where rotation has not already done the work. The natural hedge and rotation are partial substitutes in the cash-flow space: continuous corn relies on the hedge because it never retires its rollover balance, while rotation plans already drive year-end debt to near zero in soybean years, leaving the hedge with little additional buffering to perform.
+ 
+\textbf{Third, the rotation effect materializes quickly: the survival gap opens within the first corn-soy cycle.} Survival curves separate across rotation plans almost immediately. By year 3, the gap between continuous corn and strict alternation is already 15--20 percentage points across all nine region $\times$ zone cells. The step structure of the curves, with drops concentrated in corn years and flat segments in soybean years, mirrors the sawtooth in the per-year hazard and confirms that early delinquency events do most of the lasting damage: once a field enters the delinquency state under continuous corn, it tends not to leave it.
+ 
+The empirical contribution sits among this set of findings. The methodological contribution is the framework that produces them: a yield generator that conditions nonparametrically on the full six-year rotation state, a credit module that preserves the within-year sequence of origination, accrual, repayment, and rollover (rather than collapsing the year into a single net cash flow), and a price--yield copula that distinguishes field-level from aggregate correlation. None of these components is individually new; they draw on \citet{Burt1963} and \citet{Livingston2015} for the dynamic-state structure, on \citet{Featherstone2006, IfftKuethe2015} for the operating-credit calibration, and on \citet{Ramsey2019} for the copula specification; but their combination produces a previously unavailable object: a multi-year, rotation-conditional default probability that can be compared across plans, regions, and productivity zones.
+ 
+The findings carry direct implications for credit underwriting and insurance pricing. For lenders, rotation history is an observable, verifiable risk factor: the simulation shows that two farms with identical balance sheets but different six-year rotation states face six-year delinquency probabilities that differ by a factor of two or more. For insurers, the sawtooth pattern in per-year risk implies that revenue-protection products calibrated to single-year loss ratios will systematically misprice the multi-year exposure of corn-heavy producers, who carry their year-1 shocks forward in ways that the APH baseline does not capture. We take up these implications in Section~\ref{sec:implications}.
+ 
+The paper proceeds as follows. Section~\ref{sec:framing} places the contribution in the literature on rotation effects, dynamic crop-choice models, and farm credit risk. Section~\ref{sec:data} describes the field-level Illinois panel and the calibration of the yield, price, and cost distributions. Section~\ref{sec:simulation} develops the simulation model. Section~\ref{sec:results} presents the main results. Section~\ref{sec:robustness} reports the variance and Shapley decompositions and survival-curve analysis. Section~\ref{sec:implications} discusses implications for lenders and insurers. Section~\ref{sec:conclusion} concludes.
+ 
 \section{\label{sec:framing}Framing and related literature}
-
+ 
 The paper sits at the intersection of three literatures that have so far developed in parallel.
-
-The \textbf{rotation-yield literature} establishes the agronomic facts. \citet{Bullock1992} surveys the carry-over effects from prior cropping: corn-after-corn yield penalties on the order of 5-15 percent, soybean nitrogen credits, and rotation-complexity gains from longer cycles. \citet{Seifert2017} estimate the corn-after-corn penalty empirically using satellite-derived yields across hundreds of thousands of Midwestern fields, placing the corn-after-corn penalty at 4.3 percent, providing the field-level evidence on which conditional yield distributions can be built. More recent work pushes this strand beyond mean yields. \citet{Bowles2020} synthesize 347 site-years across 11 long-term experiments in North America and show that diversified rotations reduce corn yield losses by 14-89 percent in drought years (identified using county-level crop-insurance indemnity data) while also lowering the probability of yields below the 10th percentile at 8 of 11 sites. \citet{Smith2023} extend this to 32 long-term European and North American experiments and document that yield benefits from rotation diversification increase over time, driven particularly by crop functional richness under low external nitrogen input. These papers establish that rotation provides not just a mean-yield bump but a reduction in yield-tail risk that compounds over the planning horizon. Yet the adoption trend runs the other way: \citet{socolar2021}, using a field-level rotational complexity index applied to 1.5 million Midwestern fields, documents a century-long simplification trend strongest on the most productive land and reinforced by proximity to corn-demanding policy infrastructure. \cite{Pizzo2025} shows that price dominates yields in revenue variance and that rotation increases this price dominance effect using a Bayesian hierarchical model; this article reaches the same conclusion using county elevator prices and a Black-Scholes price model, confirming that the price-dominance result is not an artifact of the NASS season-average price series used here. The puzzle is not whether rotation has benefits (the agronomic literature settles that), but why those benefits have been insufficient to halt simplification, and whether a financial benefit visible to lenders and insurers could change the calculus.
-
+ 
+The \textbf{rotation-yield literature} establishes the agronomic facts. \citet{Bullock1992} surveys the carry-over effects from prior cropping: corn-after-corn yield penalties on the order of 5--15 percent, soybean nitrogen credits in the corn-after-soy direction, and rotation-complexity gains from longer cycles. \citet{Seifert2017} estimate the corn-after-corn penalty empirically using satellite-derived yields, placing it at 4.3 percent across hundreds of thousands of Midwestern fields. More recent work pushes this strand beyond mean yields. \citet{Bowles2020} synthesize 347 site-years across 11 long-term experiments in North America and show that diversified rotations reduce corn yield losses by 14--89 percent in drought years (identified using county-level crop-insurance indemnity data) while also lowering the probability of yields below the 10th percentile at 8 of 11 sites. \citet{Smith2023} extend this to 32 long-term European and North American experiments and document that yield benefits from diversification increase over time, driven particularly by crop functional richness under low external nitrogen input. These papers establish that rotation provides not just a mean-yield bump but a reduction in yield-tail risk that compounds over the planning horizon. Yet the empirical adoption pattern runs counter to this: \citet{socolar2021}, using a field-level rotational complexity index applied to 1.5 million Midwestern fields, documents a century-long simplification trend that is strongest on the most productive land and reinforced by proximity to corn-demanding policy infrastructure. The puzzle is not whether rotation has benefits (the agronomic literature settles that), but why those documented benefits are insufficient to halt simplification, and whether a financial benefit visible to lenders and insurers could change the calculus.
+ 
 This strand documents a risk-reduction channel but stops at the yield distribution. Whether yield-tail compression translates into financial-tail compression depends on the cash-flow process the farm operates under, which is not the object of the rotation-yield papers. We take up that translation: a known agronomic risk-reduction channel mapped through an explicit credit-flow process to a financial-survival statement that lenders and insurers can act on.
-
-The \textbf{dynamic crop-choice literature} begins with \citet{Burt1963}, who formulated the wheat-fallow problem with soil moisture as a state variable and solved it using stochastic dynamic programming, and continues with the modern revival under price uncertainty, with \citet{Livingston2015} as the closest structural predecessor. They solve the optimal sequential planting problem for corn and soy under price uncertainty, treating the prior crop as a state variable; the financial process is implicit. The most recent extension is \citet{Chen2025}, which solves a stochastic dynamic program for optimal cover-crop adoption in a 35-year Tennessee cotton experiment, incorporating a cumulative soil-fertility state variable and irreversibility from sunk machinery investments. Their framework is structurally close to ours: a low-frequency agronomic state evolving alongside stochastic prices. The divergence is that they ask what the optimal adoption threshold is; we hold the rotation policy fixed and trace its consequences through an explicit credit-flow process to a financial-survival outcome.
-
-The \textbf{farm credit risk literature} has developed along three lines that together supply the financial-distress measurement and operating-credit conventions on which this paper draws, but none of which conditions on rotation history. \citet{Featherstone2006} calibrate probability-of-default and loss-given-default models on the Seventh Farm Credit District portfolio, establishing the PD/LGD framework that lenders use to translate balance-sheet ratios into risk scores. \citet{IfftKuethe2013, IfftKuethe2015} document the credit-insurance interaction at the farm level: federal crop insurance participation is associated with higher leverage \citep{IfftKuethe2015} and a higher probability of credit default \citep{IfftKuethe2013}. \citet{LeeEtAl2024} corroborate this link at the county level using a 1994-2015 panel of Midwestern corn counties: counties with higher crop insurance participation rates carry statistically lower agricultural loan delinquency rates. \citet{Kim2020} extend the financial-distress object beyond default to exit, estimating how crop insurance affects farm disinvestment and survival decisions. Across all three lines, the state space contains the balance sheet, the income statement, and the loan terms; it does not contain the rotation history. Two farms with identical financial statements but different agronomic trajectories carry the same predicted default probability in these models. The simulation shows their actual probabilities differ by up to 25 percentage points over a six-year horizon: rotation state is a missing variable in current underwriting practice.
-
+ 
+The \textbf{dynamic crop-choice literature} begins with \citet{Burt1963}, who formulated the wheat-fallow problem with soil moisture as a state variable and solved it using stochastic dynamic programming, and continues with \citet{Livingston2015} as the closest structural predecessor. They solve the optimal sequential planting problem for corn and soy under price uncertainty, treating the prior crop as a state variable; the financial process is implicit. The most recent extension is \citet{Chen2025}, which solves a stochastic dynamic program for optimal cover-crop adoption in a 35-year Tennessee cotton experiment, incorporating a cumulative soil-fertility state variable and irreversibility from sunk machinery investments. We hold the rotation policy fixed and trace its consequences through an explicit operating-credit cash-flow process to a financial-survival outcome rather than solving for the optimal policy.
+ 
+The \textbf{farm credit risk literature} has developed along three lines that together supply the financial-distress measurement and operating-credit conventions on which this paper draws, but none of which conditions on rotation history. \citet{Featherstone2006} calibrate probability-of-default and loss-given-default models on the Seventh Farm Credit District portfolio. \citet{IfftKuethe2013, IfftKuethe2015} document the credit--insurance interaction at the farm level: federal crop insurance participation is associated with higher leverage \citep{IfftKuethe2015} and a higher probability of credit default \citep{IfftKuethe2013}. \citet{LeeEtAl2024} corroborate this at the county level using a 1994--2015 panel of Midwestern corn counties: counties with higher crop insurance participation rates carry statistically lower agricultural loan delinquency rates. \citet{Kim2020} extend the financial-distress object beyond default to exit, estimating how crop insurance affects farm disinvestment and survival. Across all three lines, the state space contains the balance sheet, the income statement, and the loan terms; it does not contain the rotation history. The simulation shows that two farms with identical financial statements but different agronomic trajectories face delinquency probabilities that differ by up to 25 percentage points over six years: rotation state is a missing variable in current underwriting practice.
+ 
 \section{\label{sec:theory}Theoretical Framework}
-
+ 
 Before developing the simulation, it is useful to establish the farmer's decision problem that motivates why rotation choice has financial content. The model is deliberately spare: its purpose is to show that a risk-averse farmer's optimal rotation plan depends on the operating-credit cash-flow process, not just on expected revenue, and that the simulation of Section~\ref{sec:simulation} evaluates the farmer's objective at three candidate policies.
-
+ 
 \subsection{\label{subsec:setup}Setup}
-
+ 
 Consider a farmer who chooses a rotation plan $r$ at the start of a $T$-period horizon. A plan is a deterministic sequence of crop choices $r = (c_1, c_2, \ldots, c_T)$, where $c_t \in \{\text{corn}, \text{soy}\}$. The farmer commits to the plan ex ante, an assumption capturing the real-world inertia and transition costs documented in Section~\ref{sec:framing}. Let $\mathcal{R}$ denote the finite set of feasible plans; the three plans analyzed here (CCCCCC, CSCSCS, CCSCCS) are elements of $\mathcal{R}$.
-
+ 
 \subsection{\label{subsec:constraint}Operating-credit constraint}
-
+ 
 In each year $t$, the farmer must finance spring planting. Let $B_t(r)$ denote the carried debt entering year $t$ under plan $r$, with $B_1 = 0$. The within-year credit recursion is:
 \begin{equation}
-B_t(r) = \max\!\Bigl(0,\;\bigl[C_t(r) + B_{t-1}(r)\bigr](1+i)^{9/12} - P_t\,Y_t(r, s_t)\Bigr),
+B_t(r) = \max\!\Bigl(0,\;\bigl[C_t(r) + B_{t-1}(r)\bigr](1+i)^{9/12}
+- P_t\,Y_t(r, s_t)\Bigr),
 \end{equation}
 where $C_t(r)$ is the crop-specific operating cost, $i$ is the operating-loan rate, $P_t$ is the realized harvest price, and $Y_t(r, s_t)$ is drawn from the rotation-conditioned yield distribution $F_{Y \mid s_t, c, z}$ estimated in Section~\ref{subsec:prices_costs}. A delinquency event in year $t$ is $\mathbb{1}\{B_t(r) > 0\}$.
-
+ 
 \subsection{\label{subsec:farmer_problem}Farmer's problem}
-
-The farmer's preferences over wealth are represented by a von Neumann-Morgenstern utility function $u(\cdot)$ with $u' > 0$ and $u'' < 0$. Define cumulative net revenue over the horizon as:
+ 
+The farmer's preferences over wealth are represented by a von Neumann--Morgenstern utility function $u(\cdot)$ with $u' > 0$ and $u'' < 0$. Define cumulative net revenue over the horizon as:
 \begin{equation}
 W_T(r) = \sum_{t=1}^{T} \delta^{t-1}\bigl[P_t\,Y_t(r, s_t) - C_t(r) - i\cdot L_t(r)\bigr],
 \end{equation}
@@ -124,144 +121,142 @@ where $\delta$ is a discount factor and $i \cdot L_t(r)$ is the interest cost of
 r^{*} = \arg\max_{r \in \mathcal{R}}\;\mathbb{E}\!\left[u\!\bigl(W_T(r)\bigr)\;-\;\lambda \sum_{t=1}^{T} \delta^{t-1}\,\mathbb{1}\{B_t(r)>0\}\right]
 \end{equation}
 where $\lambda \geq 0$ is the shadow cost of a delinquency event, capturing reputational, legal, and credit-access penalties beyond the direct financial loss.
-
+ 
 Because $\mathcal{R}$ is finite and discrete, the problem does not admit classical first-order conditions. The solution is a comparison of the objective across plans, precisely what the simulation in Section~\ref{sec:simulation} computes.
-
+ 
 \subsection{\label{subsec:propositions}Propositions}
-
+ 
 \subsubsection{\label{subsubsec:proposition_1}Lower-tail stochastic dominance}
-
+ 
 Full first-order stochastic dominance of $F_{\text{CS}}$ over $F_{\text{CC}}$ would require $F_{\text{CS}}(y) \leq F_{\text{CC}}(y)$ for all $y$: too strong and almost certainly false at the upper tail. What the agronomic literature supports, and what is sufficient for the utility result, is the weaker condition of \textbf{lower-tail dominance}: there exists a threshold $\bar{y}(c,z)$ such that:
 \begin{equation}
 F_{Y \mid s^{\text{CS}}, c, z}(y)\;\leq\;F_{Y \mid s^{\text{CC}}, c, z}(y)\quad \forall\; y \leq \bar{y}(c,z). \tag{LTD}
 \end{equation}
-
-\textbf{Agronomic mechanism}: The yield penalty from continuous corn is concentrated in stress years, not symmetric around the mean. Two mechanisms produce this asymmetry. First, rootworm pressure accumulates under continuous corn, causing root lodging precisely in drought years when plants are already water-stressed and least able to compensate for root damage. Second, the soil pathogen and pest cycle that the soybean break interrupts operates nonlinearly: (which build up over multiple consecutive corn years), losses are severe and correlated with other stressors. The rotation benefit is largest exactly when conditions are worst.
-
+ 
+\textbf{Agronomic mechanism}: The yield penalty from continuous corn is concentrated in stress years, not symmetric around the mean. Two mechanisms produce this asymmetry. First, rootworm pressure accumulates under continuous corn, causing root lodging precisely in drought years when plants are already water-stressed and least able to compensate for root damage. Second, the soil pathogen and pest cycle that the soybean break interrupts operates nonlinearly: at high pest densities (which build up over multiple consecutive corn years) losses are severe and correlated with other stressors. The rotation benefit is largest exactly when conditions are worst.
+ 
 \textbf{Empirical support in the Illinois panel}: The nonparametric yield distributions estimated in Section~\ref{subsec:prices_costs} allow direct verification of (LTD) within each $(c,z)$ cell. The dominance condition holds at both the 10th and 25th percentiles in all 9 cells, with no exceptions across region or productivity zone.\footnote{The uniform result reflects the severity of stress embedded in the 15-year Illinois panel, which includes the 2012 drought.} Figure~\ref{fig:ltd_cdf_comparison} plots the two CDFs for the central-high cell (the sharpest left-tail separation) and illustrates the single crossing in the upper tail that is the hallmark of lower-tail dominance.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figs/ltd_cdf_comparison.pdf}
 \caption{Cumulative distribution function of yields by region}
 \label{fig:ltd_cdf_comparison}
 \end{figure}
-
+ 
 \begin{theorem}{Lower-tail dominance and the rotation utility premium}
-
+ 
 Let $\bar{y}(c,z) = \{y : P_t y < C_t(1+i)^{9/12}\}$ at median price. Suppose (LTD) holds at $\bar{y}(c,z)$. Then for any $\lambda > 0$ and any $u$ with $u'' < 0$,
 \begin{equation}
 \mathbb{E}\left[u\bigl(W_T(\text{CS})\bigr) - \lambda\sum_{t=1}^{T}\delta^{t-1}\mathbb{1}\{B_t(\text{CS})>0\}\right]\,\geq\,\mathbb{E}\left[u\bigl(W_T(\text{CC})\bigr) - \lambda\sum_{t=1}^{T}\delta^{t-1}\mathbb{1}\{B_t(\text{CC})>0\}\right].
 \end{equation}
-
+ 
 \begin{remark}
 The inequality is strict whenever $\Pr[Y \leq \bar{y}(c,z)] > 0$ under CCCCCC.
 \end{remark}
-
+ 
 \begin{proof}
-Decompose the expectation into $Y \leq \bar{y}$ and $Y > \bar{y}$. In the region $Y > \bar{y}$, delinquency does not occur under either plan, so the $\lambda$ terms vanish, and the comparison reduces to the expected utility of $W_T$. By (LTD), $F_{\text{CS}}$ places weakly less mass in $Y \leq \bar{y}$, so $\mathbb{E}[u(W_T(\text{CS}))] \geq \mathbb{E}[u(W_T(\text{CC}))]$ by the standard result that lower-tail dominance is sufficient for expected utility ranking under concave $u$. In the region $Y \leq \bar{y}$, delinquency occurs, contributing $-\lambda$ to the objective. By (LTD), $\Pr[B_t(\text{CS}) > 0] \leq \Pr[B_t(\text{CC}) > 0]$ for each $t$, so the $\lambda$ penalty is weakly smaller under CSCSCS. Both components are weakly larger under CSCSCS. $\square$
+Decompose the expectation into $Y \leq \bar{y}$ and $Y > \bar{y}$. In the region $Y > \bar{y}$, delinquency does not occur under either plan, so the $\lambda$ terms vanish and the comparison reduces to expected utility of $W_T$. By (LTD), $F_{\text{CS}}$ places weakly less mass in $Y \leq \bar{y}$, so $\mathbb{E}[u(W_T(\text{CS}))] \geq \mathbb{E}[u(W_T(\text{CC}))]$ by the standard result that lower-tail dominance is sufficient for expected utility ranking under concave $u$. In the region $Y \leq \bar{y}$, delinquency occurs, contributing $-\lambda$ to the objective. By (LTD), $\Pr[B_t(\text{CS}) > 0] \leq \Pr[B_t(\text{CC}) > 0]$ for each $t$, so the $\lambda$ penalty is weakly smaller under CSCSCS. Both components are weakly larger under CSCSCS. $\square$
 \end{proof}
 \end{theorem}
-
-The dominance condition is set at $\bar{y}(c,z)$, the delinquency threshold, not an arbitrary quantile: it is precisely where the farmer's utility is most sensitive to the distributional difference. The result holds for any $\lambda > 0$, including very small values; delinquency costs need only be positive, not large.
-
+ 
+The dominance condition is set at $\bar{y}(c,z)$, the delinquency threshold, not an arbitrary quantile: it is precisely where the farmer's utility is most sensitive to the distributional difference. The result holds for any $\lambda > 0$; delinquency costs need only be positive, not large.
+ 
 \subsubsection{\label{subsubsec:proposition_2}Credit path dependence amplifies the rotation premium}
-
+ 
 Proposition~1 establishes that rotation dominates continuous corn in expected utility whenever (LTD) holds. Proposition~2 establishes that this advantage is \textbf{understated} by a calculation that ignores the operating-credit recursion.
-
+ 
 \begin{theorem}{Credit path dependence amplifies the rotation utility premium}
-
+ 
 Let $\tilde{W}_T(r)$ denote cumulative net revenue under plan $r$ when annual revenues are treated as independent draws (i.e., $B_t(r) \equiv 0$ for all $t$). For any $\lambda > 0$ and concave $u$:
 \begin{equation}
 \mathbb{E}\!\left[u(W_T(\text{CS})) - u(W_T(\text{CC}))\right]\;\geq\;\mathbb{E}\!\left[u(\tilde{W}_T(\text{CS})) - u(\tilde{W}_T(\text{CC}))\right].
 \end{equation}
-
+ 
 \begin{proof}
-The credit recursion introduces state-dependent compounding asymmetry across plans. Under CCCCCC, a year-$t$ revenue shortfall $S_t$ enters year $t+1$'s spring principal already accrued at $(1+i)^{9/12} \approx 1.07$. A bad year-1 draw raises year-2's repayment hurdle, increasing the probability that year-2 also falls short. Under CSCSCS, the soybean year breaks this chain: soybean revenue is sufficient to retire the operating loan under typical conditions, resetting $B_t(\text{CS}) \approx 0$ and bounding the variance of $\sum_t B_t(\text{CS})$ to approximately single-year variance, whereas $\sum_t B_t(\text{CC})$ grows geometrically. A risk-averse farmer with strictly concave $u$ places extra weight on the variance of $W_T$ through the second-order term; the compounding under CCCCCC raises $\text{Var}(W_T(\text{CC}))$ without a corresponding increase under CSCSCS, so the expected utility gap widens when the recursion is preserved. $\square$
+The credit recursion introduces state-dependent compounding asymmetric across plans. Under CCCCCC, a year-$t$ revenue shortfall $S_t$ enters year $t+1$'s spring principal already accrued at $(1+i)^{9/12} \approx 1.07$. A bad year-1 draw raises year-2's repayment hurdle, increasing the probability that year-2 also falls short. Under CSCSCS, the soybean year breaks this chain: soybean revenue is sufficient to retire the operating loan under typical conditions, resetting $B_t(\text{CS}) \approx 0$ and bounding the variance of $\sum_t B_t(\text{CS})$ to approximately single-year variance, whereas $\sum_t B_t(\text{CC})$ grows geometrically. A risk-averse farmer with strictly concave $u$ places extra weight on the variance of $W_T$ through the second-order term; the compounding under CCCCCC raises $\text{Var}(W_T(\text{CC}))$ without a corresponding increase under CSCSCS, so the expected utility gap widens when the recursion is preserved. $\square$
 \end{proof}
 \end{theorem}
-
+ 
 Proposition~2 also provides a testable cross-sectional prediction: rotation adoption should be higher among farmers facing tighter credit constraints or higher effective $\lambda$ (those with lower off-farm income, thinner equity buffers, or weaker lender relationships), consistent with the adoption patterns in \citet{IfftKuethe2015}.
-
+ 
 \subsection{\label{relation_sim}Relation to the simulation}
-
+ 
 The simulation evaluates the probability of delinquency across three fixed rotation plans, treating $\lambda$ and $u$ as implicit. It does not solve for $r^*$ or estimate structural preference parameters. By Propositions~1 and~2, a lower delinquency probability under rotation translates into strictly higher expected utility for any $\lambda > 0$ and any concave $u$, and the gain is larger than a revenue-only calculation would suggest.
-
+ 
 \section{\label{sec:data}Data and Calibration}
-
+ 
 The simulation draws on three inputs: a rotation-conditioned yield distribution, a price distribution, and operating costs, each estimated from a distinct source. Section~\ref{subsec:panel} describes the Illinois field panel; Section~\ref{subsec:prices_costs} the price and cost series; Section~\ref{subsec:calibration} the credit-cycle calibration.
-
+ 
 \subsection{\label{subsec:panel}The Illinois field panel}
-
+ 
 The yield panel covers every corn-planted field in Illinois from 2008 to 2022, a span chosen to balance the availability of high-resolution yield maps (which begin in 2008) and the need for a window long enough to estimate rotation-conditional moments in sparse cells. The panel is constructed by intersecting four geospatial layers at the field-by-year level: the Cropland Data Layer (CDL)\footnote{\url{https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php}} for crop identification and rotation history, the QDANN yield-mapping product \citep{Ma2024} for realized yields, GRIDMET\footnote{\url{https://www.climatologylab.org/gridmet.html}} and TerraClimate for weather covariates, and gSSURGO\footnote{\url{https://www.nrcs.usda.gov/resources/data-and-reports/gridded-soil-survey-geographic-gssurgo-database}} for soil characteristics.
-
+ 
 Field boundaries are defined as contiguous CDL pixels of the same crop in a given year, aggregated to a stable spatial unit using the Common Land Unit (CLU) layer \citep{Yan2016}. Six-year rotation histories are constructed by intersecting each field's geometry with the CDL layer for each of the preceding five years; histories overlapping multiple CDL classes above a small threshold are dropped to preserve a clean state definition (Figure~\ref{fig:map_practice}). The resulting panel contains field-year observations with $(s, c, z, Y)$ as the primitive record, where $s$ is the six-year rotation state, $c$ is the climate region, $z$ is the productivity zone, and $Y$ is the QDANN-estimated yield.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/map_practice.png}
 \caption{Spatial distribution of rotation practices (2016). Left panel conditions on corn as terminal crop; right panel on soybeans. Color encodes rotation plan: continuous corn (red), perfect rotation (orange), 2-corn/1-soy (blue). The northern concentration of continuous corn is consistent with proximity to biofuel infrastructure \citep{socolar2021}.}
 \label{fig:map_practice}
 \end{figure}
-
+ 
 The three climate regions (northern, central, southern Illinois) follow the standard partition used by the Illinois Farm Business Farm Management\footnote{\url{https://www.fbfm.org/}} and Farmdoc\footnote{\url{https://farmdoc.illinois.edu/}}; the three productivity zones (high, medium, low) are constructed by partitioning the average yield distribution into terciles. The full grid is $3 \times 3 = 9$ cells. Within each cell, the panel contains hundreds of thousands to thousands of field-year observations across the fifteen-year window, sufficient to estimate the conditional yield distribution nonparametrically in all but the rarest rotation states.
-
+ 
 Yields are detrended at the county level using a linear time trend before entering the simulation. The trend captures long-run technological change in hybrids, fertilizer, and management; the simulation operates on residuals, which are the year-to-year deviations that drive credit risk.
-
+ 
 \subsection{\label{subsec:prices_costs}Prices and Costs}
-
-Harvest-time prices for corn and soybeans are drawn from a calibrated lognormal distribution whose first two moments match the empirical 2008-2022 series of Illinois cash prices reported by USDA NASS. The lognormal choice is conventional in the crop-insurance ratemaking literature and gives a parametric form for the price marginal that the copula can attach to without the cell-by-cell sample-size constraints that bind on the yield side.
-
+ 
+Harvest-time prices for corn and soybeans are drawn from a calibrated lognormal distribution whose first two moments match the empirical 2008--2022 series of Illinois cash prices reported by USDA NASS. The lognormal choice is conventional in the crop-insurance ratemaking literature and gives a parametric form for the price marginal that the copula can attach to without the cell-by-cell sample-size constraints that bind on the yield side.
+ 
 Operating costs follow the University of Illinois Farmdoc cost-of-production estimates for corn and soybean production on Illinois grain farms. Costs are crop-specific and held constant in real terms over the simulation horizon; input-price shocks are treated as second-order relative to output-price shocks for the financial question at hand. Robustness to a cost-shock specification is reported in Appendix~\ref{sec:appendix_B} and produces qualitatively identical results.
-
+ 
 \subsection{\label{subsec:calibration}Credit-cycle calibration}
-
-The operating-loan interest rate is set to $i = 9$ percent annualized in the baseline calibration, the midpoint of the 7-12 percent range reported by the Federal Reserve Bank of Chicago's quarterly survey of agricultural lenders over the sample period. The nine-month accrual window corresponds to a March planting and an October harvest in the Illinois corn belt. The credit ceiling in the rationing analysis (Section~\ref{subsec:peak_demand}) is benchmarked at \$700, \$900, and \$1{,}200 per acre, spanning the range of operating-line limits typical of Farm Credit System and commercial-bank lending to Illinois corn-belt producers during the sample period. The three thresholds are a sensitivity grid, not point estimates; the finding in Section~\ref{subsec:peak_demand} that median peak demand clusters at \$500-\$550 per acre is unchanged across reasonable perturbations of the ceiling values.
-
+ 
+The operating-loan interest rate is set to $i = 9$ percent annualized in the baseline calibration, the midpoint of the 7--12 percent range reported by the Federal Reserve Bank of Chicago's quarterly survey of agricultural lenders over the sample period. The nine-month accrual window corresponds to a March planting and an October harvest in the Illinois corn belt. The credit ceiling in the rationing analysis (Section~\ref{subsec:peak_demand}) is benchmarked at \$700, \$900, and \$1{,}200 per acre, spanning the range of operating-line limits typical of Farm Credit System and commercial-bank lending to Illinois corn-belt producers during the sample period. The three thresholds are a sensitivity grid, not point estimates; the finding in Section~\ref{subsec:peak_demand} that median peak demand clusters at \$500--\$550 per acre is unchanged across reasonable perturbations of the ceiling values.
+ 
 The delinquency threshold is set at $B_t > 0$ in the baseline (the ``end-balance-positive'' rule): any unpaid balance counts as delinquency, regardless of amount. An alternative rule, ``over-limit'' delinquency ($L_t > $ credit ceiling), is reported in Section~\ref{sec:robustness} as a robustness check and produces broadly similar comparative results across rotation plans at lower absolute levels.
-
+ 
 \section{\label{sec:simulation}The Simulation Framework}
-
-The simulation has three components: a rotation-conditioned yield generator, a price-yield dependence structure, and an operating-credit cash-flow recursion. Each component is standard in the literature; the contribution lies in their combination and in the recursion's preservation of within-year credit flow, which converts a single yield shock into multi-year default risk. Calibration values and computational details are in Appendix~\ref{sec:appendix_A}.
-
+ 
+The simulation has three components: a rotation-conditioned yield generator, a price--yield dependence structure, and an operating-credit cash-flow recursion. Each component is standard in the literature; the contribution lies in their combination and in the recursion's preservation of within-year credit flow, which converts a single yield shock into multi-year default risk. Calibration values and computational details are in Appendix~\ref{sec:appendix_A}.
+ 
 \subsection{\label{subsec:overview}Overview}
-
+ 
 For each cell $c = (\text{region} \times \text{zone})$, rotation plan $r$, and six-year history $h$, the simulation draws $N = 50{,}000$ Monte Carlo paths over a six-year horizon. A path consists of six (price, yield) realizations passed through the credit recursion to produce a sequence of year-end debt balances.
-
+ 
 The six-year delinquency probability is the share of paths with at least one year-end balance above the delinquency threshold:
 \begin{equation}
 \Pr[\text{delinquent over 6 yrs} \mid c, r, h] = \frac{1}{N}\sum_{n=1}^{N} \mathbb{1}\!\Bigl\{\max_{t \in 1\ldots 6} D^{(n)}_t > 0\Bigr\},
 \end{equation}
 where $D^{(n)}_t$ is the year-$t$ carried debt on path $n$, defined recursively in Section~\ref{subsec:recursion}. Per-year hazards, survival functions, and revenue moments are functionals of the same simulated path set.
-
-The simulation is forward-looking and policy-conditional: we fix the rotation plan $r$ ex ante (continuous corn, strict alternation, or 2-corn/1-soy) and trace its financial consequences. This inverts the usual dynamic-programming question of \citet{Burt1963} and \citet{Livingston2015}, who solve for the optimal policy. The advantage of the policy-conditional framing is that the resulting probability is directly comparable across plans, which is the object a lender or insurer needs.
-
+ 
+The simulation is forward-looking and policy-conditional: we fix the rotation plan $r$ ex ante (continuous corn, strict alternation, or 2-corn/1-soy) and trace its financial consequences. This inverts the usual dynamic-programming question of \citet{Burt1963} and \citet{Livingston2015}, who solve for the optimal policy. The advantage of the policy-conditional framing is that the resulting probability is directly comparable across plans, which is the quantity a lender or insurer needs.
+ 
 \subsection{\label{subsec:generator}Rotation-conditioned yield generator}
-
+ 
 Let $Y_t$ denote yield in year $t$ (bu/ac, crop-specific) and let $s_t = (c_{t-5}, c_{t-4}, \ldots, c_{t-1}, c_t)$ denote the six-year rotation state ending in year $t$. The yield generator is the family of conditional distributions:
 \begin{equation}
 F_{Y \mid s, c, z}, \quad s \in \mathcal{S},\ c \in \mathcal{C},\ z \in \mathcal{Z},
 \end{equation}
 where $\mathcal{S}$ is the set of six-year rotation states observed in the panel, $\mathcal{C}$ indexes the three Illinois climate regions, and $\mathcal{Z}$ indexes the three productivity zones.
-
+ 
 We estimate $F_{Y \mid s, c, z}$ nonparametrically as the empirical distribution of detrended QDANN yields in the panel cell $(s, c, z)$. Cells with fewer than 30 field-year observations are pooled with the closest neighboring state (defined by Hamming distance on the crop sequence) to ensure sufficient support.
-
+ 
 The nonparametric choice is deliberate. Parametric specifications (e.g., Beta or Gamma distributions, the standard in crop-insurance ratemaking) impose tail behavior that the rotation effect plausibly distorts: continuous corn under high-pressure conditions may exhibit fatter lower tails than a Beta or Gamma calibrated on mean and variance would predict. The conditional empirical distribution preserves whatever shape the data has, at the cost of slightly noisier tails in sparse cells. Robustness to a parametric fit is reported in Appendix~\ref{sec:appendix_B}.
-
+ 
 Given an initial six-year history $h$ and a rotation plan $r$, the state $s_t$ evolves deterministically: $s_{t} = (s_{t-1}, s_{t-2}, \dots, s_{t-6}, r_t)$, where $r_t$ is the planted crop in year $t$ under plan $r$. The random component of the simulation enters only through draws from $F_{Y \mid s, c, z}$.
-
-\subsection{\label{subsec:py_corr}Price-yield dependence}
-
-Let $P_t$ denote the harvest-time market price of the crop planted in year $t$. Aggregate U.S. corn prices and yields are negatively correlated at $\hat{\rho} \approx -0.45$ over the sample period: high national yields depress prices; low national yields raise them. This correlation generates a ``natural hedge'' in revenue. The methodological question is how much of that hedge applies at the \textit{field level}.
-
-\textbf{Source and construction of $\hat\rho$.} The aggregate price-yield correlation $\hat\rho \approx -0.45$ is estimated from two USDA NASS series accessed through Quick Stats. The price series is the U.S.\ corn season-average price received by farmers (dollars per bushel), a marketing-year average running from September of the harvest year through August of the following year, the national price signal used in the crop-insurance and natural-hedge literatures because it reflects the full marketing-season distribution of sales rather than a single harvest-month spot price. The yield series is the U.S.\ national average corn yield per harvested acre. Both series are taken over 2008-2022, a 15-year window matching the field panel and spanning the commodity price cycle from the 2008-2012 price spike through the 2013-2022 period of lower and more volatile prices.
-
-Before computing the correlation, both series are linearly detrended to remove the secular upward yield trend and the commodity-cycle price trend unrelated to the supply-demand mechanism driving the natural hedge. The Pearson correlation between the residual series yields $\hat\rho \approx -0.45$: years of above-trend national yields (2014, 2016, 2018) correspond to below-trend prices, and years of below-trend yields (2011, 2012) correspond to above-trend prices, consistent with a supply-driven mechanism. The raw (non-detrended) correlation over the same window is approximately $-0.38$; the gap reflects confounding of the secular yield trend with the downward post-2012 price trend. The detrended figure is more appropriate here because the yield generator also operates on detrended residuals.
-
-$\hat\rho = -0.45$ is a national estimate: the price series is a U.S.-level marketing-year average, not an Illinois-specific cash price, and the yield series is U.S.-level. This is the correct pairing for the natural-hedge mechanism, which operates because a field's yield shock, to the extent it is systematic, shifts national supply and thereby moves the national price. An Illinois-specific cash price series exhibits near-identical year-to-year variation to the U.S.\ season-average; Illinois cash prices are tightly arbitraged to national futures prices, and the correlation estimated on the two series differs by less than 0.03. The national series is used throughout for consistency with \citet{Ramsey2019} and \citet{Finger2012}, which standardize on the U.S.\ season-average price.
-
-\textbf{Variance decomposition of the yield shock.} The two-way fixed-effects model estimated in Section~\ref{subsec:generator}: $Y_{f,t} = \alpha_f + \gamma_t + \varepsilon_{f,t}$, partitions observed yield into three components:
-
+ 
+\subsection{\label{subsec:py_corr}Price--yield dependence}
+ 
+Let $P_t$ denote the harvest-time market price of the crop planted in year $t$. Aggregate U.S.\ corn prices and yields are negatively correlated at $\hat{\rho} \approx -0.45$ over the sample period: high national yields depress prices; low national yields raise them. The methodological question is how much of that hedge applies at the \textit{field level}.
+ 
+\textbf{Source and construction of $\hat\rho$.} The aggregate price--yield correlation $\hat\rho \approx -0.45$ is estimated from two USDA NASS series accessed through Quick Stats. The price series is the U.S.\ corn season-average price received by farmers (dollars per bushel), a marketing-year average running from September of the harvest year through August of the following year, the national price signal used in the crop-insurance and natural-hedge literatures because it reflects the full marketing-season distribution of sales rather than a single harvest-month spot price. The yield series is the U.S.\ national average corn yield per harvested acre. Both series are taken over 2008--2022, a 15-year window matching the field panel and spanning the commodity price cycle from the 2008--2012 price spike through the 2013--2022 period of lower and more volatile prices.
+ 
+Before computing the correlation, both series are linearly detrended to remove the secular upward yield trend and the commodity-cycle price trend unrelated to the supply--demand mechanism driving the natural hedge. The Pearson correlation between the residual series yields $\hat\rho \approx -0.45$: years of above-trend national yields (2014, 2016, 2018) correspond to below-trend prices, and years of below-trend yields (2011, 2012) correspond to above-trend prices, consistent with a supply-driven mechanism. The raw (non-detrended) correlation over the same window is approximately $-0.38$; the detrended figure is more appropriate here because the yield generator also operates on detrended residuals. An Illinois-specific cash price series exhibits near-identical year-to-year variation to the U.S.\ season-average, and the correlation estimated on the two series differs by less than 0.03; the national series is used throughout for consistency with \citet{Ramsey2019} and \citet{Finger2012}.
+ 
+\textbf{Variance decomposition of the yield shock.} The two-way fixed-effects model estimated in Section~\ref{subsec:generator}, $Y_{f,t} = \alpha_f + \gamma_t + \varepsilon_{f,t}$, partitions observed yield into three components:
+ 
 \begin{table}[H]
 \centering
 \begin{tabular}{lll}
@@ -279,25 +274,25 @@ $1 - R^2_{\text{both}}$ = 0.184 & Residual $\varepsilon_{f,t}$: field $\times$ y
 \caption{Component decomposition}
 \label{tab:decomp}
 \end{table}
-
-The systematic component (the year fixed effect $\hat{\gamma}_t$, capturing common weather, input-price shocks, and aggregate demand conditions) accounts for 62 percent of total yield variance conditional on field quality. Only $\hat{\gamma}_t$ correlates with the national price: when aggregate yields across all Illinois fields are low in year $t$, $\hat{\gamma}_t$ is negative, and the national price tends to be high. The idiosyncratic residual $\varepsilon_{f,t}$ is, by construction, orthogonal to the year effect and therefore uncorrelated with price.
-
-\textbf{Copula calibration.} We implement the price-yield dependence structure via a Gaussian copula on the marginals $F_P$ and $F_{Y \mid s, c, z}$. The copula correlation parameter reflects only the systematic component's correlation with price, scaled by its share of within-field yield variance:
+ 
+The systematic component (the year fixed effect $\hat{\gamma}_t$, capturing common weather, input-price shocks, and aggregate demand conditions) accounts for 62 percent of total yield variance conditional on field quality. Only $\hat{\gamma}_t$ correlates with the national price: when aggregate yields across all Illinois fields are low in year $t$, $\hat{\gamma}_t$ is negative and the national price tends to be high. The idiosyncratic residual $\varepsilon_{f,t}$ is, by construction, orthogonal to the year effect and therefore uncorrelated with price.
+ 
+\textbf{Copula calibration.} We implement the price--yield dependence structure via a Gaussian copula on the marginals $F_P$ and $F_{Y \mid s, c, z}$. The copula correlation parameter reflects only the systematic component's correlation with price, scaled by its share of within-field yield variance:
 \begin{equation}
 \rho^{*} = \hat\rho \cdot \sqrt{\frac{\text{Var}(\hat{\gamma}_t)}{\text{Var}(Y_t)}} \approx -0.45 \cdot \sqrt{0.62} \approx -0.354.
 \end{equation}
 Applying the aggregate $\hat{\rho}$ directly to field-level yields, as if the entire yield shock moved prices, would overstate the hedge by a factor of $1/\sqrt{0.62} \approx 1.27$.
-
-For comparison, we also report results under two alternative dependence specifications: an independence assumption ($\rho^{*} = 0$), used to isolate the hedge benefit (Section~\ref{subsec:natural_hedge}), and the aggregate-$\rho$ misspecification ($\rho^{*} = \hat{\rho} = -0.45$ applied directly to field yields). Across all cells, the copula approach falls between these two, and the delinquency probabilities differ by 1-3 percentage points across the three specifications.
-
+ 
+For comparison, we also report results under two alternative dependence specifications: an independence assumption ($\rho^{*} = 0$), used to isolate the hedge benefit (Section~\ref{subsec:natural_hedge}), and the aggregate-$\rho$ misspecification ($\rho^{*} = \hat{\rho} = -0.45$ applied directly to field yields). Across all cells, the copula approach falls between these two, and the delinquency probabilities differ by 1--3 percentage points across the three specifications.
+ 
 \textbf{What the simulation draws from, and what it does not.} The yield generator samples from the residual pool $\{\hat{\varepsilon}_{f,t}\}$ after removing both fixed effects, so each draw represents the idiosyncratic component of the yield shock. The year effect $\hat{\gamma}_t$ is captured separately through the copula, which jointly draws $P_t$ and the systematic yield component for each simulated year. Fields are drawn independently conditional on the copula realization of $(P_t, \hat{\gamma}_t)$, which is the correct independence structure for within-year cross-field variation.
-
+ 
 For an insurer evaluating the aggregate loss distribution across a portfolio of Illinois fields, the systematic year shock induces cross-field correlation that substantially fattens the portfolio tail. Extending the framework to portfolio insurance pricing would require reintroducing the year effect as a common factor drawn once per simulated year and added to all fields' yields, a straightforward extension left for future work.
-
+ 
 \subsection{\label{subsec:recursion}Operating-credit cash-flow recursion}
-
+ 
 The credit module is the paper's central methodological contribution. Standard practice in crop-insurance and farm-finance modeling collapses each year into a single net cash flow $\Pi_t = P_t Y_t - C_t$, where $C_t$ is the year's operating cost. This is correct for present-value calculations, but it loses the within-year credit flow that drives multi-year default. The operating loan that funds spring planting is a contractual obligation that accrues interest from origination to harvest and imposes a discrete repayment event at harvest. A shortfall at that event rolls forward to the next spring's principal at the operating-loan rate, \textit{not} at the risk-free discount rate.
-
+ 
 We model the credit cycle explicitly. Let $B_t$ denote the carried debt entering year $t$, with $B_1 = 0$. The recursion in year $t$ is:
 \begin{equation*}
 \begin{aligned}
@@ -309,244 +304,242 @@ B_t &= H_t - M_t && \text{(5) carry forward}
 \end{aligned}
 \end{equation*}
 where $L_t$ is the year-$t$ operating loan, $H_t$ is the debt outstanding at harvest, $R_t$ is realized revenue, $M_t$ is the payment, and $i$ is the annualized operating-loan rate (9\% in the baseline). Delinquency in year $t$ is defined as $B_t > 0$. Robustness to a six- or twelve-month accrual window is reported in Appendix~\ref{sec:appendix_B}.
-
+ 
 Equation~(5) is where a bad year becomes a bad run. A revenue shortfall of $S$ in year $t$ enters year $t+1$'s principal as $S \cdot (1 + i)^{9/12} \approx 1.07 S$; a modest year-1 deficit becomes a non-trivial year-2 principal even if year-2's yield is average. The compounding is mechanical; it does not require risk aversion or behavioral structure.
-
+ 
 The recursion has no consumption smoothing, no off-farm income, and no working-capital buffer beyond what is implicit in equation~(4)'s $\min(R_t, H_t)$. A buffer would attenuate the delinquency response to any given shock but would not change the relative ranking of rotation plans. The simulation therefore provides an upper bound on the effect of rotation on delinquency rather than a calibrated point estimate; the appendix's robustness checks incorporate a proportional working-capital buffer and show the rotation effect is robust to its inclusion.
-
+ 
 \subsection{\label{subsec:decompositions}Outcomes and decompositions}
-
+ 
 The simulation produces three classes of output objects. The first is the delinquency probability itself, in both six-year cumulative form (Section~\ref{subsec:delinq_prob}) and per-year hazard form (Section~\ref{subsec:sawtooth}). The hazard reveals that the cumulative effect is driven by intermittent debt resets.
-
+ 
 The second is a \textbf{variance decomposition} of gross revenue. Holding the joint distribution of $(P, Y)$ fixed, we decompose $\text{Var}(P Y)$ into the share attributable to price-only variation, to yield-only variation, and to the covariance term. Because the copula imposes negative dependence, the covariance term is negative; we report shares of gross variance ($\text{Var}(P) E[Y]^2$ and $\text{Var}(Y) E[P]^2$) so the shares sum to 100 percent.
-
-The third is a \textbf{Shapley decomposition} of the probability of delinquency into contributions from price and yield uncertainty. Variance shares describe how revenue \textit{varies} but not how often the variation crosses the default threshold. Following \citet{Shorrocks2013} and standard practice in risk decomposition, the Shapley value for source $s \in \{P, Y\}$ is:
+ 
+The third is a \textbf{Shapley decomposition} of the probability of delinquency into contributions from price and yield uncertainty. Variance shares describe how revenue \textit{varies} but not how often the variation crosses the default threshold. Following \citet{Shorrocks2013}, the Shapley value for source $s \in \{P, Y\}$ is:
 \begin{equation}
 \phi_s = \tfrac{1}{2}\bigl[V(\{s\}) - V(\emptyset)\bigr] + \tfrac{1}{2}\bigl[V(\{P,Y\}) - V(\{P,Y\} \setminus \{s\})\bigr],
 \end{equation}
 where $V(\mathcal{A})$ is the delinquency probability when sources in $\mathcal{A}$ are stochastic and sources outside $\mathcal{A}$ are fixed at their unconditional means. The Shapley values sum to $V(\{P,Y\}) - V(\emptyset)$, the total delinquency-causing variation, with no interaction-term residual.
-
+ 
 \section{\label{sec:results}Results}
-
-Section~\ref{sec:results} is organized around three questions. Why should rotation affect farm finances at all, specifically the agronomic mechanisms (Section~\ref{subsec:agronomic_benefits})? How do those mechanisms transmit through the operating-credit cash-flow process (Section~\ref{subsec:transmission_channel})? And how much do the natural hedge and price-yield correlation moderate or substitute for those effects (Sections~\ref{subsec:natural_hedge}-\ref{subsec:stress_test})?
-
+ 
+Section~\ref{sec:results} is organized around three questions. Why should rotation affect farm finances at all: the agronomic mechanisms (Section~\ref{subsec:agronomic_benefits})? How do those mechanisms transmit through the operating-credit cash-flow process into measurable financial outcomes (Section~\ref{subsec:transmission_channel})? And how much do the natural hedge and price--yield correlation moderate or substitute for those effects (Sections~\ref{subsec:natural_hedge}--\ref{subsec:stress_test})?
+ 
 \subsection{\label{subsec:agronomic_benefits}Agronomic benefits of crop rotation}
-
+ 
 The case for crop rotation rests on two distinct agronomic channels: soil health benefits that improve expected yields and reduce yield-tail risk, and temporal diversification that reduces the farm's biological and agrochemical exposure to any single commodity.
-
-\textbf{Soil health and yield effects.} The yield benefit of corn following soybean rather than corn following corn is one of the best-replicated findings in agronomy. \citet{Bullock1992} documents a consistent yield advantage of 5-10 percent for corn in rotation relative to monoculture; \citet{Seifert2017} estimate a 4.3 percent penalty for continuous corn using satellite data across hundreds of thousands of Midwestern fields. The mechanism is multifactorial: soybeans fix atmospheric nitrogen through their root-nodule symbiosis with \textit{Bradyrhizobium}, supplying 50-150 lb/ac of plant-available nitrogen to the subsequent corn crop and reducing synthetic fertilizer requirements. Rotation also interrupts the pest and pathogen cycles that accumulate under monoculture: corn rootworm (\textit{Diabrotica} spp.), northern corn leaf blight, and gray leaf spot all depend on corn residue and are biologically suppressed when corn is absent for a year. \citet{Bowles2020} synthesize 347 site-years of rotation experiments and show that diversified rotations reduce yield losses in drought years by 14-89 percent and lower the probability of yields falling below the 10th percentile, exactly the region that triggers operating-loan default.
-
+ 
+\textbf{Soil health and yield effects.} The yield benefit of corn following soybean rather than corn following corn is one of the best-replicated findings in agronomy. \citet{Bullock1992} documents a consistent yield advantage of 5--10 percent for corn in rotation relative to monoculture; \citet{Seifert2017} estimate a 4.3 percent penalty for continuous corn using satellite data across hundreds of thousands of Midwestern fields. The mechanism is multifactorial: soybeans fix atmospheric nitrogen through their root-nodule symbiosis with \textit{Bradyrhizobium}, supplying 50--150 lb/ac of plant-available nitrogen to the subsequent corn crop and reducing synthetic fertilizer requirements. Rotation also interrupts the pest and pathogen cycles that accumulate under monoculture: corn rootworm (\textit{Diabrotica} spp.), northern corn leaf blight, and gray leaf spot all depend on corn residue and are biologically suppressed when corn is absent for a year. \citet{Bowles2020} synthesize 347 site-years of rotation experiments and show that diversified rotations reduce yield losses in drought years by 14--89 percent and lower the probability of yields falling below the 10th percentile, exactly the region that triggers operating-loan default.
+ 
 Beyond mean yields, diverse rotations improve soil organic matter accumulation, water infiltration, and aggregate stability over time, reducing yield sensitivity to precipitation extremes. Any compression of the left tail of yields translates directly into reduced delinquency risk through the cash-flow channel in Section~\ref{subsec:transmission_channel}.
-
+ 
 \textbf{Temporal diversification.} A farm alternating between corn and soybeans faces two distinct input cost profiles, two price series imperfectly correlated at the farm-gate level, and two distinct growing-season weather sensitivities. Corn is most vulnerable to moisture stress during pollination in late July, soybeans during pod fill in August; a weather event that devastates corn may be less damaging to soybeans and vice versa. This temporal diversification reduces the probability of consecutive catastrophic revenue shortfalls, which is the sequence that drives the multi-year delinquency cascade. A single bad corn year is survivable; two or three consecutive bad corn years, each rolling forward an unpaid balance that enlarges the next spring loan, are not.
-
+ 
 Temporal diversification also operates through input costs. Soybean production costs are roughly 70 percent of corn production costs in the FBFM data (Section~\ref{subsec:prices_costs}), so a soybean year is planted on a smaller spring loan regardless of how the prior corn year resolved. This cost differential is the direct source of the debt-reset mechanism in Section~\ref{subsec:delinq_prob}: the smaller originating loan means that a given revenue draw is more likely to retire the full obligation, preventing rollover.
-
+ 
 \subsection{\label{subsec:transmission_channel}From agronomy to farm finances: the transmission channel}
-
+ 
 The agronomic benefits in Section~\ref{subsec:agronomic_benefits} must pass through the operating-credit cash-flow process to become financial outcomes. Three properties of the credit recursion (Section~\ref{subsec:recursion}) govern how agronomy enters the financial outcome.
-
-\textbf{Mean yield matters through $R_t$.} A higher expected yield raises expected revenue, increasing the probability that $R_t$ exceeds the full obligation $(C_t + B_{t-1})(1 + i)$. The corn-after-corn yield penalty directly reduces $E[R_t]$ for continuous-corn producers, making revenue shortfalls more probable year after year. The 5-15 percent yield difference documented in the agronomic literature (roughly 10-25 bu/ac at typical Illinois yields) corresponds to a revenue difference of \$40-\$100 per acre at average corn prices, of the same order as the spring loan interest cost. A persistent shortfall of this magnitude ensures that $B_{t-1}$ entering the next year is systematically positive, enlarging the obligation the next year's revenue must cover.
-
-\textbf{The left tail matters more than the mean.} The delinquency indicator is binary: either revenue covers the full obligation, or it does not. What matters for the multi-year delinquency probability is not the expected shortfall but the probability that the shortfall is large enough to leave a positive year-end balance. Left-tail compression, documented by \citet{Bowles2020}, slows the rollover chain before it starts. This is why the rotation effect in the simulation is concentrated in the tails of the delinquency distribution rather than at the median.
-
-\textbf{Cost structure interacts with the yield distribution through the debt reset.} The soybean year is planted on a lower spring loan $C_t$, so the obligation $(C_t + B_{t-1})(1 + i)$ is smaller by design, regardless of how much $B_{t-1}$ accumulated in prior corn years. In sufficiently bad corn years, no plausible yield draw will cover a large accumulated $B_{t-1}$; but the soybean year creates a year in which the obligation is small enough to be covered at moderate revenue realizations. This is the debt reset: not a guaranteed zero balance, but a structural reduction in the obligation that makes retirement of the carried debt likely even without exceptional yields.
-
-The simulation reveals that the debt reset dominates in most cells: even holding the corn yield distribution constant across rotation plans, the soybean year's cost structure alone generates substantial delinquency reduction. The yield effects add to this but are not the primary driver. Sections~\ref{subsec:delinq_prob}-\ref{subsec:sawtooth} present the quantitative results.
-
+ 
+\textbf{Mean yield matters through $R_t$.} A higher expected yield raises expected revenue, increasing the probability that $R_t$ exceeds the full obligation $(C_t + B_{t-1})(1 + i)$. The corn-after-corn yield penalty directly reduces $E[R_t]$ for continuous-corn producers, making revenue shortfalls more probable year after year. The 5--15 percent yield difference documented in the (roughly 10--25 bu/ac at typical Illinois yields) corresponds to a revenue difference of \$40--\$100 per acre at average corn prices, of the same order as the spring loan interest cost. A persistent shortfall of this magnitude ensures that $B_{t-1}$ entering the next year is systematically positive, enlarging the obligation the next year's revenue must cover.
+ 
+\textbf{The left tail matters more than the mean.} The delinquency indicator is binary: either revenue covers the full obligation or it does not. What matters for the multi-year delinquency probability is not the expected shortfall but the probability that the shortfall is large enough to leave a positive year-end balance. Left-tail compression, documented by \citet{Bowles2020}, slows the rollover chain before it starts. This is why the rotation effect in the simulation is concentrated in the tails of the delinquency distribution rather than at the median.
+ 
+\textbf{Cost structure interacts with the yield distribution through the debt-reset.} The soybean year is planted on a lower spring loan $C_t$, so the obligation $(C_t + B_{t-1})(1 + i)$ is smaller by design, regardless of how much $B_{t-1}$ accumulated in prior corn years. In sufficiently bad corn years, no plausible yield draw will cover a large accumulated $B_{t-1}$; but the soybean year creates a year in which the obligation is small enough to be covered at moderate revenue realizations. This is the debt reset: not a guaranteed zero balance, but a structural reduction in the obligation that makes retirement of the carried debt likely even without exceptional yields.
+ 
+The simulation reveals that the debt-reset dominates in most cells: even holding the corn yield distribution constant across rotation plans, the soybean year's cost structure alone generates substantial delinquency reduction. The yield effects add to this but are not the primary driver. Sections~\ref{subsec:delinq_prob}--\ref{subsec:sawtooth} present the quantitative results.
+ 
 \subsection{\label{subsec:delinq_prob}Six-year delinquency probabilities}
-
+ 
 Figure~\ref{fig:fig_p_bar_all} reports the probability of at least one operating-loan delinquency event over the six-year horizon for each combination of rotation plan, climate region, and productivity zone.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_p_bar_all.png}
 \caption{Six-year delinquency risk by region and productivity zone}
 \label{fig:fig_p_bar_all}
 \end{figure}
-
-Continuous corn is most dangerous in every cell. In central Illinois's high-productivity zone (prime corn-growing land), it produces a six-year delinquency probability of approximately 55 percent. The probability runs 30-50 percent for northern and central regions across all productivity zones, falling to 18-32 percent in the south, where lower production costs partially offset lower expected yields.
-
-Strict alternation cuts those probabilities by roughly 25 percentage points in the high-pressure cells: 30 percent versus 55 percent in central-high, 27 percent versus 51 percent in northern-high. That is approximately halving the multi-year default risk of a continuous-corn operation, not a marginal adjustment.
-
-The 2-corn/1-soy plan lands in between, at 35-40 percent in the high-pressure cells. More soybean years mean more debt-reset opportunities, but the relationship is not a linear function of soybean frequency, as Section~\ref{subsec:sawtooth} shows.
-
-One feature of Figure~\ref{fig:fig_p_bar_all} deserves notice: productivity zone barely moves the bars. High, medium, and low-productivity cells in the same region look nearly identical. The rotation effect is not a soil-quality story. It operates through the cash-flow timing mechanism regardless of how productive the land is.
-
+ 
+Continuous corn carries the highest delinquency risk in every cell. In central Illinois's high-productivity zone (prime corn-growing land), it produces a six-year delinquency probability of approximately 55 percent. The probability runs 30--50 percent for northern and central regions across all productivity zones, falling to 18--32 percent in the southern region, where lower production costs partially offset lower expected yields.
+ 
+Strict alternation cuts those probabilities by approximately 25 percentage points in the high-pressure cells: 30 percent versus 55 percent in central-high, 27 percent versus 51 percent in northern-high. That is approximately halving the multi-year default risk of a continuous-corn operation, not a marginal adjustment.
+ 
+The 2-corn/1-soy plan falls between continuous corn and strict alternation, at 35--40 percent in the high-pressure cells. More soybean years mean more debt-reset opportunities, but the relationship is not strictly linear in soybean frequency, as Section~\ref{subsec:sawtooth} shows.
+ 
+Productivity zone barely moves the bars. High, medium, and low-productivity cells in the same region look nearly identical. The rotation effect is not a soil-quality story; it operates through the cash-flow timing mechanism regardless of how productive the land is.
+ 
 \subsection{\label{subsec:sawtooth}Per-year hazard: the sawtooth}
-
+ 
 Figure~\ref{fig:fig_p_year_all} plots the year-by-year default probability for each plan in the central-medium cell. The other eight cells tell the same story at different levels.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_p_year_all.png}
 \caption{Soy years reset the debt cycle: the sawtooth}
 \label{fig:fig_p_year_all}
 \end{figure}
-
-Continuous corn produces a flat hazard, roughly 12-15 percent per year, with a mild upward drift as debt accumulates. No good years, no recovery, just a steady grind. The rotation plans are different in kind, not just in level. They produce a \textbf{sawtooth}: the hazard collapses to near zero in soybean-harvest years and rebuilds during corn years. Under strict alternation, the flat segments fall on years 2, 4, and 6. Under 2-corn/1-soy, they fall on years 3 and 6.
-
+ 
+Continuous corn produces a flat hazard, roughly 12--15 percent per year, with a mild upward drift as debt accumulates. No good years, no recovery, just a steady grind. The rotation plans are different in kind, not just in level. They produce a \textbf{sawtooth}: the hazard collapses to near zero in soybean-harvest years and rebuilds during corn years. Under strict alternation, the flat segments fall on years 2, 4, and 6. Under 2-corn/1-soy, they fall on years 3 and 6.
+ 
 The mechanism is the debt reset. Soybean production costs roughly 70 percent of corn in the FBFM data, so a soybean year originates on a smaller spring loan, making the harvest-time obligation easier to clear even in a mediocre revenue year. When the soybean harvest retires the accumulated rollover balance from prior corn years, the farm enters the next corn run with near-zero carried debt, starting the cycle over. The six-year cumulative probability is not a smoothed average of annual risks. It is the result of intermittent arrests in a compounding process.
-
-This matters for how we read the agronomic literature. \citet{Bullock1992} and \citet{Seifert2017} show that rotation raises corn yields; the financial benefit here is partly independent of that. Even when corn yield distributions are held identical across plans (removing the yield-benefit channel entirely), rotation still cuts delinquency, because the soybean year is a debt reset regardless of what it does to subsequent corn yields. Agronomic and financial channels stack.
-
+ 
+The financial benefit identified here is partially \textbf{independent} of the yield benefit documented by \citet{Bullock1992} and \citet{Seifert2017}. Even when corn yield distributions are held identical across rotation plans (removing the yield-benefit channel entirely), rotation still cuts delinquency, because the soybean year is a debt reset regardless of what it does to subsequent corn yields. Agronomic and financial channels stack.
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_p_surv_all.png}
 \caption{Survival curves show where rotation pulls farms apart}
 \label{fig:fig_p_surv_all}
 \end{figure}
-
-Figure~\ref{fig:fig_p_surv_all} plots the survival curves, i.e., the probability that a field has \textit{not yet} experienced a delinquency event by year $t$. The step structure mirrors the sawtooth: drops in survival concentrate in corn years, flat segments in soybean years. By year 3, the survival gap between continuous corn and strict alternation has widened to 15-20 percentage points; by year 6, alternation preserves 70-85 percent of fields in solvency across regions and zones, while continuous corn retains only 45-70 percent. Early delinquency events do most of the lasting damage, since once a field enters the delinquency state under continuous corn, it tends not to leave.
-
+ 
+Figure~\ref{fig:fig_p_surv_all} plots the survival curves: the probability that a field has \textit{not yet} experienced a delinquency event by year $t$. The step structure mirrors the sawtooth: drops in survival concentrate in corn years, flat segments in soybean years. By year 3 the survival gap between continuous corn and strict alternation has widened to 15--20 percentage points; by year 6, alternation preserves 70--85 percent of fields in solvency across regions and zones, while continuous corn retains only 45--70 percent. Early delinquency events do most of the lasting damage: once a field enters the delinquency state under continuous corn, it tends not to leave it.
+ 
 \subsection{\label{subsec:peak_demand}Peak operating-loan demand}
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_peak_loan_all.png}
 \caption{Peak loan demand stays under common credit limits}
 \label{fig:fig_peak_loan_all}
 \end{figure}
-
+ 
 A related concern for lenders is not just whether a borrower becomes delinquent, but whether the demanded operating loan exceeds a credit ceiling the lender is willing to extend. Figure~\ref{fig:fig_peak_loan_all} reports the distribution of peak gross spring loan demand ($L_t = C_t + B_{t-1}$) over the six-year horizon, with representative credit ceilings of \$700, \$900, and \$1{,}200 per acre overlaid.
-
+ 
 In every cell, the median peak loan clusters between \$500 and \$550 per acre, well below any of the three ceiling values. Rationing is therefore rare under all three plans at any calibrated limit. The rotation effect on the \textit{distribution} of peak demand is nonetheless economically meaningful: continuous corn produces a right tail approaching \$700 in the high-pressure cells, while strict alternation truncates the distribution roughly \$50 per acre lower. Rotation lowers both the \textit{probability} of delinquency and the \textit{exposure} a lender faces if a delinquency does occur. A lender incorporating rotation history would price risk lower for rotation borrowers on both dimensions simultaneously.
-
+ 
 \subsection{\label{subsec:natural_hedge}The natural hedge: rotation and correlation are partial substitutes}
-
+ 
 Figure~\ref{fig:fig_p_debt_all} isolates the natural-hedge effect by reporting mean year-end carried debt under two specifications: the baseline correlated simulation (``hedge active'') and a counterfactual independent simulation (``no hedge''). The vertical gap is the hedge benefit.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_p_debt_all.png}
 \caption{The natural hedge mostly helps continuous corn}
 \label{fig:fig_p_debt_all}
 \end{figure}
-
-The hedge gap is widest for continuous corn, where it averages 1-2 dollars per acre of year-end debt, and narrows to essentially zero for the two rotation plans. Rotation and the natural hedge are \textbf{partial substitutes} in the cash-flow space, not complements. Continuous corn benefits from the hedge because it has nothing else arresting the debt-rollover process. Rotation plans benefit less because they have already accomplished what the hedge would otherwise do, namely periodically driving carried debt to zero in soybean years, so the hedge has little remaining buffering work to perform.
-
-In a one-year revenue-protection setting, the natural hedge is unambiguously beneficial and additive to whatever other risk management the farmer employs. In the multi-year credit-risk setting, the hedge is most useful to the borrower with no other instrument (the continuous-corn borrower), and less useful to the borrower who rotates. Field-level hedge magnitudes estimated on single-year revenue data may therefore \textbf{overstate} the hedge's marginal contribution to multi-year financial resilience, because they do not net out the rotation channel operating in parallel \citep{Finger2012, Ramsey2019}.
-
+ 
+The hedge gap is widest for continuous corn, where it averages 1--2 dollars per acre of year-end debt, and narrows to essentially zero for the two rotation plans. Rotation and the natural hedge are \textbf{partial substitutes} in the cash-flow space, not complements. Continuous corn benefits from the hedge because it has nothing else arresting the debt-rollover process. Rotation plans benefit less because they have already accomplished what the hedge would otherwise do, namely periodically driving carried debt to zero in soybean years, so the hedge has little remaining buffering work to perform.
+ 
+In a one-year revenue-protection setting, the natural hedge is unambiguously beneficial and additive to whatever other risk management the farmer employs. In the multi-year credit-risk setting, the hedge is most useful to the borrower with no other instrument (the continuous-corn borrower) and less useful to the borrower who rotates. Field-level hedge magnitudes estimated on single-year revenue data may therefore \textbf{overstate} the hedge's marginal contribution to multi-year financial resilience, because they do not net out the rotation channel operating in parallel \citep{Finger2012, Ramsey2019}.
+ 
 \subsection{\label{subsec:hedge_benefit}The hedge benefit in delinquency probability space}
-
+ 
 Figure~\ref{fig:fig_p_bar_corr} translates the same comparison into the delinquency probability space, the paper's headline outcome. For each of the nine region $\times$ zone cells, it plots the six-year delinquency probability under the independent specification (faded bar, no hedge) and the correlated specification (solid bar, hedge active), side by side for each rotation plan. The gap between the two bars within a plan is the hedge's marginal contribution to delinquency reduction.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_p_bar_corr.png}
 \caption{Price-yield correlation dampens the effects of rotations}
 \label{fig:fig_p_bar_corr}
 \end{figure}
-
-\textbf{The hedge benefit is positive but uniformly small.} In every cell and every rotation plan, the solid bar is shorter than the faded bar. But the gap is narrow. In the northern and central rows, the hedge reduces the continuous-corn delinquency probability by approximately 2-4 percentage points; for the rotation plans, 1-2 percentage points or less. Across the full 27-cell grid, the hedge never moves the needle by more than 4-5 percentage points. Against a baseline continuous-corn probability of 50-55 percent in the high-pressure cells, a 4-point reduction is modest.
-
-\textbf{The hedge benefit is largest for continuous corn and approximately zero for strict alternation.} The faded-to-solid gap is visually largest for CCCCCC in every cell, and it narrows progressively across CCSCCS and CSCSCS, reaching near-zero for CSCSCS in most northern and central cells. A rotation plan that resets carried debt in soybean years has already eliminated the rollover balance that the hedge would otherwise partially protect against. With no accumulated deficit to offset, the price-yield correlation has nothing to do.
-
-\textbf{The southern region is the partial exception.} The hedge gap for continuous corn in the south row is visibly wider, roughly 7-9 percentage points, than in the north and central rows. Operating costs are lower and the continuous-corn yield penalty is smaller in the south, so the baseline delinquency probability for CCCCCC sits around 31-32 percent rather than 50-55 percent. At this lower baseline, each percentage point of hedge benefit represents a larger relative risk reduction. In addition, the debt-rollover chain under southern continuous corn is less entrenched, so the hedge has more proportional room to arrest the process before it crosses the delinquency threshold.
-
-Figures~\ref{fig:fig_p_debt_all} and~\ref{fig:fig_p_bar_corr} make the same argument from two angles. Figure~\ref{fig:fig_p_debt_all} shows that the hedge reduces the level of year-end carried debt, most for continuous corn and least for rotation plans. Figure~\ref{fig:fig_p_bar_corr} shows that this debt reduction translates into a modest and asymmetrically distributed reduction in delinquency probability: modest because price risk dominates revenue variance (Section~\ref{subsec:var_decomp}) and the hedge can only offset the covariance term, and asymmetric because rotation preempts the rollover channel through which the hedge would otherwise operate.
-
+ 
+\textbf{The hedge benefit is positive but uniformly small.} In every cell and every rotation plan, the solid bar is shorter than the faded bar. But the gap is narrow. In the northern and central rows, the hedge reduces the continuous-corn delinquency probability by approximately 2--4 percentage points; for the rotation plans, 1--2 percentage points or less. Across the full 27-cell grid the hedge never moves the needle by more than 4--5 percentage points. Against a baseline continuous-corn probability of 50--55 percent in the high-pressure cells, a 4-point reduction is modest.
+ 
+\textbf{The hedge benefit is largest for continuous corn and approximately zero for strict alternation.} The faded-to-solid gap is visually largest for CCCCCC in every cell, and it narrows progressively across CCSCCS and CSCSCS, reaching near-zero for CSCSCS in most northern and central cells. A rotation plan that resets carried debt in soybean years has already eliminated the rollover balance that the hedge would otherwise partially protect against. With no accumulated deficit to offset, the price--yield correlation has nothing to do.
+ 
+\textbf{The southern region is the partial exception.} The hedge gap for continuous corn in the south row is visibly wider (roughly 7--9 percentage points) than in the north and central rows. Operating costs are lower and the continuous-corn yield penalty is smaller in the south, so the baseline delinquency probability for CCCCCC sits around 31--32 percent rather than 50--55 percent. At this lower baseline, each percentage point of hedge benefit represents a larger relative risk reduction. In addition, the debt-rollover chain under southern continuous corn is less entrenched, so the hedge has more proportional room to arrest the process before it crosses the delinquency threshold.
+ 
+Figures~\ref{fig:fig_p_debt_all} and~\ref{fig:fig_p_bar_corr} make the same argument from two angles: the hedge reduces year-end carried debt most for continuous corn and least for rotation plans, and this debt reduction translates into a modest and asymmetrically distributed reduction in delinquency probability. Both effects are modest because price risk dominates revenue variance (Section~\ref{subsec:var_decomp}) and the hedge can only offset the covariance term; both effects are asymmetric because rotation preempts the rollover channel through which the hedge would otherwise operate.
+ 
 \subsection{\label{subsec:stress_test}Yield-shock stress test: the hedge under a localized corn shortfall}
-
-Figure~\ref{fig:fig_yield_compare_corr_vs_indep} isolates the hedge's role under a specific shock: a $-12$ percent corn yield shortfall applied only in year 3, with all other years at their unconditional means. Because year 3 is a soybean year under the CCSCCS plan, CCSCCS serves as a null control: a corn yield shock in a soybean year mechanically produces no delinquency response, providing a clean within-figure placebo.
-
+ 
+Figure~\ref{fig:fig_yield_compare_corr_vs_indep} isolates the hedge's role under a specific shock: a $-12$ percent corn yield shortfall applied only in year 3, with all other years at their unconditional means. The experiment is run under both the correlated and independent price specifications; the gap between the two rows within each panel is the natural-hedge benefit conditional on the shock rather than averaged across the full simulation. Because year 3 is a soybean year under the CCSCCS plan, CCSCCS serves as a null control: a corn yield shock in a soybean year mechanically produces no delinquency response, providing a clean within-figure placebo.
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_yield_compare_corr_vs_indep.png}
 \caption{Yield-shock stress test}
 \label{fig:fig_yield_compare_corr_vs_indep}
 \end{figure}
-
+ 
 The top panel reports the change in six-year delinquency probability relative to the no-shock baseline (positive values indicate worsening). The bottom panel reports the change in present value of net cash flow over the six-year horizon (\$/acre; negative values indicate a loss).
-
-\textbf{The delinquency response is large for CCCCCC and CSCSCS, and zero for CCSCCS.} Under continuous corn, a single $-12$ percent yield shock in year 3 raises six-year delinquency probability by 6.4-7.7 percentage points across all cells under the correlated specification, and 6.2-7.1 under the independent specification. The correlated-independent gap is small, roughly 0.3-0.7 percentage points, confirming the hedge provides only modest additional protection against this shock even when active. Under strict alternation, year 3 is a corn year, so the shock hits; the delinquency response is even larger, running 8.2-9.9 percentage points across cells. Under strict alternation, year 3 is the first corn year after the initial year-2 soybean reset, so the field enters year 3 with near-zero carried debt (a favorable starting position), but a severe enough yield shortfall still generates a non-trivial probability of a first delinquency event, which the year-4 soybean year will then be in a position to arrest. The CCSCCS cells are uniformly near zero ($-0.1$ to $+0.5$ percentage points), as expected for a placebo applied in a soybean year.
-
-\textbf{The PV cash response is symmetric across plans and specifications.} All three plans planting corn in year 3 show a cash loss of approximately \$72-\$83 per acre, nearly identical across the correlated and independent rows. The hedge does not materially protect cash flow: the shock is a single-year idiosyncratic yield draw that does not move national supply enough to produce a meaningful price offset at the field level. The CCSCCS placebo shows near-zero cash changes of $\pm\$5$ per acre.
-
-The asymmetry between the two panels is the key finding. The PV cash response is roughly equal across plans and price models: a $-12$ percent yield shock costs approximately the same dollar amount regardless of rotation or hedge status. But the delinquency response differs substantially: CSCSCS converts a yield shock of the same cash magnitude into a larger delinquency spike because it has not yet accumulated rollover debt going into year 3, meaning the shock must be absorbed entirely within that year rather than being spread across a pre-existing debt stock. Delinquency probability and cash-flow loss are not the same object: the \textit{path} the debt takes through the credit recursion matters, not just the terminal net present value. Rotation produces fields that are simultaneously more financially resilient on average (lower six-year delinquency, as documented in Section~\ref{subsec:delinq_prob}) and more sensitive to a point shock in a corn year, because they carry less buffering debt into that year. A lender underwriting a rotation borrower therefore faces a different \textit{shape} of credit risk: lower persistent default probability but a sharper single-year spike, compared to the continuous-corn borrower's flatter, more slowly compounding hazard.
-
+ 
+\textbf{The delinquency response is large for CCCCCC and CSCSCS, and zero for CCSCCS.} Under continuous corn, a single $-12$ percent yield shock in year 3 raises six-year delinquency probability by 6.4--7.7 percentage points across all cells under the correlated specification, and 6.2--7.1 under the independent specification. The correlated--independent gap is small, roughly 0.3--0.7 percentage points, confirming that the hedge provides only modest additional protection against this shock even when active. Under strict alternation, year 3 is a corn year, so the shock hits; the delinquency response is even larger, running 8.2--9.9 percentage points across cells. Under strict alternation, year 3 is the first corn year after the initial year-2 soybean reset, so the field enters year 3 with near-zero carried debt (a favorable starting position), but a severe enough yield shortfall still generates a non-trivial probability of a first delinquency event, which the year-4 soybean year will then be in a position to arrest. The CCSCCS cells are uniformly near zero ($-0.1$ to $+0.5$ percentage points), as expected for a placebo applied in a soybean year.
+ 
+\textbf{The PV cash response is symmetric across plans and specifications.} All three plans planting corn in year 3 show a cash loss of approximately \$72--\$83 per acre, nearly identical across the correlated and independent rows. The hedge does not protect cash flow materially: the shock is a single-year idiosyncratic yield draw that does not move national supply enough to produce a meaningful price offset at the field level. The CCSCCS placebo shows near-zero cash changes of $\pm\$5$ per acre.
+ 
+The asymmetry between the two panels is the key finding. The PV cash response is roughly equal across plans and price models: a $-12$ percent yield shock costs approximately the same dollar amount regardless of rotation or hedge status. But the delinquency response differs substantially across plans: CSCSCS converts a yield shock of the same cash magnitude into a larger delinquency spike because it has not yet accumulated rollover debt going into year 3, meaning the shock must be absorbed entirely within that year rather than being spread across a pre-existing debt stock. Delinquency probability and cash-flow loss are not the same object: the \textit{path} the debt takes through the credit recursion matters, not just the terminal net present value. Rotation produces fields that are simultaneously more financially resilient on average (lower six-year delinquency, as documented in Section~\ref{subsec:delinq_prob}) and more sensitive to a point shock in a corn year, because they carry less buffering debt into that year. A lender underwriting a rotation borrower therefore faces a different \textit{shape} of credit risk: lower persistent default probability but a sharper single-year spike, compared to the continuous-corn borrower's flatter, more slowly compounding hazard.
+ 
 \section{\label{sec:robustness}Decompositions and robustness}
-
-Rotation cuts delinquency; the natural hedge is a modest substitute. What source of uncertainty drives the residual risk that rotation does not eliminate? The variance decomposition (Section~\ref{subsec:var_decomp}) attributes gross revenue variance to price and yield. The Shapley decomposition (Section~\ref{subsec:shapley}) attributes delinquency probability to the same two sources. Together, they pin down why the hedge is modest: price uncertainty dominates both variance and delinquency causation, leaving limited scope for (which can only offset the price-yield interaction).
-
+ 
+Rotation cuts delinquency; the natural hedge is a modest substitute. What source of uncertainty drives the residual risk that rotation does not eliminate? The variance decomposition (Section~\ref{subsec:var_decomp}) attributes gross revenue variance to price and yield. The Shapley decomposition (Section~\ref{subsec:shapley}) attributes delinquency probability to the same two sources. Together they pin down why the hedge is modest: price uncertainty dominates both variance and delinquency causation, leaving the hedge with limited scope.
+ 
 \subsection{\label{subsec:var_decomp}Variance decomposition}
-
+ 
 For each plan-region-zone cell, we decompose the variance of annual gross revenue $R = P Y$ into the share attributable to price-only variation ($\text{Var}(P) \cdot E[Y]^2$ as a share of total gross variance) and the share attributable to yield-only variation ($\text{Var}(Y) \cdot E[P]^2$ as a share of total gross variance). The covariance term $2 E[P] E[Y] \text{Cov}(P, Y)$ is negative under the calibrated copula and is reported separately as the hedge magnitude.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_revenue_variance_decomp.png}
 \caption{Price dominates revenue variance}
 \label{fig:fig_revenue_variance_decomp}
 \end{figure}
-
-Figure~\ref{fig:fig_revenue_variance_decomp} reports the result. The price share is 86-89 percent of gross variance in every plan, region, and zone; the yield share is 11-14 percent. The split is stable across the simulation grid: rotation plans do not change the \textit{composition} of revenue risk, only its level. This is not an artifact of the lognormal price assumption; the empirical price variance over 2008-2022 dominates the empirical yield variance for Illinois corn and soybeans by approximately the same ratio.
-
-Even if price and yield were perfectly negatively correlated, the hedge would offset only the price-yield covariance, at most a few percentage points of total variance, leaving the dominant price-driven variance intact. Rotation, which operates through the within-year debt timing rather than through revenue smoothing, sidesteps this limitation entirely.
-
+ 
+Figure~\ref{fig:fig_revenue_variance_decomp} reports the result. The price share is 86--89 percent of gross variance in every plan, region, and zone; the yield share is 11--14 percent. The split is stable across the simulation grid: rotation plans do not change the \textit{composition} of revenue risk, only its level. The empirical price variance over 2008--2022 dominates the empirical yield variance for Illinois corn and soybeans by approximately the same ratio; the copula inherits an asymmetry already present in the data.
+ 
+Even if price and yield were perfectly negatively correlated, the hedge would offset only the price--yield covariance, at most a few percentage points of total variance, leaving the dominant price-driven variance intact. Rotation, which operates through the within-year debt timing rather than through revenue smoothing, sidesteps this limitation entirely.
+ 
 \subsection{\label{subsec:shapley}Shapley decomposition of delinquency probability}
-
-A 50-50 variance split between price and yield is fully consistent with a 99-1 split in default causation if price shocks live in the tail that triggers rollover while yield shocks do not. To decompose delinquency probability directly, we follow \citet{Shapley1953} as applied to risk-decomposition problems by \citet{Shorrocks2013} and \citet{Israeli2007}.
-
-Let $V(\mathcal{A})$ denote the delinquency probability when sources in $\mathcal{A} \subseteq \{P, Y\}$ are stochastic, and sources outside $\mathcal{A}$ are fixed at their unconditional means. With two sources, the Shapley formula simplifies to:
+ 
+A 50--50 variance split between price and yield is fully consistent with a 99--1 split in default causation if price shocks live in the tail that triggers rollover while yield shocks do not. To decompose delinquency probability directly, we follow \citet{Shapley1953} as applied to risk-decomposition problems by \citet{Shorrocks2013} and \citet{Israeli2007}.
+ 
+Let $V(\mathcal{A})$ denote the delinquency probability when sources in $\mathcal{A} \subseteq \{P, Y\}$ are stochastic and sources outside $\mathcal{A}$ are fixed at their unconditional means. With two sources the Shapley formula simplifies to:
 \begin{equation}
 \phi_s = \tfrac{1}{2}\bigl[V(\{s\}) - V(\emptyset)\bigr] + \tfrac{1}{2}\bigl[V(\{P,Y\}) - V(\{P,Y\} \setminus \{s\})\bigr].
 \end{equation}
 The Shapley values sum to $V(\{P,Y\}) - V(\emptyset)$, the total delinquency-causing variation, with no interaction residual.
-
+ 
 \begin{figure}[H]
 \centering
 \includegraphics[width=16cm]{figs/fig_shapley_price_share.png}
 \caption{Shapley values: price drives nearly all delinquency}
 \label{fig:fig_shapley_price_share}
 \end{figure}
-
-Figure~\ref{fig:fig_shapley_price_share} reports the price share $\phi_P / (\phi_P + \phi_Y)$ across the plan-region-zone grid. The price share of delinquency causation ranges from 92 percent in the central-low cell under continuous corn to 100 percent in several southern-zone cells under strict alternation. Yield uncertainty contributes meaningfully to delinquency only in the central region under continuous corn, and even there accounts for less than one-tenth of the total.
-
-The Shapley share is \textbf{more lopsided} than the variance share (92-100 percent versus 86-89 percent). Yield shocks, while accounting for 11-14 percent of revenue variance, tend not to generate the tail revenue draws that trigger rollover. Yield distributions are bounded below by physical constraints (a zero-yield outcome is exceptional in the Illinois corn belt), while price distributions have longer left tails. Threshold-crossing events disproportionately arise from price shocks. The decomposition explains why the natural hedge is modest: it can offset the small yield-driven component of delinquency, but the dominant price-driven component is unhedged by construction.
-
+ 
+The price share of delinquency causation ranges from 92 percent in the central-low cell under continuous corn to 100 percent in several southern-zone cells under strict alternation. Yield uncertainty contributes meaningfully to delinquency only in the central region under continuous corn, and even there accounts for less than one-tenth of the total.
+ 
+The Shapley share is \textbf{more lopsided} than the variance share (92--100 percent versus 86--89 percent). Yield shocks, while accounting for 11--14 percent of revenue variance, tend not to generate the tail revenue draws that trigger rollover. Yield distributions are bounded below by (a zero-yield outcome is exceptional in the Illinois corn belt) while price distributions have longer left tails. Threshold-crossing events disproportionately arise from price shocks. The decomposition explains why the natural hedge is modest: it can offset the small yield-driven component of delinquency, but the dominant price-driven component is unhedged by construction.
+ 
 \subsection{\label{subsec:survival}Survival curves: when does the rotation effect materialize?}
-
-Figure~\ref{fig:fig_p_surv_all} plots $\Pr[\text{no delinquency by year } t]$ for each plan across all nine region $\times$ zone cells. The step structure mirrors the sawtooth: survival drops in corn years and holds flat in soybean years. By year 3 (the end of the first full corn-soy cycle), CSCSCS lies 15-20 percentage points above CCCCCC in every cell. The earliest delinquency events, occurring in the first corn run before any soybean reset, matter most for the cumulative probability. The separation is durable: continuous corn provides no debt-reset mechanism to recover from early delinquency.
-
-Once a field enters the delinquency state, the carried balance enlarges the following year's spring principal, raising the revenue threshold required to return $B_{t+1}$ to zero. Without a soybean year to break the chain, this threshold rises faster than the unconditional mean of revenue, so the conditional probability of a second consecutive delinquency exceeds the unconditional annual hazard of 12-15 percent. Survival under continuous corn decays faster than a flat-hazard Kaplan-Meier curve would predict; survival under rotation is approximately piecewise flat between resets.
-
-The 15-20 percentage-point survival gap materializes within the first loan-renewal cycle. A lender observing a borrower's first two or three years of operating-loan history is already observing the consequence of the rotation choice: the rotation borrower arrives at year-3 renewal with a near-zero carried balance, while the continuous-corn borrower may be carrying a compounded deficit from one or more prior shortfalls. Rotation history observable in CDL imagery predicts not only the eventual six-year default probability but also the early trajectory of the credit relationship.
-
-A robustness exercise reports the simulation under an alternative delinquency rule (``over-limit'' rather than end-balance-positive). The absolute delinquency levels fall, but the relative ranking of plans and the sawtooth pattern in per-year hazards both survive. Figure~\ref{fig:fig_shapley_abs} in Appendix~\ref{sec:appendix_B} reports the absolute Shapley values underlying the normalized shares in Figure~\ref{fig:fig_shapley_price_share}, confirming that the price-driven component dominates not just relatively but in absolute terms.
-
+ 
+Figure~\ref{fig:fig_p_surv_all} plots $\Pr[\text{no delinquency by year } t]$ for each plan across all nine region $\times$ zone cells. The step structure mirrors the sawtooth: survival drops in corn years and holds flat in soybean years. By year 3 (the end of the first full corn-soy cycle), CSCSCS lies 15--20 percentage points above CCCCCC in every cell. The earliest delinquency events, occurring in the first corn run before any soybean reset, matter most for the cumulative probability. The separation is durable: continuous corn provides no debt-reset mechanism to recover from early delinquency.
+ 
+Once a field enters the delinquency state, the carried balance enlarges the following year's spring principal, raising the revenue threshold required to return $B_{t+1}$ to zero. Without a soybean year to break the chain, this threshold rises faster than the unconditional mean of revenue, so the conditional probability of a second consecutive delinquency exceeds the unconditional annual hazard of 12--15 percent. Survival under continuous corn decays faster than a flat-hazard Kaplan--Meier curve would predict; survival under rotation is approximately piecewise flat between resets.
+ 
+The 15--20 percentage-point survival gap materializes within the first loan-renewal cycle. A lender observing a borrower's first two or three years of operating-loan history is already observing the consequence of the rotation choice: the rotation borrower arrives at year-3 renewal with a near-zero carried balance, while the continuous-corn borrower may be carrying a compounded deficit from one or more prior shortfalls. Rotation history observable in CDL imagery predicts not only the eventual six-year default probability but also the early trajectory of the credit relationship.
+ 
+Under the alternative over-limit delinquency rule, absolute delinquency levels fall but the plan ranking and sawtooth pattern both survive. Figure~\ref{fig:fig_shapley_abs} in Appendix~\ref{sec:appendix_B} reports the absolute Shapley values underlying the normalized shares in Figure~\ref{fig:fig_shapley_price_share}, confirming that the price-driven component dominates not just relatively but in absolute terms.
+ 
 \section{\label{sec:implications}Implications}
-
-The simulation produces three results with direct implications for parties who price farm credit risk and design crop insurance.
-
-For \textbf{lenders}, rotation history is an observable, verifiable risk factor that current underwriting does not price. Two farms with identical balance sheets but different six-year rotation states face six-year delinquency probabilities that differ by a factor of two or more (55 percent versus 30 percent in the central-high Illinois area, with comparable multiplicative differences (in other cells). CDL-derived rotation histories are publicly available at the field level, requiring no additional borrower disclosure, and the conditioning effect on delinquency is robust across the simulation grid. A credit-scoring model incorporating rotation alongside conventional balance-sheet measures would assign strictly different scores to the two otherwise-identical farms, in a direction the simulation argues is correct.
-
-For \textbf{insurers}, the multi-year delinquency object identified here is not what Revenue Protection (RP) products price. RP premiums are calibrated on the single-year loss-cost ratio, approximating $E[\max(0, \text{guarantee} - \text{revenue})]$ from a one-year distribution. The single-year object does not see the rollover channel that converts a year-1 shock into a multi-year default cascade. A corn-heavy producer with a high one-year revenue distribution and a poor multi-year survival distribution may therefore appear cheap to insure on the single-year metric and expensive on the multi-year metric. RP premiums calibrated on single-year loss ratios systematically understate the \textit{insurance value} of rotation, since rotation's largest financial benefit accrues specifically to the multi-year delinquency dimension that RP does not see. This contributes to the credit-insurance interaction literature \citep{IfftKuethe2013, IfftKuethe2015, LeeEtAl2024}: the federal crop insurance program may be inducing greater use of debt precisely because the rate structure does not reward the rotation choice that would reduce multi-year ruin.
-
-For \textbf{extension and policy}, the financial case for rotation now parallels the agronomic and soil-health cases. Rotation's documented benefits for soil organic carbon, nitrogen-use efficiency, and pest pressure \citep{Bullock1992} are matched here by a balance-sheet benefit that is independent of the agronomic channel and additive to it. A 25-percentage-point reduction in six-year delinquency probability is an immediately legible benefit to the producer, regardless of whether the producer values the soil-health benefits. Rotation diversity across the Midwest has been declining for a century, fastest on the most productive ground, driven partly by the infrastructure of corn demand \citep{socolar2021}. The agronomic argument has not been sufficient to halt this trend. A financial argument visible to lenders and insurers (the parties who actually price farm credit risk) represents a candidate countervailing lever, operating not through producer education but through the price of credit itself.
-
-The argument is about risk-pricing accuracy, not behavioral mandate. The simulation holds rotation fixed and does not model the reasons a farmer might rationally choose continuous corn (off-farm income, livestock integration, non-standard cost structures). A lender or insurer who prices a continuous-corn borrower at the same premium as an otherwise-identical rotation borrower is mispricing risk. Whether continuous corn is the right choice for that farmer is a separate question.
-
+ 
+For \textbf{lenders}, rotation history is an observable, verifiable risk factor that current underwriting does not price. Two farms with identical balance sheets but different six-year rotation states face six-year delinquency probabilities that differ by a factor of two or more: 55 percent versus 30 percent in the central-high Illinois area, comparable multiplicative differences in other cells; CDL-derived rotation histories are publicly available at the field level, requiring no additional borrower disclosure, and the conditioning effect on delinquency is robust across the simulation grid. A credit-scoring model incorporating rotation alongside conventional balance-sheet measures would assign strictly different scores to the two otherwise-identical farms, in a direction the simulation argues is correct.
+ 
+For \textbf{insurers}, the multi-year delinquency object identified here is not what Revenue Protection (RP) products price. RP premiums are calibrated on the single-year loss-cost ratio, approximating $E[\max(0, \text{guarantee} - \text{revenue})]$ from a one-year distribution. The single-year object does not see the rollover channel that converts a year-1 shock into a multi-year default cascade. A corn-heavy producer with a high one-year revenue distribution and a poor multi-year survival distribution may therefore appear cheap to insure on the single-year metric and expensive on the multi-year metric. RP premiums calibrated on single-year loss ratios systematically understate the \textit{insurance value} of rotation, since rotation's largest financial benefit accrues specifically to the multi-year delinquency dimension that RP does not see. The federal crop insurance program may be inducing greater use of debt precisely because the rate structure does not reward the rotation choice that would reduce multi-year ruin \citep{IfftKuethe2013, IfftKuethe2015, LeeEtAl2024}.
+ 
+For \textbf{extension and policy}, the financial case for rotation now parallels the agronomic and soil-health cases. Rotation's documented benefits for soil organic carbon, nitrogen-use efficiency, and pest pressure \citep{Bullock1992} are matched here by a balance-sheet benefit that is independent of the agronomic channel and additive to it. A 25-percentage-point reduction in six-year delinquency probability is an immediately legible benefit to the producer, regardless of whether the producer values the soil-health benefits. Conservation programs that promote rotation, cover crops, and reduced tillage now have a balance-sheet argument to add to the soil-health argument. Rotation diversity across the Midwest has been declining for a century, fastest on the most productive ground, driven partly by the infrastructure of corn demand \citep{socolar2021}. The agronomic argument has not been sufficient to halt this trend. A financial argument visible to lenders and insurers (the parties who actually price farm credit risk) is a candidate countervailing lever, operating not through producer education but through the price of credit itself.
+ 
+The case for incorporating rotation into underwriting is one of risk-pricing accuracy, not behavioral mandate. The simulation does not model the reasons a farmer might rationally choose continuous corn (off-farm income, livestock integration, non-standard cost structures). A lender or insurer who prices a continuous-corn borrower at the same premium as an otherwise-identical rotation borrower is mispricing risk, regardless of whether continuous corn is the right choice for that farmer.
+ 
 \section{\label{sec:conclusion}Conclusion}
-
-This paper develops a simulation framework that combines rotation-conditioned yield distributions with an explicit operating-credit cash-flow recursion to produce multi-year delinquency probabilities for Illinois corn-belt farms. The rotation-yield literature stops at yield; the dynamic-crop-choice literature stops at the optimal policy; the farm-credit-risk literature treats yield as a single aggregate input. The combination delivers an empirical object, the rotation-conditional six-year delinquency probability, which current credit and insurance models do not produce.
-
-Three findings emerge. Rotation reduces six-year delinquency probability by approximately 25 percentage points relative to continuous corn in high-pressure cells, with the reduction concentrated in soybean-harvest years through a debt-reset mechanism; the per-year hazard exhibits a sawtooth pattern that distinguishes this mechanism from any uniform risk-smoothing explanation. Price uncertainty dominates both revenue variance (86-89 percent) and delinquency causation (92-100 percent), leaving the natural price-yield hedge with limited scope; the hedge is most useful for the continuous-corn borrower who has no other risk-management instrument and essentially redundant for the rotation borrower. The rotation effect arrives quickly: survival curves show a 15-20 percentage-point separation between continuous corn and strict alternation by year 3 (within the first corn-soy cycle), and that gap does not close.
-
+ 
+This paper develops a simulation framework that combines rotation-conditioned yield distributions with an explicit operating-credit cash-flow recursion to produce multi-year delinquency probabilities for Illinois corn-belt farms. The rotation-yield literature stops at yield; the dynamic-crop-choice literature stops at the optimal policy; the farm-credit-risk literature treats yield as a single aggregate input. The combination delivers an empirical object, the rotation-conditional six-year delinquency probability, that current credit and insurance models do not produce.
+ 
+Three findings emerge. Rotation reduces six-year delinquency probability by approximately 25 percentage points relative to continuous corn in high-pressure cells, with the reduction concentrated in soybean-harvest years through a debt-reset mechanism; the per-year hazard exhibits a sawtooth pattern that distinguishes this mechanism from any uniform risk-smoothing explanation. Price uncertainty dominates both revenue variance (86--89 percent) and delinquency causation (92--100 percent), leaving the natural price--yield hedge with limited scope; the hedge is most useful for the continuous-corn borrower who has no other risk-management instrument and essentially redundant for the rotation borrower. The rotation effect arrives quickly: survival curves show a 15--20 percentage-point separation between continuous corn and strict alternation by year 3, within the first corn-soy cycle, and that gap does not close.
+ 
 Rotation history is therefore a missing variable in the credit-risk and crop-insurance models used by lenders, insurers, and regulators. The variable is observable and verifiable in publicly available CDL imagery, and incorporating it would materially improve the accuracy of risk pricing. The case is strongest for multi-year insurance products that price ruin rather than single-year shortfall; the simulation suggests these products would price rotation as a strictly favorable feature of the covered farm.
-
-Three extensions are natural. The simulation holds rotation policy fixed; an extension endogenizing the rotation choice under a credit-risk-sensitive farmer would speak to the equilibrium response of rotation adoption to a hypothetical credit-pricing reform. The delinquency object is binary; a loss-given-default extension would convert the probability into a dollar-denominated expected loss that maps directly into pricing. The framework is built on Illinois corn-belt data; extending to a region with more heterogeneous crop options (e.g., the southeastern U.S. cotton-peanut-soybean rotation) would test whether the debt-reset mechanism generalizes beyond the corn-soybean case.
-
+ 
+Three extensions are worth pursuing. Endogenizing the rotation choice under a credit-risk-sensitive farmer would speak to the equilibrium response of adoption to a hypothetical credit-pricing reform. A loss-given-default extension would convert the probability into a dollar-denominated expected loss that maps directly into pricing. Extending the framework to a region with more heterogeneous crop options (the southeastern U.S.\ cotton-peanut-soybean rotation, for example) would test whether the debt-reset mechanism generalizes beyond the corn-soybean case.
+ 
 Financial outcomes for farms are path-dependent in a way that current models do not capture, and the path dependence is rotation-conditional in a way that current credit-risk models do not see. The resulting mispricing has direct implications for an industry (agricultural lending and insurance) that intermediates approximately \$220 billion of non-real-estate farm debt in the United States \citep{usda2026}. The framework produces a number that has not existed before: a rotation-conditional, multi-year delinquency probability that lenders and insurers can observe, price, and act on.
-
+ 
 \appendix
-
+ 
 \section{\label{sec:appendix_A}Appendix A: Calibration values and computational details}
-
+ 
 \subsection{\label{subsec:parameter_values}Baseline parameter values}
-
+ 
 Table~\ref{tab:baseline_pars} reports the baseline values of every parameter that enters the simulation. Values not directly identifiable from the panel are calibrated from independent industry sources.
-
+ 
 \begin{table}[!ht]
 \centering
 \begin{tabular}{lll}
@@ -561,13 +554,13 @@ Accrual window & 9 months & Convention for Illinois corn belt\\
 \\
 Initial carried debt $B_0$ & \$0 / acre & Steady-state simplification\\
 \\
-Corn operating cost $C^{c}$ & Crop-specific Farmdoc cost-of-production & University of Illinois - Farmdoc\\
+Corn operating cost $C^{c}$ & Crop-specific Farmdoc cost-of-production & University of Illinois -- Farmdoc\\
 \\
-Soybean operating cost $C^{s}$ & Crop-specific Farmdoc cost-of-production & University of Illinois - Farmdoc\\
+Soybean operating cost $C^{s}$ & Crop-specific Farmdoc cost-of-production & University of Illinois -- Farmdoc\\
 \\
 Aggregate price-yield & $-0.45$ & U.S.\ NASS season-average price\\
 correlation $\hat\rho$ & & and national yield, detrended,\\
-& & 2008-2022; see \S\ref{subsec:py_corr}\\
+& & 2008--2022; see \S\ref{subsec:py_corr}\\
 \\
 Within-field systematic & $0.620$ & Two-way FE decomposition\\
 variance share $R^2_{\text{year} \mid \text{field}}$ & & of field panel (\S\ref{subsec:py_corr})\\
