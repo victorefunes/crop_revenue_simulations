@@ -1,28 +1,19 @@
 \documentclass[final]{beamer}
-
-\usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
-
+\usepackage[orientation=landscape, scale=1.1, size=custom, width=121.92, height=243.84]{beamerposter} % Use the beamerposter package for laying out the poster
 \usepackage{bbm}
-
 \usepackage{graphicx}
-
 \usepackage{textpos}
-
 \usepackage{xcolor}
-
 \graphicspath{{./figs/}}
-
 \usetheme{confposter} % Use the confposter theme supplied with this template
-
 \setbeamercolor{block title}{fg=illiniblue,bg=white} % Colors of the block titles
-
 \setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
-
 \setbeamercolor{block alerted title}{fg=white,bg=illiniorange} % Colors of the highlighted block titles
-
 \setbeamercolor{block alerted body}{fg=black,bg=heritageorange} % Colors of the body of highlighted blocks
+\setbeamersize{text margin left=1in}
+\setbeamersize{text margin right=1in}
 
-%-----------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;--
 
 \newlength{\sepwid}
 \newlength{\onecolwid}
@@ -38,7 +29,7 @@
 \setlength{\fourcolwid}{0.9508\paperwidth}
 \setlength{\topmargin}{-0.75in}
 
-%-----------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;--
 
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
@@ -58,9 +49,9 @@
 \SetSymbolFont{largesymbols}{normal}{OMX}{cmex}{m}{n}
 \SetSymbolFont{largesymbols}{bold} {OMX}{cmex}{m}{n}
 
-%----------------------------------------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-
 % TITLE SECTION
-%----------------------------------------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-
 
 \title{\Large Crop Rotations, Transition Costs, and Farm Delinquencies}
 
@@ -68,7 +59,7 @@
 
 \institute{University of Arkansas\\ Department of Agricultural Economics and Agribusiness}
 
-%----------------------------------------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-
 
 \begin{document}
 
@@ -93,9 +84,9 @@
 
 \begin{column}{\onecolwid}
 
-%----------------------------------------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-
 % OBJECTIVES
-%----------------------------------------------------------------------------------------
+%;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-
 
 \begin{block}{Motivation}
 \begin{itemize}
@@ -186,7 +177,7 @@ gap opens within the first corn-soy cycle (by year~3) and does not close.}
 \begin{center}
 \includegraphics[scale=1.2]{figs/fig_peak_loan_all.png}\\
 \caption{\hspace{.05cm}Distribution of peak gross spring loan (\$/ac) with \$700 /
-\$900 / \$1{,}200 credit limits overlaid. Medians cluster near \$500--550, well below
+\$900 / \$1{,}200 credit limits overlaid. Medians cluster near \$500-550, well below
 any of the three ceilings. Rotation shifts the whole distribution down by roughly
 \$50/ac, widening the margin to any binding ceiling.}
 \label{fig:fig_peak_loan_all}
@@ -237,8 +228,9 @@ Code & Pattern & \% Prevalence\\
 \textcolor{blue}{CCSCCS}  & 2 corn / 1 soy    & 6  \\
 \bottomrule
 \end{tabular}
-\caption{CSCSCS and CCSCCS share the same two crops but differ in \emph{when}
-soy lands --- the lever behind both the debt-reset and the natural-hedge results.}
+\caption{CSCSCS and CCSCCS share the same two crops but\\
+ differ in \emph{when} soy lands, the lever behind both\\
+ the debt-reset and the natural-hedge results.}
 \label{tab:rot_perc}
 \end{table}
 \vspace{1.2cm}
@@ -249,7 +241,7 @@ soy lands --- the lever behind both the debt-reset and the natural-hedge results
 
   \item \textbf{Rotation resets debt, not risk.} A soy harvest retires accumulated
   rollover balance because soy is planted on a lower spring loan. This resets
-  year-end debt to near-zero before the next corn run --- periodically arresting
+  year-end debt to near-zero before the next corn run; periodically arresting
   the debt-compounding process rather than smoothing risk uniformly.
 
   % FIXED: original finding 2 ("compounds ... more cash on balance sheet") was a
@@ -258,7 +250,7 @@ soy lands --- the lever behind both the debt-reset and the natural-hedge results
   \item \textbf{Price risk dominates; the hedge is modest.} A Shapley decomposition
   assigns 92--100\% of delinquency causation to price uncertainty across all nine
   region $\times$ zone cells. The natural hedge reduces delinquency by only 1--2
-  percentage points --- its smallest benefit accruing to rotation borrowers, who
+  percentage points, its smallest benefit accruing to rotation borrowers, who
   have already reset carried debt in soy years.
 
   \item \textbf{Rotation and the natural hedge are partial substitutes.}
@@ -268,7 +260,7 @@ soy lands --- the lever behind both the debt-reset and the natural-hedge results
 
   \item \textbf{Rationing is rare, but rotation lowers peak demand.} Median peak
   loan demand clusters at \$500--550/ac, well below common credit ceilings. Rotation
-  shifts the right tail down by roughly \$50/ac --- an observable, verifiable risk
+  shifts the right tail down by roughly \$50/ac; an observable, verifiable risk
   factor lenders can price into operating-credit underwriting.
 
 \end{enumerate}
