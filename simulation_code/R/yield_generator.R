@@ -384,7 +384,13 @@ build_yield_generator_region_zone <- function(DT,
     })
   ), by = rot6]
   
-  mu <- DT_use[, .(mu = mean(y - resid, na.rm = TRUE)), by = rot6]
+  # State mean = mean field effect of the state's observations + ONE common year effect
+  # (cell-wide, observation-weighted). Averaging each state's own fitted year effects would
+  # let a thin state whose observations sit in drought years (2011-12) inherit a spuriously
+  # low mean; the year effects are common shocks, not part of the rotation state.
+  DT_use[, fe_f := y - resid - fe_year[!is.na(DT_fy$resid)]]
+  ybar_year <- mean(fe_year[!is.na(DT_fy$resid)])
+  mu <- DT_use[, .(mu = mean(fe_f, na.rm = TRUE) + ybar_year), by = rot6]
   
   simulate <- function(state, B = 5000L) {
     mu_s <- mu[rot6 == state, mu]

@@ -87,6 +87,11 @@ plans within a cell (common random numbers).
   aggregate yield shock (variance share `aggregate_fraction = 0.40`) correlated with the log-price shock, plus a
   normal idiosyncratic shock. Its correlation is the regional median of the county-level correlations in
   `data/corn_correlation.csv` / `soy_correlation.csv` (defaults -0.40 corn, -0.50 soy).
+- Yield generators (`R/yield_generator.R`): per region x zone cell, a two-way fixed-effects fit (field and year)
+  on field-year yields; each rotation state keeps a pool of residuals (20,000 draws) and a mean equal to the
+  mean field effect of the state's observations plus **one common, cell-wide year effect**. Earlier versions
+  averaged each state's own year effects, so thin states inherited their drought-year mix (2011-12); that
+  produced spurious state means (for example a 12.7 bu/ac penalty for CCCSCC in southern-low).
 - Prices are hard-coded regional means with log-sd from `calibration/sigma_regions.csv`; costs are hard-coded
   2025 FBFM direct costs (see `R/yield_generator.R`). `data/cost_params.rds` and `data/price_params.rds` are
   exactly what that code produces.
