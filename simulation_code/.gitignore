@@ -1,0 +1,7 @@
+# Large or regenerated artifacts: not tracked
+cache/
+raw/
+results/
+figs/
+.Rhistory
+.RData

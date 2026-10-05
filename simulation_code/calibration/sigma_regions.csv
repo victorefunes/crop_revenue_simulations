@@ -1,0 +1,7 @@
+region,cropLongName,sigma,n_obs,n_years,n_elevs
+Central,Corn,0.22560899550827693,628,10,64
+Southern,Corn,0.20406367388703292,218,10,22
+Northern,Corn,0.2333908167402372,115,10,12
+Central,Soybeans,0.1734726595605861,3095,10,313
+Southern,Soybeans,0.1678107091127097,524,10,53
+Northern,Soybeans,0.1718118407823652,641,10,65
