@@ -73,8 +73,10 @@ plans within a cell (common random numbers).
 
 `fig_p_bar_all`, `fig_p_year_all`, `fig_p_surv_all`, `fig_peak_loan_all`, `fig_p_debt_all`, `fig_p_bar_corr`,
 `fig_yield_compare_corr_vs_indep`, `fig_revenue_variance_decomp`, `fig_shapley_price_share`, `fig_revenue_cv`,
-`fig_p_cf_all`, `fig_shapley_abs`. Not produced here: `map_practice.png` (maps script) and
-`ltd_cdf_comparison.pdf` (lower-tail dominance check); neither is part of the simulation model.
+`fig_p_cf_all`, `fig_shapley_abs`. `ltd_dominance_check.R` (run separately, after Stage 1) produces
+`ltd_cdf_comparison.{pdf,png}`, `results/ltd_dominance_results.csv` (lower-tail dominance check) and
+`results/sample_sizes.csv` (observations per cell and rotation state). Not produced here: `map_practice.png`
+(maps script), which is not part of the simulation model.
 
 ## Implementation notes (as coded)
 
@@ -101,4 +103,7 @@ The originals in `yield_regions/` are untouched. This folder differs only in tha
   loads, with generators slimmed to `mu`, `pools` and `simulate`;
 - in `R/yield_generator.R`, a read of `crop_prices_il.csv` / `direct_cost.csv` whose result was discarded is
   removed (it needed a 211 MB file that never entered the model);
-- the dead line `rm(ygen)` is removed.
+- the dead line `rm(ygen)` is removed;
+- two stale figure subtitles are corrected (the `fig_p_debt_all` subtitle no longer claims the gap is wider for
+  CSCSCS, and the variance-decomposition subtitle no longer points to a figure the paper does not contain).
+  Figures must be regenerated to show this.

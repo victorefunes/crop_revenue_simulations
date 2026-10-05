@@ -742,7 +742,7 @@ p_debt_all <- ggplot(band_debt_hedge,
   labs(title = "Natural hedge from crop rotation: mean year-end debt",
        subtitle = paste("Solid = correlated prices/yields (hedge active)",
                         "| Dashed = independent (no hedge)",
-                        "\nGap = hedge benefit; wider for CSCSCS (stronger soy correlation)"),
+                        "\nGap = hedge benefit"),
        x = "Year", y = "Mean rollover debt ($/ac)") +
   theme_bw(base_size = 9) +
   theme(legend.position = "bottom")
@@ -1563,7 +1563,7 @@ p_rev_decomp <- rev_shares |>
                     name = "Component") +
   facet_grid(region ~ prod_zone) +
   labs(title = "Revenue risk composition: price vs. yield share of gross variance",
-       subtitle = "Excludes covariance offset — see hedge efficiency figure",
+       subtitle = "Excludes covariance offset",
        x = "Rotation plan", y = "Share of gross variance (%)") +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
