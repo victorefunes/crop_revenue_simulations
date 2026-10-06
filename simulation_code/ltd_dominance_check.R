@@ -69,12 +69,15 @@ lines <- rbindlist(cdf)[!is.na(plan)]; vl <- rbindlist(cdf)[is.na(plan), .(regio
 for (d in list(lines, vl)) { d[, region := factor(region, regions)]; d[, zone := factor(zone, zones)] }
 p <- ggplot(lines, aes(y, F, color = plan, linetype = plan)) + geom_line(linewidth = 0.7) +
   geom_vline(data = vl, aes(xintercept = ybar), linetype = "dotted", color = "grey40") +
+  geom_text(data = vl, aes(x = ybar, y = 0.93, label = "delinquency\nthreshold (ȳ)"),
+            inherit.aes = FALSE, hjust = -0.05, size = 2.4, color = "grey35", lineheight = 0.9) +
   facet_grid(zone ~ region, scales = "free_x", labeller = label_both) +
   scale_color_manual(values = c(CCCCCC = "#D55E00", CSCSCS = "#0072B2"), labels = c("Continuous corn", "Corn-soy rotation")) +
   scale_linetype_manual(values = c(CCCCCC = "solid", CSCSCS = "dashed"), labels = c("Continuous corn", "Corn-soy rotation")) +
   labs(x = "Corn yield (bu/ac)", y = "F(y)", color = NULL, linetype = NULL,
        title = "Empirical CDFs of corn yield: rotation vs. continuous corn",
-       subtitle = "Dotted line: delinquency threshold at median cost and price (i = 9%, 9-month accrual).") +
+       subtitle = paste0("Dotted line = cell-specific delinquency threshold ȳ(c,z) at median cost and price (i = 9%, 9-month accrual).\n",
+                         "LTD holds where the blue (CS) curve lies below the orange (CC) curve to the left of ȳ.")) +
   theme_bw(base_size = 10) + theme(legend.position = "bottom")
 ggsave(file.path(FIGS_DIR, "ltd_cdf_comparison.pdf"), p, width = 10, height = 9)
 ggsave(file.path(FIGS_DIR, "ltd_cdf_comparison.png"), p, width = 10, height = 9, dpi = 200)
