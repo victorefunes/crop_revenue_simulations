@@ -75,7 +75,8 @@ plans within a cell (common random numbers).
 `fig_yield_compare_corr_vs_indep`, `fig_revenue_variance_decomp`, `fig_shapley_price_share`, `fig_revenue_cv`,
 `fig_p_cf_all`, `fig_shapley_abs`. `ltd_dominance_check.R` (run separately, after Stage 1) produces
 `ltd_cdf_comparison.{pdf,png}`, `results/ltd_dominance_results.csv` (lower-tail dominance check) and
-`results/sample_sizes.csv` (observations per cell and rotation state). Not produced here: `map_practice.png`
+`results/sample_sizes.csv` (observations per cell and rotation state). `variance_components.R` (needs the raw
+panels) computes the field / year / residual variance shares behind `tab:decomp`. Not produced here: `map_practice.png`
 (maps script), which is not part of the simulation model.
 
 ## Implementation notes (as coded)
