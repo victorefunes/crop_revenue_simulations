@@ -63,27 +63,23 @@ Five findings stand out.
 
 \textbf{Fifth, zone matters less than state.} Moving from the high to the low NCCPI tercile raises the annual probability under continuous corn by 1 to 17 points.
 
-The paper is organized as follows. Section~\ref{sec:framework} defines the breakeven probability, the year types, and the Shapley decomposition. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} describes the simulation. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
+The paper is organized as follows. Section~\ref{sec:framework} defines the breakeven probability and the channels through which rotation affects it. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} sets out the simulation framework: the yield generator, the price-yield dependence, the revenue-cost mechanism, and the year-type and Shapley decompositions. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
 
 \section{\label{sec:framework}Framework}
 
 \subsection{Breakeven probability}
 
-Let a field in state $s$ and zone $z$ follow a six-year plan $\pi = (c_1,\dots,c_6)$ with $c_t\in\{C,S\}$ for corn and soybeans, starting from a six-year history equal to the plan. In year $t$ revenue is $R_t = P_t Y_t$, with price $P_t$ for crop $c_t$ and yield
-\begin{equation}
-Y_t = \mu_{s,z}(h_t) + \big(a_{c_t,j_t} - \bar a_{c_t}\big) + \epsilon_t, \label{eq:yield}
-\end{equation}
-where $\mu_{s,z}(h_t)$ is the mean field effect for the six-year crop window $h_t$ ending in $t$, $a_{c,j}$ is the estimated year effect of calendar year $j$ for crop $c$ (centered by its mean $\bar a_c$ so that the year shock does not move the mean), $j_t$ is drawn uniformly from the calendar years in the sample, and $\epsilon_t$ is a field-level residual resampled from the estimated pool for the window $h_t$. The log price shock is $z^P_t = \rho_c\, z^A_t + \sqrt{1-\rho_c^2}\,\eta_t$, where $z^A_t$ is the normal score of the rank of $a_{c_t,j_t}$ among the sample years, $\rho_c$ is the state's price-yield correlation, and $\eta_t$ is standard normal; $P_t$ is lognormal with the state's mean and volatility. Cost is $K_t = \bar K_{c_t}^{s}\,\varepsilon_t + \delta_{c_t}\mathbf 1\{c_t = c_{t-1}\}$, where $\bar K^{s}_{c}$ is the state's total non-land cost, $\varepsilon_t$ is a lognormal shock with unit mean, and $\delta_c$ is the extra cost of planting a crop after itself. Year $t$ is a shortfall if $R_t < K_t$.
+A field in state $s$ and zone $z$ follows a six-year plan $\pi = (c_1,\dots,c_6)$ with $c_t\in\{C,S\}$ for corn and soybeans. In year $t$ it earns revenue $R_t = P_t Y_t$, where $P_t$ is the harvest price of crop $c_t$ and $Y_t$ its yield, and incurs cost $K_t$, the state's total non-land cost of producing $c_t$. Year $t$ is a shortfall, or a failure to break even, if $R_t < K_t$. The probability of a shortfall is the object of interest. We report, for each state-zone-plan cell:
+\begin{itemize}
+\item the annual breakeven probability $\bar p = \frac16\sum_t \Pr(R_t<K_t)$, and its value conditional on the type of year (bad, normal, good), on the calendar year, and on the position in the path;
+\item the six-year cumulative probability $\Pr\big(\sum_t (R_t-K_t) < 0\big)$;
+\item the mean net return $E[R_t-K_t]$, and the Shapley shares of its variance.
+\end{itemize}
+The probability of at least one shortfall in six years is above 90 percent in every cell and is not informative.
 
-We report, for each state-zone-plan cell, the annual breakeven probability $\bar p = \frac16\sum_t \Pr(R_t<K_t)$, the six-year cumulative probability $\Pr\big(\sum_t (R_t-K_t) < 0\big)$, and the mean net return. The probability of at least one shortfall in six years is above 90 percent in every cell and is not informative.
+\subsection{Mechanism}
 
-\subsection{Good and bad years}
-
-For each state and zone we construct a weather index for each calendar year as the sum of the standardized corn and soybean year effects. Years in the lowest tercile of the index are bad, the highest tercile good, and the rest normal. The sample contains 12 to 15 calendar years per state, so each type contains four or five years; for Iowa the bad years are 2008 and 2010--2013. The conditional breakeven probability for a type is the share of simulated shortfall-years that fall in years of that type.
-
-\subsection{Shapley decomposition of risk}
-
-Net return $N_t = R_t - K_t$ is driven by three sources of uncertainty: the price shock, the yield shock (year effect and field residual), and the cost shock. Let $v(S)$ be a risk measure computed when only the sources in $S$ are random and the others are fixed at their means. The Shapley value of source $i$ is the average of $v(S\cup\{i\})-v(S)$ over all orderings of the three sources, so the three values sum to $v(\text{all})-v(\emptyset)$. We apply it to two measures: the variance of net return, whose shares are interpretable as risk shares, and the shortfall probability. All random numbers are drawn in every coalition, so coalitions are compared on common random numbers. Price risk includes the part of price variation that is correlated with the year shock; when price is fixed, that channel is switched off with it.
+Rotation enters through two channels on the path from the plan to $\Pr(R<K)$. The first is yield: the six-year crop window conditions the yield draw, so the plan changes the mean and dispersion of $Y_t$ in each year. The second is crop composition together with the same-crop cost penalty. Soybeans and corn have different revenue and cost levels, so replacing corn years with soybean years changes the mix of margins even with yields held fixed. The simulation reports the combined effect of the plan; we do not separate the two channels here. Section~\ref{sec:simulation} describes how both channels enter the simulation.
 
 \section{\label{sec:data}Data and calibration}
 
@@ -111,11 +107,71 @@ Zones are terciles of field-level NCCPI, computed within the state from the pool
 
 \textbf{Costs.} Costs are lognormal around the state's total non-land cost with a log standard deviation of 0.10. Planting a crop after itself adds \$15 per acre for corn and \$5 for soybeans, the Illinois budget differences. Land is excluded so that the threshold does not depend on rent differences across states.
 
-\textbf{Price-yield dependence.} The correlation $\rho_c$ is the state median of county-level price-yield correlations for each crop (for corn, from $-0.43$ in South Dakota to $+0.06$ in Wisconsin). We apply it between the price shock and the rank of the year effect, which is the systematic part of yield: county yields are mostly the common year shock, so the county-level correlation is closest to the correlation with the year shock.
+\textbf{Price-yield correlation.} The dependence input is the state median of county-level price-yield correlations for each crop. For corn the medians range from $-0.43$ in South Dakota to $+0.06$ in Wisconsin, and for soybeans from $-0.51$ in Wisconsin to $-0.17$ in Indiana. Section~\ref{subsec:py_corr} describes how they enter the simulation.
 
-\section{\label{sec:simulation}Simulation}
+\section{\label{sec:simulation}The simulation framework}
 
-For each state, zone, and plan we simulate 50,000 six-year paths. Each plan is run from a history equal to the plan itself, so it starts in steady state. The three plans are continuous corn (CCCCCC), corn-corn-soybean (CCSCCS), and strict alternation (CSCSCS). Random draws are shared across plans within a state-zone cell (common random numbers) and cells use independent seeds, so differences across plans within a cell are not Monte Carlo noise. Calendar years are drawn independently across the six years of a path.
+The simulation has three components: a rotation-conditioned yield generator that includes the common year shock, a price-yield dependence structure, and a revenue-cost mechanism that turns each simulated year into a shortfall indicator. Each component is standard; the contribution lies in their combination and in conditioning the output on the type of year. Unlike the operating-credit version of this project, there is no loan: nothing carries over from one year to the next except the crop history that defines the yield state.
+
+\subsection{\label{subsec:overview}Overview}
+
+For each cell $(s,z,r)$, indexing state, NCCPI zone, and rotation plan, the simulation draws $N = 50{,}000$ Monte Carlo paths over a six-year horizon. A path consists of six (calendar year, price, yield, cost) realizations. The three plans are continuous corn (CCCCCC), corn-corn-soybean (CCSCCS), and strict alternation (CSCSCS), so there are $8 \times 3 \times 3 = 72$ cells, each simulated separately and none pooled across states.
+
+Each plan is run from an initial history equal to the plan itself, so the field starts in the steady state of its own rotation. The measured benefit is therefore the benefit of a long-established rotation, not of switching from a corn-heavy history, which differs from the transition framing used in the delinquency version of this project. Random draws are shared across plans within a state-zone cell (common random numbers), and cells use independent seeds, so differences across plans within a cell are not Monte Carlo noise. With 50,000 paths, the Monte Carlo standard error of an annual probability is below 0.1 percentage point and that of a six-year cumulative probability below 0.3 points; conditional probabilities for a type of year rest on roughly 100,000 simulated years and have standard errors of about 0.2 points.
+
+As in the delinquency version, the simulation is forward-looking and policy-conditional: we fix the rotation plan ex ante and trace its financial consequences. This inverts the question asked by \citet{Burt1963} and \citet{Livingston2015}, who solve for the optimal policy. The advantage of the policy-conditional framing is that the resulting probability is directly comparable across plans, which is the quantity a lender or insurer needs.
+
+\subsection{\label{subsec:generator}Rotation-conditioned yield generator}
+
+Let $h_t = (c_{t-5}, c_{t-4}, \ldots, c_t)$ denote the six-year crop window ending in year $t$, and let $Y_t$ denote the yield of crop $c_t$ in bu/ac. The generator is the family of conditional distributions $F_{Y \mid h, c, s, z}$ for each window $h$ observed in the panel, crop $c$, state $s$, and zone $z$. We estimate it nonparametrically in four steps, separately for each crop and each state $\times$ zone cell. First, we average tile-level yields to the field-year level for field-years whose crop matches. Second, we fit a two-way fixed-effects model, $Y_{f,t} = \alpha_f + \gamma_t + e_{f,t}$, with field and year effects. Third, we compute each field-year's residual. Fourth, for each window $h$ we store a mean $\mu_h$ and a pool of 20,000 residuals drawn from that window's residuals (without replacement when enough are available, with replacement otherwise). The mean is the average field effect of the window's observations plus a single year effect common to all windows in the cell (the observation-weighted average of the fitted year effects). Using one common year effect keeps a thin window whose observations happen to fall in drought years from inheriting a spuriously low mean. All 32 six-year windows are observed in every cell.
+
+The year effects $\hat\gamma_{c,j}$ are stored with the generator, one for each calendar year $j$ in the cell's sample (12 to 15 years). In the delinquency version they were removed and only the residual pool was used; here they are reintroduced explicitly, because the year effect is the common weather and market shock that defines a good or a bad year and is the largest part of yield variance in the data (62 percent of corn field-year variance in the earlier Illinois analysis). A draw of yield in year $t$ is
+\begin{equation}
+Y_t = \max\Big\{\mu_{h_t} + \big(\hat\gamma_{c_t,j_t} - \bar\gamma_{c_t}\big) + \epsilon_t,\; 0\Big\}, \label{eq:yield}
+\end{equation}
+where $j_t$ is drawn uniformly from the calendar years in the cell's sample, independently across the six years of a path; $\bar\gamma_{c}$ is the mean of the year effects, which centers the shock so that it does not move the mean yield; and $\epsilon_t$ is a resample from the pool for window $h_t$. The rotation effect enters through the average field effect of the window's fields and through the residual pool, whose dispersion and lower-tail shape differ across windows. A rotation-by-year interaction, such as a larger drought-year penalty under continuous corn, is not removed by the fixed effects: it stays in the pool as dispersion, although it is not tied to the drawn year.
+
+The nonparametric choice is deliberate. Parametric specifications (Beta or Gamma distributions, the standard in crop-insurance ratemaking) impose tail behavior that the rotation effect plausibly distorts, and the conditional empirical distribution preserves the data's shape at the cost of slightly noisier tails in sparse cells. Given the plan, the window evolves deterministically as a one-period shift, $h_{t+1} = (c_{t-4}, \ldots, c_t, c_{t+1})$, so the only randomness in the yield enters through $j_t$ and $\epsilon_t$.
+
+\subsection{\label{subsec:py_corr}Price-yield dependence}
+
+Let $P_t$ denote the harvest-time price of crop $c_t$. Prices and yields are negatively correlated: when yields are high across the market, prices tend to fall. The methodological question is how much of that hedge applies to an individual field.
+
+\textbf{Source of the inputs.} The dependence inputs are county-level price-yield correlations for corn and for soybeans. We keep the counties of each state and take the median, giving one correlation $\rho_{s,c}$ per state and crop (Section~\ref{sec:data}).
+
+\textbf{Which part of yield can move the price.} Only the systematic part of a field's yield shock, the year effect, can move the market price; the field-level residual is idiosyncratic and uncorrelated with price. We therefore apply the correlation between the log price and the year effect, and leave the residual independent of price. This replaces the fixed systematic share $\kappa = 0.40$ of yield variance that the delinquency version had to assume, because the year effect is now an explicit part of the draw.
+
+\textbf{Dependence structure.} Let $z^A_t$ be the normal score of the rank of $\hat\gamma_{c_t,j_t}$ among the cell's calendar years, $z^A_t = \Phi^{-1}\big((\mathrm{rank}-\tfrac12)/J\big)$ with $J$ the number of years. The log price shock is
+\begin{equation}
+\log P_t = \log\bar P_{s,c} - \tfrac12\sigma_{P}^2 + \sigma_{P}\, w_t, \qquad w_t = \rho_{s,c}\, z^A_t + \sqrt{1-\rho_{s,c}^2}\,\eta_t, \label{eq:price}
+\end{equation}
+where $\bar P_{s,c}$ is the state mean price, $\sigma_P$ its log volatility, and $\eta_t$ is a standard normal draw independent of everything else. A bad year (a low year effect, so $z^A_t<0$) raises the expected price when $\rho_{s,c}<0$, and a good year lowers it. Because the rank is used, the dependence is a Gaussian copula between the price and the year effect and does not depend on the shape of the empirical year-effect distribution. The county-level correlation is computed against county yields, which also contain local idiosyncratic variation, so the correlation with the pure year shock is, if anything, larger in magnitude; applying the county median to the year effect is the conservative choice.
+
+For comparison, an independence benchmark ($\rho_{s,c}=0$) isolates the contribution of the dependence. It leaves the annual probability nearly unchanged (at most 3.4 points) but changes the probability conditional on the type of year substantially (Section~\ref{sec:results}).
+
+\subsection{\label{subsec:mechanism}Revenue-cost mechanism}
+
+Cost in year $t$ is lognormal around the state's total non-land cost and independent of price and yield,
+\begin{equation}
+K_t = \bar K_{s,c_t}\exp\big(\sigma_K\xi_t - \tfrac12\sigma_K^2\big) + \delta_{c_t}\,\mathbf 1\{c_t = c_{t-1}\}, \label{eq:cost}
+\end{equation}
+with $\xi_t$ standard normal, $\sigma_K=0.10$, and $\delta_C=\$15$, $\delta_S=\$5$ the extra cost of planting a crop after itself. Revenue is $R_t = P_t Y_t$, and
+\begin{equation}
+\text{shortfall}_t = \mathbf 1\{R_t < K_t\}, \qquad N_t = R_t - K_t. \label{eq:net}
+\end{equation}
+The simulation has no operating loan, no interest, and no balance carried forward, so a bad year does not raise the next year's cost. The probability in a given year depends only on the crop, the six-year window, and that year's independent draws, which is why the within-cycle pattern is a fixed crop difference and not a path-dependent sawtooth (Section~\ref{sec:results}). The six-year cumulative probability $\Pr(\sum_t N_t<0)$ adds the net returns of the six years and is the only outcome that aggregates across years.
+
+\subsection{\label{subsec:decompositions}Outcomes and decompositions}
+
+The simulation produces three classes of output. The first is the breakeven probability itself: the annual probability $\bar p$, the six-year cumulative probability, and the probability by position in the path, which exposes the within-cycle pattern.
+
+The second is the probability \textbf{conditional on the type of year}, which is the main result. For each state and zone we build a weather index for each calendar year as the sum of the standardized corn and soybean year effects. Years in the lowest tercile of the index are bad, the highest tercile good, and the rest normal. The sample contains 12 to 15 calendar years per state, so each type contains four or five years; for Iowa the bad years are 2008 and 2010--2013. The conditional probability for a type is the share of simulated years of that type in which revenue falls below cost. We also report it by calendar year, as the shortfall probability in the years when the drawn year effect is that year's.
+
+The third is a \textbf{Shapley decomposition} of risk into contributions from price, yield, and cost uncertainty. Net return $N_t$ is driven by three sources: the price shock (including its correlation with the year shock), the yield shock (the year effect and the field residual), and the cost shock. Let $V(\mathcal A)$ be a risk measure computed when only the sources in $\mathcal A\subseteq\{P,Y,K\}$ are random and the others are fixed at their means: price at $\bar P_{s,c}$, yield at the window mean $\mu_{h_t}$, and cost at $\bar K_{s,c_t}$ plus the same-crop penalty. Following \citet{Shorrocks2013}, with $n=3$ sources the Shapley value of source $i$ is
+\begin{equation}
+\phi_i = \sum_{\mathcal A\subseteq\{P,Y,K\}\setminus\{i\}} \frac{|\mathcal A|!\,(n-|\mathcal A|-1)!}{n!}\Big[V(\mathcal A\cup\{i\}) - V(\mathcal A)\Big],
+\end{equation}
+so the three values sum exactly to $V(\{P,Y,K\}) - V(\emptyset)$ with no interaction residual \citep{Shapley1953}. We apply it to two measures. The first is the variance of net return, whose shares are interpretable as risk shares; because a rotation has a deterministic difference in margin between corn and soybean years, $V(\emptyset)>0$ under rotation, so we take shares over the Shapley total $\sum_i\phi_i$, which is the random part. The second is the annual shortfall probability, for which $V(\emptyset)$ is $0$, $1$, or the share of crop years whose mean margin is negative, so the contributions are signed and are read relative to the deterministic margin (Section~\ref{sec:results}). All random numbers are drawn in every coalition, so coalitions are compared on common random numbers. Price risk includes the part of price variation correlated with the year shock; when price is fixed, that channel is switched off with it.
 
 \section{\label{sec:results}Results}
 
