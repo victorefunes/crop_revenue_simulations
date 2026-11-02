@@ -1,6 +1,9 @@
 \documentclass[11pt,letterpaper]{article}
-\usepackage{amsmath, amssymb}
+\usepackage{amsmath, amssymb, amsthm}
 \usepackage{etoolbox}
+\newtheorem{theorem}{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 \usepackage{graphicx}
 \usepackage[round,authoryear]{natbib}
 \usepackage{setspace}
@@ -65,23 +68,151 @@ Five findings stand out.
 
 \textbf{Sixth, defining years by weather instead of by yield gives a similar answer.} Classifying years by the July--August vapor-pressure deficit (VPD), a measure of atmospheric drought stress that is not itself an outcome, and building the VPD regime into the yield generator, reproduces the bad-year pattern: the continuous-corn probability is 8 to 19 points higher in high-VPD years than in low-VPD years in six states and about the same in Minnesota and South Dakota. The effect is concentrated in the high-VPD tercile, and letting the residual distribution depend on the regime changes the regime probabilities by at most 3 points.
 
-The paper is organized as follows. Section~\ref{sec:framework} defines the breakeven probability and the channels through which rotation affects it. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} sets out the simulation framework: the yield generator, the price-yield dependence, the revenue-cost mechanism, and the year-type and Shapley decompositions. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
+The paper is organized as follows. Section~\ref{sec:theory} sets out the farmer's problem and four propositions about how rotation changes the breakeven probability. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} sets out the simulation framework: the yield generator, the price-yield dependence, the revenue-cost mechanism, and the year-type and Shapley decompositions. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
 
-\section{\label{sec:framework}Framework}
+\section{\label{sec:theory}Theoretical framework}
 
-\subsection{Breakeven probability}
+This section sets out the farmer's decision problem, which gives the breakeven probability its content, and four propositions about how rotation changes it. The model is deliberately spare. It shows that a farmer who cares about shortfalls, and not only expected net return, ranks rotation plans by their breakeven probability, and that the simulation in Section~\ref{sec:simulation} evaluates that objective. Each proposition comes with a check against the estimated generators.
 
-A field in state $s$ and zone $z$ follows a six-year plan $\pi = (c_1,\dots,c_6)$ with $c_t\in\{C,S\}$ for corn and soybeans. In year $t$ it earns revenue $R_t = P_t Y_t$, where $P_t$ is the harvest price of crop $c_t$ and $Y_t$ its yield, and incurs cost $K_t$, the state's total non-land cost of producing $c_t$. Year $t$ is a shortfall, or a failure to break even, if $R_t < K_t$. The probability of a shortfall is the object of interest. We report, for each state-zone-plan cell:
+\subsection{\label{subsec:setup}Setup}
+
+Consider a farmer in state $s$ and zone $z$ who chooses a rotation plan $r$ at the start of a $T$-period horizon, with $T=6$. A plan is a deterministic sequence of crop choices $r = (c_1, c_2, \ldots, c_T)$, where $c_t \in \{\text{corn}, \text{soy}\}$. The farmer commits to the plan ex ante, an assumption that abstracts from adjusting the plan within the horizon and from any cost of switching crops. Let $\mathcal{R}$ denote the finite set of feasible plans; the three plans analyzed here (CCCCCC, CCSCCS, CSCSCS) are elements of $\mathcal{R}$, each run from a history equal to the plan.
+
+\subsection{\label{subsec:constraint}The breakeven constraint}
+
+In year $t$ the plan earns revenue $R_t(r) = P_t\,Y_t(r, h_t)$, where $P_t$ is the harvest price of crop $c_t$ and $Y_t(r,h_t)$ is drawn from the rotation-conditioned yield distribution $F_{Y\mid h_t,c,s,z}$ for the six-year crop window $h_t$ ending in $t$ (Section~\ref{subsec:generator}). It incurs the cost
+\begin{equation}
+K_t(r) = \bar K_{s,c_t}\,\varepsilon_t + \delta_{c_t}\,\mathbf 1\{c_t = c_{t-1}\},
+\end{equation}
+where $\bar K_{s,c}$ is the state's total non-land cost of producing crop $c$, $\varepsilon_t$ is a lognormal shock with unit mean, and $\delta_c$ is the extra cost of planting a crop after itself. Net return is $N_t(r) = R_t(r) - K_t(r)$, and year $t$ is a shortfall, or a failure to break even, if $N_t(r)<0$. We write $S_t(r) = \mathbf 1\{N_t(r)<0\}$. The object of interest is the breakeven probability $p_t(r) = \Pr[N_t(r)<0]$. We report, for each state-zone-plan cell:
 \begin{itemize}
-\item the annual breakeven probability $\bar p = \frac16\sum_t \Pr(R_t<K_t)$, and its value conditional on the type of year (bad, normal, good), on the calendar year, and on the position in the path;
-\item the six-year cumulative probability $\Pr\big(\sum_t (R_t-K_t) < 0\big)$;
-\item the mean net return $E[R_t-K_t]$, and the Shapley shares of its variance.
+\item the annual breakeven probability $\bar p(r) = \frac1T\sum_t p_t(r)$, and its value conditional on the type of year (bad, normal, good), on the calendar year, and on the position in the path;
+\item the cumulative probability $\Pr\big(\sum_t N_t(r) < 0\big)$ over the horizon;
+\item the mean net return $E[N_t(r)]$, and the Shapley shares of its variance.
 \end{itemize}
-The probability of at least one shortfall in six years is above 90 percent in every cell and is not informative.
+The probability of at least one shortfall in $T$ years is above 90 percent in every cell and is not informative.
 
-\subsection{Mechanism}
+Unlike the operating-credit version of this project, there is no loan and no balance carried forward. The only link between years is the crop window that defines the yield state; given the plan, margins are independent across years because the calendar year, the price, and the cost are drawn independently each year. Rotation then enters through two channels. The first is \emph{yield}: the window conditions the yield draw, so the plan changes the mean and dispersion of $Y_t$ in each year. The second is \emph{composition together with the same-crop penalty}: soybeans and corn have different revenue and cost levels, so replacing corn years with soybean years changes the mix of margins even with yields held fixed, and corn after corn pays $\delta_C$ more. The simulation reports the combined effect of the plan; we do not separate the two channels here.
 
-Rotation enters through two channels on the path from the plan to $\Pr(R<K)$. The first is yield: the six-year crop window conditions the yield draw, so the plan changes the mean and dispersion of $Y_t$ in each year. The second is crop composition together with the same-crop cost penalty. Soybeans and corn have different revenue and cost levels, so replacing corn years with soybean years changes the mix of margins even with yields held fixed. The simulation reports the combined effect of the plan; we do not separate the two channels here. Section~\ref{sec:simulation} describes how both channels enter the simulation.
+\subsection{\label{subsec:farmer_problem}Farmer's problem}
+
+The farmer's preferences over wealth are represented by a von Neumann-Morgenstern utility function $u(\cdot)$ with $u' > 0$ and $u'' < 0$. Define cumulative net return over the horizon as
+\begin{equation}
+W_T(r) = \sum_{t=1}^{T} \delta^{t-1} N_t(r),
+\end{equation}
+where $\delta$ is a discount factor. The farmer chooses the plan to maximize expected utility net of the shadow cost of shortfalls:
+\begin{equation}
+r^{*} = \arg\max_{r \in \mathcal{R}}\;\mathbb{E}\!\left[u\!\bigl(W_T(r)\bigr)\;-\;\lambda \sum_{t=1}^{T} \delta^{t-1}\,S_t(r)\right],
+\end{equation}
+where $\lambda \geq 0$ is the shadow cost of a year in which crop revenue does not cover operating cost, capturing the liquidity cost of covering the gap from savings, off-farm income, or outside credit beyond the direct loss. It is the one-year building block of the shadow cost of delinquency in the credit version of this project. Because $\mathcal{R}$ is finite and discrete, the problem does not admit classical first-order conditions; the solution compares the objective across plans, which is what the simulation computes.
+
+\subsection{\label{subsec:propositions}Propositions}
+
+\subsubsection{\label{subsubsec:proposition_1}Dominance at the breakeven yield}
+
+Consider the first year of the horizon with the harvest price fixed at its mean $\bar P$ and write $F_{CS}$ and $F_{CC}$ for the yield distributions of corn after soybeans in a strict alternation and of continuous corn. The shortfall thresholds are $\bar y_{CS} = \bar K/\bar P$ and $\bar y_{CC} = (\bar K+\delta_C)/\bar P\ge\bar y_{CS}$, the yields at which revenue exactly covers cost. Full first-order dominance of $F_{CS}$ over $F_{CC}$ is too strong and almost certainly false at the upper tail. Two weaker conditions do the work. The first, \textbf{breakeven dominance}, concerns shortfalls:
+\begin{equation}
+F_{CS}(\bar y_{CS})\;\le\;F_{CC}(\bar y_{CC}). \tag{BD}
+\end{equation}
+The second concerns utility: rotation yields must second-order stochastically dominate continuous-corn yields. Given a single crossing of the two CDFs, with $F_{CS}$ below $F_{CC}$ before the crossing and above it afterward, this follows from the condition that rotation does not lower mean yield, $\mathbb{E}[Y_{CS}] \ge \mathbb{E}[Y_{CC}]$ (Theorem~3 of \citealt{Hanoch1969}; see also \citealt{Rothschild1970} for the equal-mean case). The mean condition is what \citet{Bullock1992} and \citet{Seifert2017} document in field experiments and satellite data. In the lower-tail version of the condition that applies to a credit constraint, the threshold lies far below the mean yield; here it lies near the center of the distribution (Table~\ref{tab:th_ltd}), so (BD) is a statement about the middle of the yield distribution.
+
+\begin{theorem}[Breakeven dominance and the rotation utility premium]
+\label{prop:ltd}
+Suppose the yield CDFs cross at most once, from below, with $\mathbb{E}[Y_{CS}] \ge \mathbb{E}[Y_{CC}]$, and suppose (BD) holds. Then for any $\lambda \ge 0$ and any increasing concave $u$,
+\begin{equation}
+\mathbb{E}\left[u\bigl(W_1(CS)\bigr) - \lambda S_1(CS)\right]\,\ge\,\mathbb{E}\left[u\bigl(W_1(CC)\bigr) - \lambda S_1(CC)\right].
+\end{equation}
+\end{theorem}
+
+\begin{remark}
+The inequality is strict when $\lambda > 0$ and (BD) holds strictly.
+\end{remark}
+
+\begin{proof}
+With the price and cost fixed, $W_1(r)=\bar P Y-\bar K-\delta_C\mathbf 1\{r=CC\}$ is increasing and affine in $Y$, and $S_1(r)=\mathbf 1\{Y<\bar y_r\}$. The single crossing and the mean condition imply $\int_{-\infty}^{y}[F_{CC}(x)-F_{CS}(x)]\,dx\ge0$ for every $y$: the integrand is nonnegative up to the crossing point, and afterward the running integral can only fall toward its limit $\mathbb{E}[Y_{CS}]-\mathbb{E}[Y_{CC}]\ge0$. This is second-order stochastic dominance of $Y_{CS}$ over $Y_{CC}$, so $\mathbb{E}[u(\bar PY_{CS}-\bar K)]\ge\mathbb{E}[u(\bar PY_{CC}-\bar K)]$ for every increasing concave $u$, and subtracting $\delta_C\ge0$ from the continuous-corn wealth only widens the gap. The shortfall terms are $\lambda F_{CS}(\bar y_{CS})$ and $\lambda F_{CC}(\bar y_{CC})$, and by (BD) the first is weakly smaller. Both components are weakly larger under CS.
+\end{proof}
+
+\textbf{Check against the generators.} Table~\ref{tab:th_ltd} compares the estimated yield distributions, including the year shock and the field residual, for corn after soybeans in an alternation and for continuous corn. The conditions are not satisfied uniformly. The mean-yield condition holds in Minnesota, Ohio, South Dakota, and Wisconsin (by 0.6 to 5.1 bu/ac) and fails in Iowa, Illinois, Indiana, and Missouri (by 0.2 to 3.8 bu/ac). Without the same-crop cost penalty, the shortfall probability at the breakeven yield is lower for corn after soybeans in Minnesota, Ohio, and Wisconsin (by 5.7, 7.3, and 9.1 points) and indistinguishable in Iowa, Illinois, Indiana, and South Dakota (within 1 point), and higher in Missouri (by 5.5 points). With the penalty, which raises the continuous-corn threshold, $F_{CC}(\bar y_{CC})$ exceeds $F_{CS}(\bar y_{CS})$ in seven of the eight states and is within 0.2 points of it in Missouri. So (BD) holds, in the sense of the proposition, only because corn after corn costs more, in Iowa, Illinois, Indiana, and South Dakota, and the yield benefit alone carries it in Minnesota, Ohio, and Wisconsin. The full set of conditions, (BD) together with the mean condition, therefore holds in Minnesota, Ohio, South Dakota (marginally, and only through the cost penalty), and Wisconsin, and fails in Iowa, Illinois, Indiana, and Missouri, where mean yield after soybeans is no higher than under continuous corn. This is the same message as the simulation: most of the rotation advantage works through the margin in each year, which is the subject of Proposition~\ref{prop:path}.
+
+\begin{table}[H]
+\centering
+\caption{Check of the conditions of Proposition~\ref{prop:ltd}, medium NCCPI zone. Breakeven yield $\bar y=\bar K/\bar P$ (bu/ac); $F_{CC}$ and $F_{CS}$ are the percent of simulated corn yields below $\bar y$ under continuous corn and corn after soybeans in an alternation; the fifth column is the difference in mean yield (bu/ac); the last is $F_{CC}$ at the threshold $(\bar K+\delta_C)/\bar P$.}
+\label{tab:th_ltd}
+\input{tables/th_ltd.tex}
+\end{table}
+
+\subsubsection{\label{subsubsec:proposition_2}Rotation lowers the breakeven probability in every year}
+
+Proposition~\ref{prop:ltd} establishes the first-year result for corn. Proposition~\ref{prop:path} extends the comparison to every year of the path and to soybean years, working through the margin and not the yield.
+
+\begin{theorem}[Rotation lowers the breakeven probability in every year]
+\label{prop:path}
+Suppose margins are independent across years and that, in every year $t$, $N_t(CS)$ first-order stochastically dominates $N_t(CC)$. Then $p_t(CS)\le p_t(CC)$ for every $t$; the cumulative net return $\sum_t N_t(CS)$ first-order dominates $\sum_t N_t(CC)$, so $\Pr[\sum_t N_t(CS)<0]\le\Pr[\sum_t N_t(CC)<0]$; and the probability of at least one shortfall is no larger under rotation.
+\end{theorem}
+
+\begin{proof}
+Couple the two plans year by year through the quantile transform so that $N_t(CS)\ge N_t(CC)$ almost surely in every year, with independence across years preserved. Then $\{N_t(CS)<0\}\subseteq\{N_t(CC)<0\}$ for each $t$, which gives the first claim; the sums satisfy $\sum_tN_t(CS)\ge\sum_tN_t(CC)$ almost surely, which gives the second; and the union of shortfall events over $t$ is nested in the same way, which gives the third.
+\end{proof}
+
+The margin condition is an assumption about the data-generating process, not a consequence of the model. In a plan's soybean years it says that the soybean margin beats the corn margin in distribution, which the lower soybean cost and the higher soybean margin relative to cost help deliver; in its corn years it says that corn after soybeans does at least as well as corn after corn, in distribution of margin and not of yield alone. In contrast with the credit version, nothing carries over: there is no debt reset, and the proposition is a statement about each year separately. We do not test the margin condition directly, but its implication holds in the simulation. Across the eight states and three zones, the breakeven probability under strict alternation is no larger than under continuous corn in 141 of the 144 state-zone-year cases, and the three exceptions are at most 0.3 points, within Monte Carlo error. For the corn-corn-soybean rotation it holds in 134 of 144 cases, and the ten exceptions reach 1.4 points, which exceeds Monte Carlo error; the largest are in the second consecutive corn year in South Dakota and Missouri. The corn-corn-soybean rotation therefore satisfies the condition approximately and not uniformly.
+
+\subsubsection{\label{subsubsec:proposition_3}Where the margin sits relative to zero}
+
+The propositions above sign the effect of rotation. The next one explains its size, which the simulation shows to vary by a factor of three across states.
+
+\begin{theorem}[Rotation's gain is largest where the margin crosses zero]
+\label{prop:margin}
+Let net return under continuous corn be $N=\mu+\sigma Z$, where $Z$ has a symmetric unimodal density, and suppose rotation raises the mean margin by $\Delta>0$ without changing $\sigma$. The fall in the breakeven probability is
+\begin{equation}
+p(\mu)-p(\mu+\Delta)=\Pr\!\Big[-\tfrac{\mu+\Delta}{\sigma}\le Z<-\tfrac{\mu}{\sigma}\Big],
+\end{equation}
+the probability mass of an interval of length $\Delta/\sigma$ centered at $-(\mu+\Delta/2)/\sigma$. It is maximal at $\mu=-\Delta/2$, where the interval is centered at zero, and it is decreasing in $|\mu+\Delta/2|$.
+\end{theorem}
+
+\begin{proof}
+The expression follows from $p(\mu)=\Pr[Z<-\mu/\sigma]$. For a symmetric unimodal density, an interval of fixed length carries the most mass when it is centered at the mode and less as its center moves away (Anderson's inequality in one dimension).
+\end{proof}
+
+The expected-return benefit of rotation therefore translates into a large fall in the breakeven probability when the plan's margins straddle the breakeven line, and into a small one when both are far from it. Table~\ref{tab:th_margin} reports the mean margin under each plan. The largest falls, 21.6 points in Indiana and 23.4 in Ohio, occur where rotation raises the margin by \$81 per acre across zero, from $-\$62$ to $+\$19$ and from $-\$31$ to $+\$50$. The smallest, 7.3 points in South Dakota, occurs where a \$44 gain stays far in the lower tail, from $-\$86$ to $-\$42$. The match is qualitative. The proposition assumes one distribution with common dispersion, whereas the simulated margins mix corn and soybean years of different dispersion, so Iowa and Illinois show falls of 10 to 12 points on gains of \$27 to \$30 that lie entirely above zero.
+
+\begin{table}[H]
+\centering
+\caption{Mean net return (\$ per acre per year) under continuous corn and strict alternation, the gain from rotation, and the fall in the annual breakeven probability, medium NCCPI zone.}
+\label{tab:th_margin}
+\input{tables/th_margin.tex}
+\end{table}
+
+\subsubsection{\label{subsubsec:proposition_4}Good years, bad years, and the natural hedge}
+
+The last proposition concerns the type of year. Let the yield be $Y=\mu+\sigma_A z+\epsilon$, with $z\sim N(0,1)$ the year shock and $\epsilon$ an idiosyncratic residual independent of $z$ with mean zero, and let the log price be $\log P=\log\bar P-\tfrac12\sigma_P^2+\sigma_P\big(\rho z+\sqrt{1-\rho^2}\,\eta\big)$ with $\eta\sim N(0,1)$ independent. A bad year is a low $z$.
+
+\begin{theorem}[The natural hedge can reverse the bad-year ordering]
+\label{prop:hedge}
+Conditional on the year shock, expected revenue is $E[R\mid z]=\bar P\exp(\rho\sigma_Pz-\tfrac12\rho^2\sigma_P^2)\,(\mu+\sigma_Az)$, and
+\begin{equation}
+\frac{d}{dz}\log E[R\mid z]\Big|_{z=0}=\rho\,\sigma_P+\frac{\sigma_A}{\mu}.
+\end{equation}
+When $\rho<0$, expected revenue is lower in bad years than in good years at $z=0$ if and only if $\sigma_A/\mu>|\rho|\,\sigma_P$: the yield elasticity of the year shock exceeds the price hedge. If $\sigma_A/\mu<|\rho|\,\sigma_P$, expected revenue is higher in bad years than in good years, and if the two are equal it is locally flat.
+\end{theorem}
+
+\begin{proof}
+Given $z$, $E[P\mid z]=\bar P\exp(\rho\sigma_Pz-\tfrac12\rho^2\sigma_P^2)$ and $E[Y\mid z]=\mu+\sigma_Az$, and $\eta$ and $\epsilon$ are independent of each other and of $z$, so $E[R\mid z]=E[P\mid z]\,E[Y\mid z]$. Differentiating the logarithm at $z=0$ gives the displayed expression.
+\end{proof}
+
+The breakeven probability depends on dispersion as well as on the conditional mean, so the proposition signs only the first channel. It is the right diagnostic for the pattern in the simulation, in which bad years are no worse than good years in Minnesota and South Dakota. Table~\ref{tab:th_hedge} compares the two terms in the estimated generators, with $\sigma_A$ the standard deviation of the estimated year effects and $\mu$ the mean yield. For corn, the yield elasticity exceeds the hedge by 0.06 to 0.13 in Iowa, Illinois, Indiana, Missouri, Ohio, and Wisconsin, where the continuous-corn bad-year penalty is 14 to 30 points, and the net slope is $-0.018$ in Minnesota and $0.011$ in South Dakota, where the penalty is $-4$ and $-1$ points. Ordering states by the net slope reproduces their ordering by the bad-year penalty except for two adjacent swaps (rank correlation 0.95). Wisconsin has no corn hedge at all ($\rho=+0.06$) and the largest penalty among the eight states.
+
+\begin{table}[H]
+\centering
+\caption{Check of Proposition~\ref{prop:hedge}, medium NCCPI zone. $\sigma_A/\mu$ is the standard deviation of the estimated year effects divided by the mean yield; $|\rho|\sigma_P$ is the price hedge; Net is $\sigma_A/\mu-|\rho|\sigma_P$ for corn (Wisconsin has $\rho>0$). The last column is the continuous-corn breakeven probability in bad years minus that in good years, in percentage points.}
+\label{tab:th_hedge}
+\input{tables/th_hedge.tex}
+\end{table}
+
+Taken together, the propositions imply that rotation lowers the breakeven probability in every year, raises expected utility in the first year when its yield conditions hold, and does so by an amount that depends on where the margin sits relative to zero; that the benefit is similar in good and bad years; and that a strong natural hedge can remove the penalty that bad years would otherwise carry. A farmer who weights shortfalls more heavily (a higher effective $\lambda$: thinner liquidity, lower off-farm income, or weaker access to outside credit) gains more from rotation, a testable implication that we do not pursue here.
+
+\subsection{\label{relation_sim}Relation to the simulation}
+
+The simulation evaluates the breakeven probability across three fixed rotation plans, treating $\lambda$ and $u$ as implicit. It does not solve for $r^*$ or estimate structural preference parameters. Under the stated conditions, Proposition~\ref{prop:ltd} says that rotation raises first-year expected utility net of the shortfall penalty for any $\lambda\ge0$ and any increasing concave $u$, and Proposition~\ref{prop:path} says that it lowers the breakeven probability and the cumulative probability in every year. Propositions~\ref{prop:margin} and~\ref{prop:hedge} explain the size of the effect and its pattern across years. The simulation measures the size of the reduction, in each state and zone, over the six-year horizon and by type of year.
 
 \section{\label{sec:data}Data and calibration}
 
@@ -268,7 +399,7 @@ This is a different object from the sawtooth in per-year delinquency probabiliti
 \input{tables/by_main.tex}
 \end{table}
 
-Averaging over year types, the annual probability is 49.6 percent in Illinois to 69.7 percent in South Dakota under continuous corn and 35.6 percent in Ohio to 62.4 percent in South Dakota under strict alternation (Table~\ref{tab:main}). The six-year cumulative probability of a negative net return falls from 43 to 85 percent under continuous corn to 23 to 75 percent under strict alternation, a drop of 10 points in South Dakota, 16 to 21 points in Iowa, Illinois, Minnesota, Missouri, and Wisconsin, and 38 and 43 points in Indiana and Ohio. The ordering of states follows the position of each state's mean margin. Continuous corn earns a positive mean margin in Iowa and Illinois, a mildly negative one in Minnesota, Missouri, and Ohio, and a strongly negative one in Indiana, Wisconsin, and South Dakota. In Indiana and Ohio, strict alternation lifts the mean margin to positive values, so the rotation moves most of the distribution across the breakeven line. In South Dakota both plans lose on average, and the rotation narrows the shortfall without removing it.
+Averaging over year types, the annual probability is 49.6 percent in Illinois to 69.7 percent in South Dakota under continuous corn and 35.6 percent in Ohio to 62.4 percent in South Dakota under strict alternation (Table~\ref{tab:main}). The six-year cumulative probability of a negative net return falls from 43 to 85 percent under continuous corn to 23 to 75 percent under strict alternation, a drop of 10 points in South Dakota, 16 to 21 points in Iowa, Illinois, Minnesota, Missouri, and Wisconsin, and 38 and 43 points in Indiana and Ohio. The ordering of states follows the position of each state's mean margin (Table~\ref{tab:th_margin} and Proposition~\ref{prop:margin}). Continuous corn earns a positive mean margin in Iowa and Illinois, a mildly negative one in Minnesota, Missouri, and Ohio, and a strongly negative one in Indiana, Wisconsin, and South Dakota. In Indiana and Ohio, strict alternation lifts the mean margin to positive values, so the rotation moves most of the distribution across the breakeven line. In South Dakota both plans lose on average, and the rotation narrows the shortfall without removing it.
 
 \subsection{Price, yield, and cost risk}
 
