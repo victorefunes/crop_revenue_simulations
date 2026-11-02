@@ -1,7 +1,7 @@
 # VPD regimes by state and calendar year, and how well the VPD index explains the estimated yield year effects.
-# Index: mean over fields of the July-August maximum vapor-pressure deficit (vpdmax_7, vpdmax_8; suffix = calendar month),
-# averaged over the corn and soybean panels. Regimes are terciles of the index across the state's calendar years
-# (low / mid / high VPD; k = round(J/3) years in each tail, same rule as weather_types()).
+# Index: mean over fields of the July maximum vapor-pressure deficit (vpdmax_7, kPa), averaged over the corn and soybean
+# panels. Regimes use the fixed bins of Pizzo (2025, Chapter 1 and Appendix C): below 1.9 kPa (19 hPa) "normal" (stored as
+# low), 1.9 to 2.1 "somewhat dry" (mid), above 2.1 "dry" (high).
 # Reads the v2 generators only for their year effects. Run from simulation_code/.
 # Writes results/vpd_regimes.csv and results/vpd_year_effect_fit.csv.
 suppressPackageStartupMessages({ library(data.table); library(arrow) })
@@ -15,7 +15,7 @@ gens <- readRDS(file.path(CACHE_DIR, "state_generators.rds"))
 state_year_vpd <- function(path) {
   cols <- intersect(c("year", "vpdmax_7", "vpdmax_8", "vpd_7", "vpd_8"), names(open_dataset(path)$schema))
   d <- as.data.table(read_parquet(path, col_select = all_of(cols)))
-  d[, idx := rowMeans(cbind(vpdmax_7, vpdmax_8), na.rm = TRUE)]
+  d[, idx := vpdmax_7]
   d[, idx_mean := if (all(c("vpd_7", "vpd_8") %in% names(d))) rowMeans(cbind(vpd_7, vpd_8), na.rm = TRUE) else NA_real_]
   d[, .(idx = mean(idx, na.rm = TRUE), idx_mean = mean(idx_mean, na.rm = TRUE)), by = year]
 }
@@ -29,8 +29,8 @@ for (st in STATES) {
   wt <- weather_types(gens$corn[[st]][["medium"]]$year_fe, gens$soy[[st]][["medium"]]$year_fe)
   y <- data.table(year = wt$years, ce = wt$ce, se = wt$se, w = wt$w, type = wt$type)
   m <- merge(v[, .(year, idx, idx_mean)], y, by = "year")
-  J <- nrow(m); k <- round(J / 3); r <- rank(m$idx, ties.method = "first")
-  m[, regime := ifelse(r <= k, "low", ifelse(r > J - k, "high", "mid"))]
+  J <- nrow(m)
+  m[, regime := ifelse(idx < 1.9, "low", ifelse(idx <= 2.1, "mid", "high"))]   # Pizzo (2025) bins: <19, 19-21, >21 hPa
   m[, state := st]
   out[[st]] <- m
   fit[[st]] <- data.table(state = st, years = J,

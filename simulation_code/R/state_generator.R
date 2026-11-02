@@ -58,15 +58,17 @@ assign_nccpi_zones <- function(corn_dt, soy_dt) {
   list(corn = corn_dt, soy = soy_dt, cuts = cuts)
 }
 
-# VPD regimes by calendar year for one state: terciles of the July-August maximum VPD (vpdmax_7, vpdmax_8), the
-# field-mean index averaged over the corn and soybean panels. Returns data.table(year, idx, regime) with regime in
-# low / mid / high; k = round(J/3) years in each tail.
-vpd_regime_table <- function(corn_dt, soy_dt) {
-  yr <- function(d) d[, .(idx = mean(rowMeans(cbind(vpdmax_7, vpdmax_8), na.rm = TRUE), na.rm = TRUE)), by = year]
+# VPD regimes by calendar year for one state, with the fixed bins of Pizzo (2025, Chapter 1, Appendix C), calibrated to
+# Illinois from Xu et al. (2021): July maximum VPD (vpdmax_7) below 19 hPa = "normal" (stored as low), 19 to 21 hPa =
+# "somewhat dry" (mid), above 21 hPa = "dry" (high). The panel stores VPD in kPa, so the cut-points are 1.9 and 2.1.
+# The index is the field-mean vpdmax_7 of the calendar year, averaged over the corn and soybean panels.
+# Returns data.table(year, idx, regime) with regime in low / mid / high.
+VPD_CUTS_KPA <- c(1.9, 2.1)
+vpd_regime_table <- function(corn_dt, soy_dt, cuts = VPD_CUTS_KPA) {
+  yr <- function(d) d[, .(idx = mean(vpdmax_7, na.rm = TRUE)), by = year]
   v <- merge(yr(corn_dt), yr(soy_dt), by = "year", suffixes = c("_c", "_s"))
   v[, idx := (idx_c + idx_s) / 2]
-  J <- nrow(v); k <- round(J / 3); r <- rank(v$idx, ties.method = "first")
-  v[, regime := ifelse(r <= k, "low", ifelse(r > J - k, "high", "mid"))]
+  v[, regime := ifelse(idx < cuts[1], "low", ifelse(idx <= cuts[2], "mid", "high"))]
   v[, .(year, idx, regime)]
 }
 

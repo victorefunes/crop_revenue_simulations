@@ -127,20 +127,20 @@ write_tab(sapply(sto, function(s) { a <- sh[state == s & zone == "medium" & plan
 vpd_file <- file.path("results", "breakeven_vpd", "breakeven_by_vpd.csv")
 if (file.exists(vpd_file)) {
   vv <- fread(vpd_file)[zone == "medium" & variant == "pools"]
-  vv[, regime := factor(regime, c("low", "mid", "high"))]; vv[, state := factor(state, sto)]
+  vv[, regime := factor(regime, c("low", "mid", "high"), c("Normal", "Somewhat dry", "Dry"))]; vv[, state := factor(state, sto)]
   p6 <- ggplot(vv, aes(regime, p_loss, colour = plan, group = plan, shape = plan)) +
     geom_line(linewidth = 0.5) + geom_point(size = 2) + facet_wrap(~state, nrow = 2) +
     scale_colour_manual(values = cols, labels = plan_lab, name = NULL) + scale_shape_discrete(labels = plan_lab, name = NULL) +
     scale_y_continuous(limits = c(0, 0.9), labels = scales::percent) +
-    labs(x = "VPD regime (tercile of July-August maximum VPD)", y = "Pr(revenue < cost) in a year of that regime") + th
+    labs(x = "VPD regime (July maximum VPD: below 19, 19 to 21, above 21 hPa)", y = "Pr(revenue < cost) in a year of that regime") + th
   sv(p6, "be_vpd_regimes", 8.5, 5)
-  gv <- function(s, pl, r) vv[state == s & plan == pl & regime == r]$p_loss
+  gv <- function(s, pl, r) vv[state == s & plan == pl & regime == c(low = "Normal", mid = "Somewhat dry", high = "Dry")[[r]]]$p_loss
   write_tab(sapply(sto, function(s)
     sprintf("%s & %s \\\\", s, paste(c(f1(100 * gv(s, "CCCCCC", "low")), f1(100 * gv(s, "CCCCCC", "mid")), f1(100 * gv(s, "CCCCCC", "high")),
       f1(100 * gv(s, "CSCSCS", "low")), f1(100 * gv(s, "CSCSCS", "mid")), f1(100 * gv(s, "CSCSCS", "high")),
       f1(100 * (gv(s, "CSCSCS", "low") - gv(s, "CCCCCC", "low"))), f1(100 * (gv(s, "CSCSCS", "high") - gv(s, "CCCCCC", "high")))), collapse = " & "))),
     "lcccccccc", c("& \\multicolumn{3}{c}{Continuous corn} & \\multicolumn{3}{c}{Strict alternation} & \\multicolumn{2}{c}{Gap (pp)}\\\\",
-    "\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\\cmidrule(lr){8-9}", "State & Low & Mid & High & Low & Mid & High & Low VPD & High VPD\\\\"),
+    "\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\\cmidrule(lr){8-9}", "State & Normal & Somewhat dry & Dry & Normal & Somewhat dry & Dry & Normal & Dry\\\\"),
     file.path(TAB_DIR, "by_vpd.tex"))
 }
 
