@@ -25,7 +25,11 @@ weather_types <- function(corn_fe, soy_fe) {
 
 simulate_breakeven <- function(corn_gen, soy_gen, plan, price_par, cost_par, rho_c, rho_s,
                                B = 50000L, seed = 1L, same_crop_penalty = c(C = 15, S = 5),
-                               fix_price = FALSE, fix_yield = FALSE, fix_cost = FALSE, wt = NULL) {
+                               fix_price = FALSE, fix_yield = FALSE, fix_cost = FALSE, wt = NULL,
+                               regime_years = NULL, vpd_pools = FALSE) {
+  # regime_years: character vector aligned with wt$years giving each calendar year's VPD regime (optional).
+  # vpd_pools: draw the field residual from the pool for (window, VPD regime of the drawn year) instead of the
+  # window's pooled residuals; needs generators built with regime_tab (gen$pools_vpd).
   set.seed(seed)
   if (is.null(wt)) wt <- weather_types(corn_gen$year_fe, soy_gen$year_fe)
   J  <- length(wt$years)
@@ -33,6 +37,7 @@ simulate_breakeven <- function(corn_gen, soy_gen, plan, price_par, cost_par, rho
   path <- make_transition_path(plan, plan)               # steady state: history equals the plan
   prev <- c(ch[6], ch[1:5]); pen <- ifelse(ch == prev, same_crop_penalty[ch], 0)
   rev <- K <- Jm <- matrix(NA_real_, B, 6)
+  regm <- if (!is.null(regime_years)) matrix(NA_character_, B, 6) else NULL
   for (t in 1:6) {
     c_t <- ch[t]; gen <- if (c_t == "C") corn_gen else soy_gen
     pp <- price_par[[c_t]]; cp <- cost_par[[c_t]]; rho <- if (c_t == "C") rho_c else rho_s
@@ -40,7 +45,16 @@ simulate_breakeven <- function(corn_gen, soy_gen, plan, price_par, cost_par, rho
     j  <- sample.int(J, B, replace = TRUE)
     pool <- gen$pools[rot6 == path$window6[t], resid_pool][[1]]
     mu_s <- gen$mu[rot6 == path$window6[t], mu]
-    e   <- sample(pool, B, replace = TRUE)
+    reg_j <- if (!is.null(regime_years)) regime_years[j] else NULL
+    if (vpd_pools && !is.null(gen$pools_vpd) && !is.null(reg_j)) {
+      e <- numeric(B)
+      for (r in unique(reg_j[!is.na(reg_j)])) {
+        ii <- which(reg_j == r)
+        pr <- gen$pools_vpd[rot6 == path$window6[t] & regime == r, resid_pool]
+        e[ii] <- sample(if (length(pr)) pr[[1]] else pool, length(ii), replace = TRUE)
+      }
+      e[is.na(reg_j)] <- sample(pool, sum(is.na(reg_j)), replace = TRUE)
+    } else e <- sample(pool, B, replace = TRUE)
     eps <- rnorm(B); ec <- rnorm(B)
     Y <- if (fix_yield) rep(mu_s, B) else pmax(mu_s + (efe[j] - mean(efe)) + e, 0)
     za <- qnorm((rk[j] - 0.5) / J)
@@ -48,8 +62,9 @@ simulate_breakeven <- function(corn_gen, soy_gen, plan, price_par, cost_par, rho
     P  <- if (fix_price) rep(pp$Pbar, B) else exp(pp$mu + pp$sigma * zp)
     Kt <- if (fix_cost) rep(cp$Cbar, B) else cp$Cbar * exp(cp$sigma * ec - 0.5 * cp$sigma^2)
     rev[, t] <- P * Y; K[, t] <- Kt + pen[t]; Jm[, t] <- j
+    if (!is.null(regm)) regm[, t] <- reg_j
   }
-  list(rev = rev, cost = K, j = Jm, wt = wt, plan = plan)
+  list(rev = rev, cost = K, j = Jm, wt = wt, plan = plan, regime = regm)
 }
 
 # Shapley values of three uncertainty sources (price, yield, cost) for a scalar functional v(random = <names>)

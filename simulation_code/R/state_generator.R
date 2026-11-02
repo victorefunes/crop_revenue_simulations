@@ -37,7 +37,8 @@ read_state_panel <- function(path, crop = c("corn", "soy")) {
   crop <- match.arg(crop)
   y_col <- if (crop == "corn") "corn_yield" else "soy_yield"
   sch <- names(arrow::open_dataset(path)$schema)
-  keep <- c("tile", "field_id", "year", y_col, "nccpi3all_mean", sch[str_detect(sch, "^crop_\\d{4}$")])
+  keep <- c("tile", "field_id", "year", y_col, "nccpi3all_mean", intersect(c("vpdmax_7", "vpdmax_8"), sch),
+            sch[str_detect(sch, "^crop_\\d{4}$")])
   DT <- as.data.table(arrow::read_parquet(path, col_select = dplyr::all_of(keep)))
   DT[, (y_col) := get(y_col) * if (crop == "corn") KGHA_TO_BUAC_CORN else KGHA_TO_BUAC_SOY]
   DT[, field_uid := paste(tile, field_id, sep = ":")]
@@ -57,8 +58,24 @@ assign_nccpi_zones <- function(corn_dt, soy_dt) {
   list(corn = corn_dt, soy = soy_dt, cuts = cuts)
 }
 
+# VPD regimes by calendar year for one state: terciles of the July-August maximum VPD (vpdmax_7, vpdmax_8), the
+# field-mean index averaged over the corn and soybean panels. Returns data.table(year, idx, regime) with regime in
+# low / mid / high; k = round(J/3) years in each tail.
+vpd_regime_table <- function(corn_dt, soy_dt) {
+  yr <- function(d) d[, .(idx = mean(rowMeans(cbind(vpdmax_7, vpdmax_8), na.rm = TRUE), na.rm = TRUE)), by = year]
+  v <- merge(yr(corn_dt), yr(soy_dt), by = "year", suffixes = c("_c", "_s"))
+  v[, idx := (idx_c + idx_s) / 2]
+  J <- nrow(v); k <- round(J / 3); r <- rank(v$idx, ties.method = "first")
+  v[, regime := ifelse(r <= k, "low", ifelse(r > J - k, "high", "mid"))]
+  v[, .(year, idx, regime)]
+}
+
+# regime_tab (optional): data.table(year, regime). When given, the generator also stores residual pools by
+# (six-year window, VPD regime): pools_vpd. A (window, regime) cell with fewer than 200 observations falls back to the
+# window's pooled residuals. The window-by-regime residual mean is the rotation-by-VPD interaction that the common
+# year effect does not absorb.
 build_cell_generator <- function(DT, yield_col, terminal_crop, label,
-                                 seed = 1L, B_per_state = 20000L) {
+                                 seed = 1L, B_per_state = 20000L, regime_tab = NULL) {
   DT <- copy(DT)
   DT[, rot6 := make_rot6_full(DT)]
   DT_sub <- DT[!is.na(rot6) & substr(rot6, 6, 6) == terminal_crop]
@@ -86,6 +103,16 @@ build_cell_generator <- function(DT, yield_col, terminal_crop, label,
   # Fitted year effects (one per calendar year in the cell): the common weather/market shock that the
   # residual pool does not contain. Used by the year-shock simulator (run_breakeven_years.R).
   year_fe <- unique(data.table(year = DT_fy$year, fe = fe_year))[order(year)]
+  pools_vpd <- NULL
+  if (!is.null(regime_tab)) {
+    DT_use[, regime := regime_tab$regime[match(year, regime_tab$year)]]
+    pools_vpd <- DT_use[!is.na(regime), .(n = .N, resid_pool = list({
+      x <- resid[is.finite(resid)]
+      if (length(x) >= B_per_state) sample(x, B_per_state) else sample(x, B_per_state, replace = TRUE)
+    })), by = .(rot6, regime)]
+    thin <- which(pools_vpd$n < 200)
+    for (i in thin) pools_vpd$resid_pool[[i]] <- pools[rot6 == pools_vpd$rot6[i], resid_pool][[1]]
+  }
   list(yield_col = yield_col, terminal_crop = terminal_crop, geo_region = label,
-       mu = mu[, .(rot6, mu)], pools = pools[, .(rot6, n, resid_pool)], year_fe = year_fe)
+       mu = mu[, .(rot6, mu)], pools = pools[, .(rot6, n, resid_pool)], year_fe = year_fe, pools_vpd = pools_vpd)
 }
