@@ -83,6 +83,9 @@ build_cell_generator <- function(DT, yield_col, terminal_crop, label,
   mu <- DT_use[, .(mu = mean(fe_f) + ybar_year, n = .N), by = rot6]
   cat(sprintf("  %-22s field-years %7d | fields %6d | rotation states %2d\n",
               label, nrow(DT_fy), uniqueN(DT_fy$field_uid), nrow(mu)))
+  # Fitted year effects (one per calendar year in the cell): the common weather/market shock that the
+  # residual pool does not contain. Used by the year-shock simulator (run_breakeven_years.R).
+  year_fe <- unique(data.table(year = DT_fy$year, fe = fe_year))[order(year)]
   list(yield_col = yield_col, terminal_crop = terminal_crop, geo_region = label,
-       mu = mu[, .(rot6, mu)], pools = pools[, .(rot6, n, resid_pool)])
+       mu = mu[, .(rot6, mu)], pools = pools[, .(rot6, n, resid_pool)], year_fe = year_fe)
 }

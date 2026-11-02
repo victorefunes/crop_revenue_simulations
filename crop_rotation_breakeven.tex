@@ -19,7 +19,7 @@
 \renewcommand{\TPTnoteSettings}{\footnotesize\RaggedRight}
 \makeatother
 
-\title{Crop Rotation and the Probability of Covering Costs: A State-by-State Simulation for Eight Corn Belt States}
+\title{Crop Rotation and the Probability of Covering Costs in Good and Bad Years: A State-by-State Simulation for Eight Corn Belt States}
 
 \author{Victor Funes-Leal}
 \author{Lawson Connor}
@@ -34,10 +34,10 @@
 \maketitle
 
 \begin{abstract}
-Whether a rotation pays is usually answered with expected returns, but a producer facing thin margins also cares about how often revenue falls short of cost. This paper estimates that breakeven probability, $\Pr(\text{revenue} < \text{cost})$, for continuous corn, a corn-corn-soybean rotation, and strict corn-soybean alternation, separately for each of eight Corn Belt states (Iowa, Illinois, Indiana, Minnesota, Missouri, Ohio, South Dakota, and Wisconsin) and for three soil-productivity zones defined by terciles of the National Commodity Crop Productivity Index (NCCPI). Yields come from a field-level satellite panel and are drawn conditional on each field's six-year crop history; prices, costs, and the price-yield dependence are calibrated state by state. Against 2025 total non-land costs, the probability that a given year's revenue falls below cost is 49 to 69 percent under continuous corn and 35 to 62 percent under strict alternation (medium zone), so the margin is thin enough that breakeven risk, not expected profit, is the relevant yardstick. Strict alternation lowers the annual probability by 7 to 24 percentage points depending on the state, with the largest gains in Ohio and Indiana and the smallest in South Dakota. The six-year cumulative probability of a negative net return falls by 45 points in Ohio and 39 in Indiana, but by only 10 in South Dakota. Zone matters less than state: moving from the high to the low NCCPI tercile raises the annual probability by 2 to 18 points, and the rotation gap is similar in all three zones. Allowing for the negative price-yield correlation changes the annual probability by at most 1.5 points. The rotation advantage is large across states, but its size depends on where the state's mean margin sits relative to zero.
+Whether a rotation pays is usually answered with expected returns, but a producer facing thin margins also cares about how often revenue falls short of cost, and how that depends on the kind of year it turns out to be. This paper estimates the breakeven probability, $\Pr(\text{revenue} < \text{cost})$, for continuous corn, a corn-corn-soybean rotation, and strict corn-soybean alternation, separately for eight Corn Belt states (Iowa, Illinois, Indiana, Minnesota, Missouri, Ohio, South Dakota, and Wisconsin) and three soil-productivity zones defined by terciles of the National Commodity Crop Productivity Index (NCCPI). Yields combine rotation-conditioned field effects, the common year shock estimated from a field-level satellite panel, and field-level residuals; prices, costs, and the price-yield correlation are calibrated state by state, and years are classified as bad, normal, or good by a weather index built from the estimated year effects. Against 2025 total non-land costs, the annual breakeven probability under continuous corn is 50 to 70 percent. In bad years it is 57 to 84 percent, and in good years 40 to 73 percent. Strict alternation lowers the annual probability by 7 to 23 percentage points, but a bad year still leaves the probability at 47 to 67 percent under alternation. The bad-year penalty is 22 to 30 points in Iowa, Illinois, Missouri, Ohio, and Wisconsin, and it nearly disappears in Minnesota and South Dakota, where a strong negative price-yield correlation offsets the yield loss. A Shapley decomposition attributes 55 to 81 percent of the variance of net return to price, 6 to 34 percent to yield, and 11 to 17 percent to cost. Rotation lowers the breakeven probability in good and bad years alike; it does not insure against bad years.
 \end{abstract}
 
-\noindent\textbf{Keywords:} Crop rotation; Breakeven probability; Revenue risk; Corn Belt; Simulation
+\noindent\textbf{Keywords:} Crop rotation; Breakeven probability; Revenue risk; Weather shocks; Corn Belt; Shapley decomposition
 
 \noindent\textbf{JEL Codes:} Q12, Q14, D81
 
@@ -45,45 +45,51 @@ Whether a rotation pays is usually answered with expected returns, but a produce
 
 \section{\label{sec:introduction}Introduction}
 
-Row-crop margins are thin. Budget-based estimates for 2025 put total non-land cost near \$770 per acre for corn and \$435 to \$490 for soybeans across the Corn Belt, close to the revenue those crops earn at benchmark prices. When the mean margin is this near zero, the useful question about a rotation is not whether it raises expected profit by a few dollars, but how much it changes the chance that a season fails to cover cost. That chance, the breakeven probability, is the object this paper estimates.
+Row-crop margins are thin. Budget-based estimates for 2025 put total non-land cost near \$770 per acre for corn and \$435 to \$490 for soybeans across the Corn Belt, close to the revenue those crops earn at benchmark prices. When the mean margin is this near zero, the useful question about a rotation is not whether it raises expected profit by a few dollars, but how much it changes the chance that a season fails to cover cost, and whether that change is concentrated in the years a producer most worries about. That chance, the breakeven probability, is the object this paper estimates.
 
-The agronomic case for rotation is well documented. Corn after corn yields less than corn after soybeans \citep{Bullock1992, Seifert2017}, and diversified rotations reduce yield losses in dry years and compress the lower tail of the yield distribution \citep{Bowles2020, Smith2023}. Yet rotation simplification continues, concentrated on the most productive land \citep{socolar2021}. What has been missing is a statement of the rotation advantage in the units a producer, lender, or insurer reasons in: the probability of failing to cover cost, state by state, with the price and cost environment explicit. We provide the breakeven probability for eight states, each estimated on its own from the same kind of field-level panel and the same simulation, so that differences across states reflect the data and not a change in method.
+The agronomic case for rotation is well documented. Corn after corn yields less than corn after soybeans \citep{Bullock1992, Seifert2017}, and diversified rotations reduce yield losses in dry years and compress the lower tail of the yield distribution \citep{Bowles2020, Smith2023}. Yet rotation simplification continues, concentrated on the most productive land \citep{socolar2021}. What has been missing is a statement of the rotation advantage in the units a producer, lender, or insurer reasons in: the probability of failing to cover cost, state by state, in good years and in bad ones, with the price and cost environment explicit. We provide it for eight states, each estimated on its own from the same kind of field-level panel and the same simulation, so that differences across states reflect the data and not a change in method.
 
-We simulate six-year revenue and cost paths for each state and each of three NCCPI productivity zones. Yields are drawn nonparametrically from a generator that conditions on the field's full six-year crop history. Prices are lognormal with state means and volatilities calibrated from elevator cash prices; costs are state total non-land budget costs with a same-crop penalty; and the negative price-yield correlation enters through a decomposition that applies it only to the systematic component of yield. We compare continuous corn, a corn-corn-soybean rotation, and strict alternation.
+We simulate six-year revenue and cost paths for each state and each of three NCCPI productivity zones. A yield draw has three parts: a mean that depends on the field's full six-year crop history, a common year shock drawn from the year effects estimated for that state and zone, and a field-level residual. Prices are lognormal with state means and volatilities calibrated from elevator cash prices and are correlated with the year shock; costs are state total non-land budget costs with a same-crop penalty. We classify each calendar year as bad, normal, or good by a weather index built from the estimated year effects, and we report the breakeven probability conditional on the type of year. We compare continuous corn, a corn-corn-soybean rotation, and strict alternation, and we use a Shapley decomposition to attribute risk to price, yield, and cost.
 
-Four findings stand out.
+Five findings stand out.
 
-\textbf{First, breakeven risk is high everywhere.} With total non-land cost as the threshold, the annual probability that revenue falls short is 49 to 69 percent under continuous corn and 35 to 62 percent under strict alternation in the medium zone. The chance of at least one shortfall in six years is above 90 percent in every cell, which is why we report annual and cumulative probabilities and not the ``any shortfall'' event.
+\textbf{First, the probability of covering cost depends strongly on the kind of year, in most states.} Under continuous corn the probability that revenue falls short is 40 to 60 percent in good years in Iowa, Illinois, Indiana, Missouri, Ohio, and Wisconsin and 64 to 84 percent in bad years, a bad-year penalty of 14 to 30 points. Under strict alternation a bad year still leaves the probability at 47 to 67 percent.
 
-\textbf{Second, rotation lowers breakeven risk in every state, by very different amounts.} Strict alternation reduces the annual probability by 7 points in South Dakota, by 11 to 14 points in Iowa, Illinois, Minnesota, Missouri, and Wisconsin, and by 23 to 24 points in Indiana and Ohio. The gap tracks the position of the state's mean margin: where continuous corn loses money on average and the rotation recovers a positive margin, replacing corn years moves much of the distribution across the breakeven line.
+\textbf{Second, the exceptions are explained by price-yield dependence.} In Minnesota and South Dakota the probability is about the same in bad and good years. Without the negative price-yield correlation the bad-year probability for continuous corn in Minnesota would be 70 percent against 46 percent in good years; with it, the figures are 57 and 62 percent. The dependence barely moves the annual average (by at most 3.4 points) while reshaping the year-type profile by up to 15 points.
 
-\textbf{Third, zone matters less than state.} The NCCPI terciles shift the annual probability by 2 to 18 points from the high to the low zone, while the rotation gap is similar across zones within a state.
+\textbf{Third, rotation lowers the breakeven probability in good and bad years by similar amounts.} Strict alternation lowers the annual probability by 7 points in South Dakota, 10 to 13 points in Iowa, Illinois, Minnesota, Missouri, and Wisconsin, and 22 to 23 points in Indiana and Ohio. The reduction is larger in bad years in Iowa, Ohio, and Wisconsin and larger in good years elsewhere. Rotation shifts the whole schedule down; it is not a bad-year insurance.
 
-\textbf{Fourth, price-yield dependence is second order for this outcome.} Switching the negative price-yield correlation on changes the annual probability by at most 1.5 points in any state.
+\textbf{Fourth, price dominates risk.} A Shapley decomposition attributes 55 to 81 percent of the variance of net return to price, 6 to 34 percent to yield, and 11 to 17 percent to cost, and the shares barely change with the rotation.
 
-The paper is organized as follows. Section~\ref{sec:framework} defines the breakeven probability and the structural model. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} describes the simulation. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
+\textbf{Fifth, zone matters less than state.} Moving from the high to the low NCCPI tercile raises the annual probability under continuous corn by 1 to 17 points.
+
+The paper is organized as follows. Section~\ref{sec:framework} defines the breakeven probability, the year types, and the Shapley decomposition. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} describes the simulation. Section~\ref{sec:results} reports results. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
 
 \section{\label{sec:framework}Framework}
 
 \subsection{Breakeven probability}
 
-Let a field in state $s$ and zone $z$ follow a six-year plan $\pi = (c_1,\dots,c_6)$ with $c_t\in\{C,S\}$ for corn and soybeans, starting from a six-year history $h$. In year $t$ revenue is $R_t = P_t Y_t$, with price $P_t$ for crop $c_t$ and yield $Y_t$ drawn conditional on the six-year window of crops ending in $t$. Cost is $K_t = \bar K_{c_t}^{s}\,\varepsilon_t + \delta_{c_t}\mathbf 1\{c_t = c_{t-1}\}$, where $\bar K^{s}_{c}$ is the state's total non-land cost, $\varepsilon_t$ is a lognormal shock with unit mean, and $\delta_c$ is the extra cost of planting a crop after itself. Year $t$ is a shortfall if $R_t < K_t$. We report, for each state-zone-plan cell:
-\begin{itemize}
-\item the annual breakeven probability $\bar p = \frac16\sum_t \Pr(R_t<K_t)$;
-\item the six-year cumulative probability $\Pr\big(\sum_t (R_t-K_t) < 0\big)$;
-\item the mean annual net return $E[R_t-K_t]$.
-\end{itemize}
-We also record the probability of at least one shortfall in six years, but it is above 90 percent in every cell and is not informative.
+Let a field in state $s$ and zone $z$ follow a six-year plan $\pi = (c_1,\dots,c_6)$ with $c_t\in\{C,S\}$ for corn and soybeans, starting from a six-year history equal to the plan. In year $t$ revenue is $R_t = P_t Y_t$, with price $P_t$ for crop $c_t$ and yield
+\begin{equation}
+Y_t = \mu_{s,z}(h_t) + \big(a_{c_t,j_t} - \bar a_{c_t}\big) + \epsilon_t, \label{eq:yield}
+\end{equation}
+where $\mu_{s,z}(h_t)$ is the mean field effect for the six-year crop window $h_t$ ending in $t$, $a_{c,j}$ is the estimated year effect of calendar year $j$ for crop $c$ (centered by its mean $\bar a_c$ so that the year shock does not move the mean), $j_t$ is drawn uniformly from the calendar years in the sample, and $\epsilon_t$ is a field-level residual resampled from the estimated pool for the window $h_t$. The log price shock is $z^P_t = \rho_c\, z^A_t + \sqrt{1-\rho_c^2}\,\eta_t$, where $z^A_t$ is the normal score of the rank of $a_{c_t,j_t}$ among the sample years, $\rho_c$ is the state's price-yield correlation, and $\eta_t$ is standard normal; $P_t$ is lognormal with the state's mean and volatility. Cost is $K_t = \bar K_{c_t}^{s}\,\varepsilon_t + \delta_{c_t}\mathbf 1\{c_t = c_{t-1}\}$, where $\bar K^{s}_{c}$ is the state's total non-land cost, $\varepsilon_t$ is a lognormal shock with unit mean, and $\delta_c$ is the extra cost of planting a crop after itself. Year $t$ is a shortfall if $R_t < K_t$.
 
-\subsection{Mechanism}
+We report, for each state-zone-plan cell, the annual breakeven probability $\bar p = \frac16\sum_t \Pr(R_t<K_t)$, the six-year cumulative probability $\Pr\big(\sum_t (R_t-K_t) < 0\big)$, and the mean net return. The probability of at least one shortfall in six years is above 90 percent in every cell and is not informative.
 
-Rotation enters through two channels on the path from the plan to $\Pr(R<K)$. The first is yield: the six-year window conditions the yield draw, so the plan changes the mean and dispersion of $Y_t$ in each year. The second is crop composition together with the same-crop cost penalty. Soybeans and corn have different revenue and cost levels, so replacing corn years with soybean years changes the mix of margins even with yields held fixed. The simulation reports the combined effect of the plan; we do not separate the two channels here.
+\subsection{Good and bad years}
+
+For each state and zone we construct a weather index for each calendar year as the sum of the standardized corn and soybean year effects. Years in the lowest tercile of the index are bad, the highest tercile good, and the rest normal. The sample contains 12 to 15 calendar years per state, so each type contains four or five years; for Iowa the bad years are 2008 and 2010--2013. The conditional breakeven probability for a type is the share of simulated shortfall-years that fall in years of that type.
+
+\subsection{Shapley decomposition of risk}
+
+Net return $N_t = R_t - K_t$ is driven by three sources of uncertainty: the price shock, the yield shock (year effect and field residual), and the cost shock. Let $v(S)$ be a risk measure computed when only the sources in $S$ are random and the others are fixed at their means. The Shapley value of source $i$ is the average of $v(S\cup\{i\})-v(S)$ over all orderings of the three sources, so the three values sum to $v(\text{all})-v(\emptyset)$. We apply it to two measures: the variance of net return, whose shares are interpretable as risk shares, and the shortfall probability. All random numbers are drawn in every coalition, so coalitions are compared on common random numbers. Price risk includes the part of price variation that is correlated with the year shock; when price is fixed, that channel is switched off with it.
 
 \section{\label{sec:data}Data and calibration}
 
 \subsection{Field panel and productivity zones}
 
-Yields come from a satellite-derived field-level panel of corn and soybean yields for each of the eight states, with a six-year crop history for each field-year. For each state, crop, and zone we estimate a two-way fixed-effects model (field and year) on field-year yields. The generator for each six-year rotation state stores the residuals from that model as an empirical pool and a mean equal to the average field effect of the state's observations plus one common, cell-wide year effect. A draw is the mean plus a resampled residual. Generators are built separately for each state and zone and are never pooled across states.
+Yields come from a satellite-derived field-level panel of corn and soybean yields for each of the eight states, with a six-year crop history for each field-year. For each state, crop, and zone we estimate a two-way fixed-effects model (field and year) on field-year yields. The generator for each six-year rotation state stores the average field effect of the state's observations as its mean, the residuals from the model as an empirical pool, and the estimated year effects for the cell. A draw follows equation~\eqref{eq:yield}. Generators are built separately for each state and zone and are never pooled across states.
 
 Zones are terciles of field-level NCCPI, computed within the state from the pooled corn and soybean fields so that a field belongs to one zone for both crops. NCCPI is a soil rating, not a realized yield, so zones are defined by the land and not by the outcome being studied. The terciles are narrow in some states (for Ohio the cut-points are 0.65 and 0.71), and the resulting yield differences between zones are correspondingly modest.
 
@@ -94,7 +100,7 @@ Zones are terciles of field-level NCCPI, computed within the state from the pool
 \caption{State inputs. Price is the 2025 budget benchmark (\$4.20 corn, \$10.25 soybeans, Illinois) scaled by each state's elevator basis; $\sigma$ is the standard deviation of elevator-demeaned log harvest-season prices; cost is total non-land cost per acre; BE yield is cost divided by mean price (bu/ac).}
 \label{tab:inputs}
 \begin{threeparttable}
-\input{tables/be_inputs.tex}
+\input{tables/by_inputs.tex}
 \begin{tablenotes}
 \item Total non-land cost is published for Illinois (farmdoc) and computed for Ohio as total cost minus land (OSU). For the other six states only direct cost is available, and we add the mean of the Illinois and Ohio non-direct costs (\$296 per acre for corn, \$243 for soybeans); results for these six states inherit that assumption.
 \end{tablenotes}
@@ -105,51 +111,86 @@ Zones are terciles of field-level NCCPI, computed within the state from the pool
 
 \textbf{Costs.} Costs are lognormal around the state's total non-land cost with a log standard deviation of 0.10. Planting a crop after itself adds \$15 per acre for corn and \$5 for soybeans, the Illinois budget differences. Land is excluded so that the threshold does not depend on rent differences across states.
 
-\textbf{Price-yield dependence.} We use the decomposed method: a normal aggregate yield shock that carries 40 percent of yield variance and is correlated with the log-price shock, plus an independent idiosyncratic shock. The correlation is the state median of county-level price-yield correlations.
+\textbf{Price-yield dependence.} The correlation $\rho_c$ is the state median of county-level price-yield correlations for each crop (for corn, from $-0.43$ in South Dakota to $+0.06$ in Wisconsin). We apply it between the price shock and the rank of the year effect, which is the systematic part of yield: county yields are mostly the common year shock, so the county-level correlation is closest to the correlation with the year shock.
 
 \section{\label{sec:simulation}Simulation}
 
-For each state, zone, and plan we simulate 50,000 six-year paths. Each plan is run from a history equal to the plan itself, so it starts in steady state. The three plans are continuous corn (CCCCCC), corn-corn-soybean (CCSCCS), and strict alternation (CSCSCS). Random draws are shared across plans within a state-zone cell (common random numbers) and cells use independent seeds, so differences across plans within a cell are not Monte Carlo noise. Every cell is run with and without price-yield dependence.
+For each state, zone, and plan we simulate 50,000 six-year paths. Each plan is run from a history equal to the plan itself, so it starts in steady state. The three plans are continuous corn (CCCCCC), corn-corn-soybean (CCSCCS), and strict alternation (CSCSCS). Random draws are shared across plans within a state-zone cell (common random numbers) and cells use independent seeds, so differences across plans within a cell are not Monte Carlo noise. Calendar years are drawn independently across the six years of a path.
 
 \section{\label{sec:results}Results}
 
-\subsection{Breakeven probabilities by state and rotation}
+\subsection{Good years and bad years}
+
+\begin{table}[H]
+\centering
+\caption{Breakeven probability by type of year, medium NCCPI zone (percent): $\Pr(R_t<K_t)$ in a year of the given type. Gap: strict alternation minus continuous corn, percentage points.}
+\label{tab:yeartypes}
+\input{tables/by_yeartypes.tex}
+\end{table}
+
+Table~\ref{tab:yeartypes} and Figure~\ref{fig:yeartypes} are the main result. Under continuous corn the probability that revenue falls below total non-land cost is 57 to 84 percent in bad years (Minnesota 57, Wisconsin 84), 44 to 65 percent in normal years, and 40 to 73 percent in good years. The bad-year penalty, the bad-year minus the good-year probability, is 22 to 25 points in Iowa, Illinois, Missouri, and Ohio, 30 points in Wisconsin, and 14 points in Indiana. In Minnesota and South Dakota it is $-4$ and $-1$ points: bad years are not worse than good years.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/be_year_types.pdf}
+\caption{Breakeven probability in bad, normal, and good years, by state and rotation (medium NCCPI zone). Year types are terciles of the weather index.}
+\label{fig:yeartypes}
+\end{figure}
+
+Strict alternation lowers the probability in every state and every type of year, but a bad year remains costly: under strict alternation the bad-year probability is 47 to 67 percent, and in South Dakota, Missouri, and Wisconsin it is 66, 66, and 67 percent. Even a good year leaves the probability at 28 to 65 percent. Because the 2025 budget costs sit close to expected revenue, covering cost is more likely than not under continuous corn only in normal and good years in Iowa and Illinois, and in no state in a bad year. Under strict alternation it is more likely than not in normal and good years in every state except South Dakota (and Wisconsin in normal years), and in a bad year only in Minnesota and Ohio.
+
+\subsection{Does rotation help more in bad years?}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figs/be_gap_by_year_type.pdf}
+\caption{Change in the breakeven probability from continuous corn to strict alternation, by state and year type (percentage points).}
+\label{fig:gapyear}
+\end{figure}
+
+Figure~\ref{fig:gapyear} shows the reduction from continuous corn to strict alternation by type of year. It is larger in bad years in Iowa (13.8 against 11.3 points), Ohio (25.4 against 22.6), and Wisconsin (17.1 against 8.3), and larger in good years in Illinois, Indiana, Minnesota, Missouri, and South Dakota. The reductions in bad and normal years are never smaller than 5 points. There is no systematic bad-year advantage: the rotation shifts the whole schedule down rather than flattening it.
+
+\subsection{Calendar years}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/be_calendar_years.pdf}
+\caption{Breakeven probability conditional on each calendar year's estimated year effect, continuous corn and strict alternation (medium zone). Marker shape shows the year type.}
+\label{fig:calendar}
+\end{figure}
+
+Figure~\ref{fig:calendar} shows the same conditional probabilities for each calendar year. Bad years cluster in 2008--2013, and 2011 and 2012 are bad in every state; Indiana and Ohio also count 2019 and South Dakota 2022. The schedule across years is steeper in Iowa, Illinois, Missouri, Ohio, and Wisconsin than in Minnesota and South Dakota. Strict alternation has a lower probability than continuous corn in every calendar year in every state, by at least 0.9 points (South Dakota) and at least 3 points elsewhere.
+
+\subsection{Annual and six-year probabilities}
 
 \begin{table}[H]
 \centering
 \caption{Breakeven probabilities, medium NCCPI zone (percent). Annual: $\Pr(R_t<K_t)$ in a given year. Cumulative: $\Pr(\sum_t (R_t-K_t)<0)$ over six years. Gap: strict alternation minus continuous corn, annual, in percentage points.}
 \label{tab:main}
-\input{tables/be_main.tex}
+\input{tables/by_main.tex}
 \end{table}
 
-Table~\ref{tab:main} and Figure~\ref{fig:annual} report the annual probabilities. Under continuous corn the probability that a year's revenue falls below total non-land cost ranges from 48.6 percent in Illinois to 69.2 percent in South Dakota. Under strict alternation it ranges from 34.5 percent in Ohio to 62.1 percent in South Dakota. The corn-corn-soybean rotation sits between the two in every state. Illinois and Iowa have the lowest probabilities under continuous corn, and South Dakota and Wisconsin the highest. The breakeven corn yield is similar across states (178 to 195 bu/ac at mean price, Table~\ref{tab:inputs}), so the ranking reflects how far each state's simulated revenue sits from its cost, together with price level and volatility.
+Averaging over year types, the annual probability is 49.6 percent in Illinois to 69.7 percent in South Dakota under continuous corn and 35.6 percent in Ohio to 62.4 percent in South Dakota under strict alternation (Table~\ref{tab:main}). The six-year cumulative probability of a negative net return falls from 43 to 85 percent under continuous corn to 23 to 75 percent under strict alternation, a drop of 10 points in South Dakota, 16 to 21 points in Iowa, Illinois, Minnesota, Missouri, and Wisconsin, and 38 and 43 points in Indiana and Ohio. The ordering of states follows the position of each state's mean margin. Continuous corn earns a positive mean margin in Iowa and Illinois, a mildly negative one in Minnesota, Missouri, and Ohio, and a strongly negative one in Indiana, Wisconsin, and South Dakota. In Indiana and Ohio, strict alternation lifts the mean margin to positive values, so the rotation moves most of the distribution across the breakeven line. In South Dakota both plans lose on average, and the rotation narrows the shortfall without removing it.
+
+\subsection{Price, yield, and cost risk}
+
+\begin{table}[H]
+\centering
+\caption{Shapley decomposition (medium zone). The first six columns give each source's share of the variance of net return under continuous corn and strict alternation. The last three give each source's Shapley contribution to the annual breakeven probability under strict alternation, in percentage points.}
+\label{tab:shapley}
+\input{tables/by_shapley.tex}
+\end{table}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figs/be_p_loss_year.pdf}
-\caption{Annual probability that revenue falls below total non-land cost, by state, rotation, and NCCPI zone. States are ordered by the continuous-corn probability in the medium zone.}
-\label{fig:annual}
+\includegraphics[width=0.9\textwidth]{figs/be_shapley.pdf}
+\caption{Shapley shares of the variance of net return by source of risk, state, and rotation (medium zone).}
+\label{fig:shapley}
 \end{figure}
 
-The six-year cumulative probability tells the same story with larger gaps. The probability that cumulative net return over six years is negative is 40 to 84 percent under continuous corn and 20 to 74 percent under strict alternation (Figure~\ref{fig:cum}). The drop is 39 points in Indiana, 45 points in Ohio, and 10 points in South Dakota.
+Price is the largest source of risk in every state (Table~\ref{tab:shapley} and Figure~\ref{fig:shapley}). Under continuous corn, price accounts for 55 percent of the variance of net return in Missouri and 81 percent in Minnesota, yield for 6 percent in Minnesota and 34 percent in Missouri, and cost for 11 to 17 percent. Strict alternation changes the shares by at most 3 points. The shares are taken over the random part of net return: under a rotation, mean net return differs between corn and soybean years even with nothing random, and that deterministic variation is not risk. The yield share is highest in Missouri, Illinois, Ohio, and Indiana (24 to 34 percent) and lowest in Minnesota (6 percent). The decomposition holds the price-yield correlation fixed, so the low yield share in Minnesota is not itself evidence of a hedge, but the two are consistent: the correlation offsets part of the revenue effect of yield variation.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figs/be_p_loss_cum.pdf}
-\caption{Probability that the six-year cumulative net return is negative, by state, rotation, and NCCPI zone.}
-\label{fig:cum}
-\end{figure}
-
-\subsection{The rotation gap}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.75\textwidth]{figs/be_rotation_gap.pdf}
-\caption{Change in the annual breakeven probability from continuous corn to strict alternation, by state and NCCPI zone (percentage points).}
-\label{fig:gap}
-\end{figure}
-
-Figure~\ref{fig:gap} shows the reduction from continuous corn to strict alternation. It is 5.6 to 8.6 points in South Dakota, 10.7 to 14.9 points in Iowa, Illinois, Minnesota, Missouri, and Wisconsin, and 22.5 to 25.4 points in Indiana and Ohio. The reduction is similar across zones within a state, so the ranking of states reflects state-level margins and not soil quality. The mean margins in the medium zone explain the pattern. Continuous corn earns a positive mean margin in Iowa and Illinois (about \$20 to \$24 per acre per year), a mildly negative one in Minnesota, Missouri, and Ohio (\$22 to \$33), and a strongly negative one in Indiana, Wisconsin, and South Dakota (\$55 to \$80). Strict alternation lifts the mean margin to positive values in Indiana (\$22), Ohio (\$52), and Minnesota (\$17), so in Indiana and Ohio the rotation moves most of the distribution across the breakeven line. In South Dakota and Wisconsin both plans lose on average, and the rotation narrows the shortfall without removing it.
+The Shapley contributions to the probability need a careful reading, because adding randomness to a deterministic margin raises the shortfall probability only where the mean margin is positive. In Iowa, Illinois, Minnesota, and Ohio, where strict alternation has a positive mean margin, each source raises the probability: price by 18 to 23 points, yield by 9 to 14, and cost by 8 to 12. In South Dakota the mean margin is negative, each source lowers the probability (by 12 to 14 points) because noise gives some paths a margin above zero. In Indiana, Missouri, and Wisconsin the contributions are near zero because the mean margin is within about \$25 per acre of the breakeven line. The variance shares are therefore the cleaner measure of how much each source matters.
 
 \subsection{Productivity zones}
 
@@ -157,26 +198,26 @@ Figure~\ref{fig:gap} shows the reduction from continuous corn to strict alternat
 \centering
 \caption{Annual breakeven probability by NCCPI zone (percent).}
 \label{tab:zone}
-\input{tables/be_zone.tex}
+\input{tables/by_zone.tex}
 \end{table}
 
-Table~\ref{tab:zone} shows that moving from the high to the low NCCPI tercile raises the continuous-corn annual probability by 1.6 points in Ohio, 4.3 in Iowa, 6.0 in Indiana, 8.8 in Missouri, 9.5 in Illinois, 12.7 in South Dakota, 12.9 in Wisconsin, and 17.6 in Minnesota. Zone effects are real but modest in several states. Because the terciles cut a narrow band of the soil index in some states, NCCPI is a weak sorter of breakeven risk relative to state.
+Table~\ref{tab:zone} shows that moving from the high to the low NCCPI tercile raises the continuous-corn annual probability by 1.0 point in Ohio, 3.7 in Iowa, 5.5 in Indiana, 7.2 in Missouri, 8.0 in Illinois, 12.2 in South Dakota, 12.3 in Wisconsin, and 16.8 in Minnesota. Zone effects are real but modest in several states. Because the terciles cut a narrow band of the soil index in some states, NCCPI is a weak sorter of breakeven risk relative to state.
 
 \subsection{Price-yield dependence}
 
-Turning off the price-yield correlation changes the annual probability by at most 1.5 points in any state and plan (medium zone). For an annual comparison of revenue with cost, the dependence changes the dispersion of revenue slightly but not its mean, and the location of the mean relative to cost dominates. The dependence is therefore not a source of the rotation advantage here.
+Switching the price-yield correlation off changes the annual probability by at most 3.4 points in any cell, but it changes the profile across year types much more. In Minnesota the continuous-corn probability moves from 70.1 to 57.0 percent in bad years and from 46.4 to 61.8 percent in good years; in South Dakota the corresponding figures are 79.7 to 71.3 and 58.2 to 72.7. With negative dependence, prices rise in bad years and fall in good years, so the revenue loss from a poor harvest is partly offset and the benefit of a good one is partly eroded. This natural hedge is why bad years are no worse than good years in Minnesota and South Dakota, and it explains why the dependence is negligible for the annual average but large for the year-type profile.
 
 \section{\label{sec:discussion}Discussion}
 
-\textbf{What the results say.} Where the mean margin is near zero, a rotation that adds a few dollars per acre of expected margin shifts the breakeven probability by tens of points. The gap is therefore not proportional to the expected-return benefit. It is largest where continuous corn loses on average and the rotation brings the mean margin to or above zero (Indiana, Ohio), and smallest where both plans lose on average (South Dakota).
+\textbf{What the results say.} Where the mean margin is near zero, a rotation that adds a few dollars per acre of expected margin shifts the breakeven probability by tens of points, in good years and bad years alike. The gap is not proportional to the expected-return benefit. It is largest where continuous corn loses on average and the rotation brings the mean margin to or above zero (Indiana, Ohio), and smallest where both plans lose on average (South Dakota). The bad-year result matters for credit and insurance: a producer who rotates is still more likely than not to miss cost in a bad year in most states, so rotation lowers breakeven risk but does not remove exposure to weather.
 
-\textbf{Limitations.} First, costs for six states rest on an assumed non-direct cost; the level of every probability in those states depends on it, and the ranking of states is sensitive to it. Replacing the assumed add-on with state budget values is the most important refinement. Second, benchmark prices follow the 2025 budgets, so results describe a 2025 price and cost environment and not the period over which yields are estimated; a sweep over the mean price is the natural extension, since the breakeven probability is a function of the price level. Third, the plan comparison combines the yield effect of rotation with the change in crop mix and the same-crop cost penalty; we do not decompose them. Fourth, NCCPI zones sort breakeven risk weakly in several states, so zone-level conclusions should not be over-read. Fifth, land cost is excluded, so these probabilities describe covering the cost of operating the crop and not of covering rent. Sixth, the generators resample field-level residuals, so each state's within-state yield correlation across fields is not modeled; the results describe an individual field.
+\textbf{Limitations.} First, costs for six states rest on an assumed non-direct cost; the level of every probability in those states depends on it, and the ranking of states is sensitive to it. Replacing the assumed add-on with state budget values is the most important refinement. Second, benchmark prices follow the 2025 budgets, so results describe a 2025 price and cost environment and not the period over which yields are estimated; a sweep over the mean price is the natural extension, since the breakeven probability is a function of the price level. Third, year types come from 12 to 15 estimated year effects per cell, so each type contains four or five years, and the conditional probabilities inherit that sampling variation; calendar years are drawn independently, so persistence in weather across years is not modeled. Fourth, the plan comparison combines the yield effect of rotation with the change in crop mix and the same-crop cost penalty; we do not decompose them. Fifth, NCCPI zones sort breakeven risk weakly in several states, so zone-level conclusions should not be over-read. Sixth, land cost is excluded, so these probabilities describe covering the cost of operating the crop and not of covering rent. Seventh, the price-yield correlation is the county median applied to the year shock and is not estimated for the year shock itself; the Minnesota and South Dakota results in particular depend on it. Eighth, the simulation describes an individual field with idiosyncratic residuals independent across years.
 
 \textbf{Relation to the delinquency analysis.} An earlier version of this project studied how unpaid operating loans roll forward and compound in Illinois. That analysis is retained separately. The breakeven probability studied here is the one-year building block of that process and does not require credit terms, which makes it comparable across states.
 
 \section{\label{sec:conclusion}Conclusion}
 
-Across eight Corn Belt states estimated separately, a year of continuous corn fails to cover total non-land cost about half the time or more, and replacing it with strict corn-soybean alternation lowers that probability in every state and every productivity zone, by 6 to 25 percentage points. The effect is largest where the continuous-corn margin is most negative but the rotation restores a positive margin, and smallest in South Dakota. Soil productivity and price-yield dependence matter much less than the state-level margin. The practical implication is that the rotation case rests on where margins sit relative to cost, and that a producer or lender comparing rotations should look at the probability of falling short and not only at expected return. State-specific budget costs, a price sweep, and a separation of the yield and composition channels are the next steps.
+Across eight Corn Belt states estimated separately, a year of continuous corn fails to cover total non-land cost about half the time or more, and in a bad year the probability reaches 64 to 84 percent in six of the eight states. Replacing continuous corn with strict corn-soybean alternation lowers the probability in every state, zone, and type of year, by 7 to 23 percentage points on average, but it leaves a bad year at 47 to 67 percent. Price dominates the risk, with 55 to 81 percent of the variance of net return, and a negative price-yield correlation is what keeps bad years from being worse in Minnesota and South Dakota. The practical implication is that the rotation case is a case for lowering the baseline probability of falling short in all kinds of years and not for insuring against bad ones, and that a producer or lender comparing rotations should look at the probability of falling short by type of year and not only at expected return. State-specific budget costs, a price sweep, persistence in weather, and a separation of the yield and composition channels are the next steps.
 
 \clearpage
 \bibliographystyle{apalike}
