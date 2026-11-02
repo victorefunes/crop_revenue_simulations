@@ -123,6 +123,21 @@ write_tab(sapply(sto, function(s) { a <- sh[state == s & zone == "medium" & plan
   "\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\\cmidrule(lr){8-10}", "State & Price & Yield & Cost & Price & Yield & Cost & Price & Yield & Cost\\\\"),
   file.path(TAB_DIR, "by_shapley.tex"))
 
+# Shapley shares of the variance of net return within bad and good years (run shapley_by_year_type.R first)
+st_file <- file.path(IN_DIR, "shapley_by_year_type.csv")
+if (file.exists(st_file)) {
+  sy <- fread(st_file)[zone == "medium"]
+  g <- function(s, pl, tp, col) sub("^-0$", "0", f0(100 * sy[state == s & plan == pl & type == tp][[col]]))
+  write_tab(sapply(sto, function(s)
+    sprintf("%s & %s \\\\", s, paste(c(
+      sapply(c("CCCCCC", "CSCSCS"), function(pl) c(g(s, pl, "bad", "sh_price"), g(s, pl, "good", "sh_price"),
+                                                   g(s, pl, "bad", "sh_yield"), g(s, pl, "good", "sh_yield")))), collapse = " & "))),
+    "lcccccccc", c("& \\multicolumn{4}{c}{Continuous corn} & \\multicolumn{4}{c}{Strict alternation}\\\\",
+    "\\cmidrule(lr){2-5}\\cmidrule(lr){6-9}", "& \\multicolumn{2}{c}{Price} & \\multicolumn{2}{c}{Yield} & \\multicolumn{2}{c}{Price} & \\multicolumn{2}{c}{Yield}\\\\",
+    "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\\cmidrule(lr){6-7}\\cmidrule(lr){8-9}", "State & Bad & Good & Bad & Good & Bad & Good & Bad & Good\\\\"),
+    file.path(TAB_DIR, "by_shapley_types.tex"))
+}
+
 d <- merge(m, dep, by = c("state", "zone", "plan")); d[, diff_pp := 100 * (p_loss_year - p_loss_year_nodep)]
 fwrite(d[, .(state, zone, plan, p_loss_year, p_loss_year_nodep, diff_pp)], file.path(IN_DIR, "dependence_summary.csv"))
 cat(sprintf("max |dependence effect| %.1f pp\n", max(abs(d$diff_pp))))

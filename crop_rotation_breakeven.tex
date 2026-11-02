@@ -284,6 +284,21 @@ Price is the largest source of risk in every state (Table~\ref{tab:shapley} and 
 
 The Shapley contributions to the probability need a careful reading, because adding randomness to a deterministic margin raises the shortfall probability only where the mean margin is positive. In Iowa, Illinois, Minnesota, and Ohio, where strict alternation has a positive mean margin, each source raises the probability: price by 18 to 23 points, yield by 9 to 14, and cost by 8 to 12. In South Dakota the mean margin is negative, each source lowers the probability (by 12 to 14 points) because noise gives some paths a margin above zero. In Indiana, Missouri, and Wisconsin the contributions are near zero because the mean margin is within about \$25 per acre of the breakeven line. The variance shares are therefore the cleaner measure of how much each source matters.
 
+\subsection{Price, yield, and cost risk in good and bad years}
+
+\begin{table}[H]
+\centering
+\caption{Shapley shares of the variance of net return within bad and good years (percent, medium zone). Shares are over the random part of net return; cost accounts for the remainder (11 to 19 percent in every state and type of year).}
+\label{tab:shapleytypes}
+\input{tables/by_shapley_types.tex}
+\end{table}
+
+We repeat the decomposition within each type of year, computing the variance of net return only among simulated years of that type (Table~\ref{tab:shapleytypes}). Price remains the largest source of risk in every type of year (52 to 88 percent), and cost stays between 11 and 19 percent. The shares change with the type of year in some states and hardly at all in others.
+
+Under continuous corn the price share is larger in bad years than in good years in Iowa (88 against 75 percent), Minnesota (87 against 73), and Wisconsin (77 against 72), and the yield share is near zero in bad years in Iowa and Minnesota ($-3$ and 0 percent) against 13 percent in good years. A yield share at or below zero is consistent with the yield and price shocks offsetting each other within a bad year, so that the negative price-yield dependence cancels the variance yield variation would otherwise add. Missouri is the one state where yield risk matters more in bad years under continuous corn (31 against 20 percent). In Illinois, Indiana, Ohio, and South Dakota the shares differ by at most 4 points between bad and good years.
+
+Under strict alternation the yield share rises in bad years in Indiana (29 against 10 percent), Missouri (35 against 14), Ohio (26 against 11), and South Dakota (17 against 11), and the price share falls (53 against 73, 52 against 72, and 59 against 73 percent in Indiana, Missouri, and Ohio). The total spread of net return hardly depends on the type of year: under continuous corn its standard deviation lies between \$179 and \$227 per acre in every state and type, and differs between bad and good years by at most \$31 (Wisconsin, \$179 against \$210) and \$25 (Iowa, \$202 against \$227). What changes between good and bad years is the level of net return, which moves the shortfall probability, and not its spread. Because each type contains only four or five calendar years of year effects, the yield component within a type rests on few distinct values, and shifts of a few points should not be over-read.
+
 \subsection{Productivity zones}
 
 \begin{table}[H]
