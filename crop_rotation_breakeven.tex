@@ -89,6 +89,29 @@ Yields come from a satellite-derived field-level panel of corn and soybean yield
 
 Zones are terciles of field-level NCCPI, computed within the state from the pooled corn and soybean fields so that a field belongs to one zone for both crops. NCCPI is a soil rating, not a realized yield, so zones are defined by the land and not by the outcome being studied. The terciles are narrow in some states (for Ohio the cut-points are 0.65 and 0.71), and the resulting yield differences between zones are correspondingly modest.
 
+Figure~\ref{fig:nccpidist} shows the distribution of field NCCPI in each state and the tercile cut-points, and Figure~\ref{fig:nccpicorn} plots each field's mean corn yield against its NCCPI. The relationship is steep in some states and weak in others. The difference in mean corn yield between the high and low zones is 28 bu/ac in South Dakota, 24 in Minnesota, 19 in Illinois, and 14 in Wisconsin, but only 7 to 10 in Iowa, Indiana, Missouri, and Ohio. For soybeans the difference is 2 to 5 bu/ac everywhere except Minnesota (10; Figure~\ref{fig:nccpisoy}). Zones are therefore a strong sorter of yield in the northern and western states and a weak one in the eastern Corn Belt, which is why the zone results in Section~\ref{sec:results} differ across states.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/be_nccpi_dist.pdf}
+\caption{Distribution of field NCCPI by state. Colors show the zones, defined as terciles of field NCCPI within the state.}
+\label{fig:nccpidist}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/be_nccpi_yield_corn.pdf}
+\caption{Field mean corn yield against field NCCPI, by state. Shading counts fields; dashed lines are the tercile cut-points that separate the low, medium, and high zones; the red line is mean yield in 25 equal-width NCCPI bins.}
+\label{fig:nccpicorn}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/be_nccpi_yield_soy.pdf}
+\caption{As Figure~\ref{fig:nccpicorn}, for soybeans.}
+\label{fig:nccpisoy}
+\end{figure}
+
 \subsection{Prices, costs, and dependence}
 
 \begin{table}[H]
