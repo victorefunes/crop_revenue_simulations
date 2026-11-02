@@ -1,0 +1,17 @@
+state,crop,direct_cost,nondirect_cost,total_nonland_cost,assumed_yield_bu,basis
+IL,C,486,282,768,236,farmdoc Central (high-prod.) published total non-land
+IL,S,225,265,490,75,farmdoc Central (high-prod.) published total non-land
+OH,C,470,310,780,190,OSU total cost 1021 minus land 241
+OH,S,215,221,436,57,OSU total cost 677 minus land 241
+IN,C,540,296,836,200,Purdue direct + IL/OH mean non-direct (assumed)
+IN,S,212,243,455,73,Purdue direct + IL/OH mean non-direct (assumed)
+IA,C,475,296,771,200,estimated direct + IL/OH mean non-direct (assumed)
+IA,S,210,243,453,58,estimated direct + IL/OH mean non-direct (assumed)
+MN,C,475,296,771,190,estimated direct + IL/OH mean non-direct (assumed)
+MN,S,214,243,457,50,estimated direct + IL/OH mean non-direct (assumed)
+MO,C,448,296,744,175,estimated direct + IL/OH mean non-direct (assumed)
+MO,S,216,243,459,50,estimated direct + IL/OH mean non-direct (assumed)
+SD,C,452,296,748,160,estimated direct + IL/OH mean non-direct (assumed)
+SD,S,213,243,456,48,estimated direct + IL/OH mean non-direct (assumed)
+WI,C,473,296,769,180,estimated direct + IL/OH mean non-direct (assumed)
+WI,S,217,243,460,55,estimated direct + IL/OH mean non-direct (assumed)
