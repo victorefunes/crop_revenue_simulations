@@ -68,6 +68,19 @@ p4 <- ggplot(sl, aes(state, 100 * share, fill = source)) + geom_col(width = 0.7)
   labs(x = NULL, y = "Shapley share of the variance of net return (%)") + th
 sv(p4, "be_shapley", 8, 3.8)
 
+# 5. breakeven probability by position in the six-year path (run breakeven_by_position.R first)
+pos_file <- file.path(IN_DIR, "breakeven_by_position.csv")
+if (file.exists(pos_file)) {
+  pos <- fread(pos_file)[zone == "medium"]; pos[, state := factor(state, sto)]
+  p5 <- ggplot(pos, aes(t, 100 * p, colour = plan, group = plan)) + geom_line(linewidth = 0.5) +
+    geom_point(aes(shape = crop), size = 1.9) + facet_wrap(~state, nrow = 2) +
+    scale_colour_manual(values = cols, labels = plan_lab, name = NULL) +
+    scale_shape_manual(values = c(C = 16, S = 17), labels = c(C = "Corn year", S = "Soybean year"), name = NULL) +
+    scale_x_continuous(breaks = 1:6) + scale_y_continuous(limits = c(0, 80)) +
+    labs(x = "Year in the six-year path", y = "Pr(revenue < cost) in that year (%)") + th
+  sv(p5, "be_by_position", 9, 5)
+}
+
 # ---- tables ------------------------------------------------------------------
 w <- dcast(merge(be, pr[, .(state, crop, log_sd)], by = c("state", "crop")), state ~ crop,
            value.var = c("price_per_bu", "log_sd", "total_nonland_cost", "breakeven_yield"))
