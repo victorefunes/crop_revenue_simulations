@@ -244,6 +244,15 @@ The simulation evaluates the breakeven probability across three fixed rotation p
 
 Yields come from a satellite-derived field-level panel of corn and soybean yields for each of the eight states, with a six-year crop history for each field-year. For each state, crop, and zone we estimate a two-way fixed-effects model (field and year) on field-year yields. The generator for each six-year rotation state stores the average field effect of the state's observations as its mean, the residuals from the model as an empirical pool, and the estimated year effects for the cell. A draw follows equation~\eqref{eq:yield}. Generators are built separately for each state and zone and are never pooled across states.
 
+Figure~\ref{fig:rotmap} shows where the rotation states that identify the generators are practiced, as the share of six-year crop histories ending in corn that follow each pattern, on a 0.25-degree grid. Strict alternation is the most common history in every state but Wisconsin, at 53 to 60 percent of corn field-years, and continuous corn and the two-corn, one-soybean rotation together make up under 15 percent of them. Wisconsin is the exception, with 23 percent continuous corn and 24 percent strict alternation. Elsewhere continuous corn averages 1.5 percent in Missouri, 3 in Ohio and South Dakota, 5 in Indiana, and 7 to 9 in Minnesota, Illinois, and Iowa. Rotation practices thus vary across space, and a state-by-zone generator draws on all of them within each cell.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/be_rotation_map.pdf}
+\caption{Spatial distribution of rotation practices. Each cell is a 0.25-degree grid cell with at least 50 corn field-years; shading is the share of six-year crop histories ending in corn that are continuous corn, two corn years and one soybean year (SCCSCC or CSCCSC), and strict alternation (SCSCSC).}
+\label{fig:rotmap}
+\end{figure}
+
 Zones are terciles of field-level NCCPI, computed within the state from the pooled corn and soybean fields so that a field belongs to one zone for both crops. NCCPI is a soil rating, not a realized yield, so zones are defined by the land and not by the outcome being studied. The terciles are narrow in some states (for Ohio the cut-points are 0.65 and 0.71), and the resulting yield differences between zones are correspondingly modest.
 
 Figure~\ref{fig:nccpidist} shows the distribution of field NCCPI in each state and the tercile cut-points, and Figure~\ref{fig:nccpicorn} plots each field's mean corn yield against its NCCPI. The relationship is steep in some states and weak in others. The difference in mean corn yield between the high and low zones is 28 bu/ac in South Dakota, 24 in Minnesota, 19 in Illinois, and 14 in Wisconsin, but only 7 to 10 in Iowa, Indiana, Missouri, and Ohio. For soybeans the difference is 2 to 5 bu/ac everywhere except Minnesota (10; Figure~\ref{fig:nccpisoy}). Zones are therefore a strong sorter of yield in the northern and western states and a weak one in the eastern Corn Belt, which is why the zone results in Section~\ref{sec:results} differ across states.
