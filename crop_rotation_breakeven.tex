@@ -68,7 +68,7 @@ Five findings stand out.
 
 \textbf{Sixth, defining years by weather instead of by yield gives a similar answer.} Classifying years by the July vapor-pressure deficit (VPD), a measure of atmospheric drought stress that is not itself an outcome, with the three fixed bins of \citet{Pizzo2025} (normal, somewhat dry, and dry), and building the VPD regime into the yield generator, reproduces the bad-year pattern: the continuous-corn probability is 6 to 30 points higher in dry years than in normal years in six states and about the same in Minnesota and South Dakota. The regimes are unevenly populated, with one to seven dry years per state, so these comparisons are less precise than those by yield-defined year type.
 
-The paper is organized as follows. Section~\ref{sec:framing} frames the question and places the contribution in the literature. Section~\ref{sec:theory} sets out the farmer's problem and four propositions about how rotation changes the breakeven probability. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} sets out the simulation framework: the yield generator, the price-yield dependence, the revenue-cost mechanism, and the year-type and Shapley decompositions. Section~\ref{sec:results} reports the main results: probabilities by year type, calendar year, position in the rotation cycle, and horizon. Section~\ref{sec:robustness} decomposes the risk into price, yield, and cost and checks the results against alternative scenario definitions, productivity zones, and the price-yield dependence. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes.
+The paper is organized as follows. Section~\ref{sec:framing} frames the question and places the contribution in the literature. Section~\ref{sec:theory} sets out the farmer's problem and four propositions about how rotation changes the breakeven probability. Section~\ref{sec:data} describes the panel, zones, prices, and costs. Section~\ref{sec:simulation} sets out the simulation framework: the yield generator, the price-yield dependence, the revenue-cost mechanism, and the year-type and Shapley decompositions. Section~\ref{sec:results} reports the main results: probabilities by year type, calendar year, position in the rotation cycle, and horizon. Section~\ref{sec:robustness} decomposes the risk into price, yield, and cost and checks the results against alternative scenario definitions, productivity zones, and the price-yield dependence. Section~\ref{sec:discussion} discusses limitations and implications, and Section~\ref{sec:conclusion} concludes. Appendix~\ref{sec:appendix_A} gives parameter values and computational details, Appendix~\ref{sec:appendix_B} tests robustness to the cost level, price volatility, and same-crop cost, and Appendix~\ref{sec:appendix_C} reports results for every state and zone.
 
 \section{\label{sec:framing}Framing and related literature}
 
@@ -537,6 +537,92 @@ Fourth, the picture does not depend on defining a bad year by its yield. Classif
 These results bear on how producers, lenders, and insurers compare rotations. A comparison by expected return alone understates the effect when margins are thin, because a gain of \$80 per acre moves the breakeven probability by more than 20 points where the margin straddles zero, against 7 points where both plans lose on average. A comparison of annual averages hides the bad-year exposure that remains under every rotation, and the strength of the price hedge varies by state, so the same weather shock can raise a producer's shortfall probability by up to 30 points or not at all. VPD regimes offer one exogenous way to define such scenarios ex ante. We do not claim that rotation is optimal: the plans are held fixed, and preferences and the shadow cost of a shortfall enter only through the theory.
 
 The results rest on assumptions that the paper states and that the next steps would relax. Costs for six states combine published direct costs with an assumed non-direct component, so state-specific budget costs are the most important refinement. Mean prices follow the 2025 budgets, so a sweep over the price level would show how the probabilities move with the market. Calendar years are drawn independently, so persistence in weather is not modeled, and the plan comparison combines a yield effect with the change in crop mix and the same-crop cost penalty, which should be separated. The breakeven probability studied here is also the one-year building block of the operating-credit delinquency analysis for Illinois, which could now be extended state by state.
+
+\appendix
+
+\section{\label{sec:appendix_A}Calibration values and computational details}
+
+\subsection{\label{subsec:parameter_values}Baseline parameter values}
+
+Table~\ref{tab:baseline_pars} lists the parameters that enter the simulation and where each comes from. State prices, volatilities, and costs are in Table~\ref{tab:inputs}, and the state price-yield correlations are in Table~\ref{tab:rho}.
+
+\begin{table}[H]
+\centering
+\caption{Baseline parameter values.}
+\label{tab:baseline_pars}
+\begin{tabular}{p{4.6cm}p{3.6cm}p{6.4cm}}
+\toprule
+Parameter & Value & Source \\
+\midrule
+Horizon & Six years & Six-year crop history of the panel \\
+Rotation plans & CCCCCC, CCSCCS, CSCSCS & Continuous corn, two corn and one soybean, strict alternation; each starts in its own steady state \\
+Monte Carlo paths & 50,000 per state, zone, and plan & Chosen for precision (Section~\ref{subsec:comp_details}) \\
+Productivity zones & Terciles of field NCCPI within state & Panel soil index \\
+Mean price & Budget benchmark times state basis & Table~\ref{tab:inputs} \\
+Price volatility $\sigma_P$ & 0.21 to 0.27 (corn), 0.17 to 0.20 (soybeans) & Table~\ref{tab:inputs} \\
+Cost level $\bar K$ & \$744 to \$836 (corn), \$436 to \$490 (soybeans) & Table~\ref{tab:inputs} \\
+Cost volatility $\sigma_K$ & 0.10 (log standard deviation) & Assumed \\
+Same-crop cost $\delta_C$, $\delta_S$ & \$15 (corn), \$5 (soybeans) per acre & Illinois budget differences \\
+Price-yield correlation & State median of county values & Table~\ref{tab:rho} \\
+Residual pool & 20,000 draws per rotation state & Residuals of the two-way fixed-effects model \\
+Year types & Terciles of the weather index & Corn plus soybean year effects, standardized \\
+VPD regimes & Cut-points 1.9 and 2.1 kPa & \citet{Pizzo2025}; pools used only with at least 200 observations \\
+Discounting & None & Net returns are summed over the six years \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{State medians of county-level price-yield correlations, by crop.}
+\label{tab:rho}
+\begin{tabular}{lcccccccc}
+\toprule
+ & IA & IL & IN & MN & MO & OH & SD & WI \\
+\midrule
+Corn & $-0.16$ & $-0.27$ & $-0.36$ & $-0.39$ & $-0.24$ & $-0.28$ & $-0.43$ & $+0.06$ \\
+Soybeans & $-0.25$ & $-0.25$ & $-0.17$ & $-0.25$ & $-0.22$ & $-0.20$ & $-0.47$ & $-0.51$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{\label{subsec:comp_details}Computational details}
+
+Each cell (state, zone, plan) uses $N = 50{,}000$ paths of six years. The Monte Carlo standard error of an annual or six-year probability is at most 0.22 percentage points (at a probability of 0.5). A probability conditioned on the year type uses about a third of the 300,000 simulated path-years, with a standard error of at most about 0.16 points. The three plans in a cell and the coalitions of the Shapley decomposition share a random seed (1000 times the state's position in the alphabetical list, plus 1, 2, or 3 for the high, medium, or low zone), so that differences between plans and between coalitions use common random numbers and are more precise than these bounds. The generators use only the rotation windows observed in each cell's panel, and no cells are pooled.
+
+These standard errors cover simulation noise only. The year effects are estimated from a short run of calendar years, so the distribution of the weather shock, and with it the year-type probabilities, carries sampling error that the simulation does not reflect.
+
+\section{\label{sec:appendix_B}Robustness to inputs}
+
+Section~\ref{sec:robustness} varies the scenario definition, the zone, and the dependence. This appendix perturbs the inputs that enter the breakeven condition $P_tY_t<K_t$ directly: the cost level, the price volatility, and the same-crop cost. We rerun the medium-zone cell of each state with one input changed at a time and the seeds of the baseline, so the baseline column reproduces the main results exactly. Table~\ref{tab:rob_inputs} reports the annual probability under continuous corn and strict alternation and the difference between them.
+
+\begin{table}[H]
+\centering
+\caption{Annual breakeven probability under changes in one input at a time, medium zone. Cost $\pm$ changes the level of total non-land cost for both crops; Vol.\ multiplies the log standard deviation of prices; No penalty sets the same-crop cost to zero.}
+\label{tab:rob_inputs}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\input{tables/rob_inputs.tex}
+\end{table}
+
+\textbf{Cost level.} The level of the probability depends strongly on cost. A 10 percent increase raises the continuous-corn probability by 11 to 14 points and a 10 percent decrease lowers it by 14 to 16 points. A 20 percent increase brings it to between 74.5 and 87.5 percent. This is the reason the paper reports results as conditional on its cost assumptions, and for six states the non-direct component of cost is assumed. The comparison between plans is more stable. Strict alternation has a lower probability than continuous corn in every state in every cost scenario. The reduction is 7.3 to 23.4 points at baseline, 10.0 to 20.8 with costs 10 percent lower, 4.5 to 22.5 with costs 10 percent higher, and 2.3 to 19.0 with costs 20 percent higher. It narrows as costs rise because the probability approaches its ceiling under both plans, especially in Wisconsin (12.8 points at baseline, 4.6 at $+20$ percent) and South Dakota (7.3 and 2.3), and it widens when costs fall in Minnesota, Missouri, South Dakota, and Wisconsin.
+
+\textbf{Price volatility.} Scaling the price volatility by 0.75 or 1.25 moves the continuous-corn probability by less than 3 points in every state. The reduction from rotation changes by at most 2.2 points: it is 8.6 to 25.5 points with volatility lowered and 6.4 to 21.2 with volatility raised.
+
+\textbf{Same-crop cost.} Removing the \$15 and \$5 same-crop cost leaves strict alternation unchanged, since it never plants a crop after itself, and lowers the continuous-corn probability by 2.5 to 2.9 points. The reduction from rotation falls from 7.3 to 23.4 points to 4.8 to 20.5 points. About 3 points of the difference between plans therefore comes from this cost and the rest from the yield difference and the crop mix. Rotation still lowers the probability in every state.
+
+\section{\label{sec:appendix_C}Results for all state and zone cells}
+
+Table~\ref{tab:app_grid} gives the annual probability, the probabilities in bad and good years, and the six-year cumulative probability of a negative net return for continuous corn and strict alternation in each of the 24 state-zone cells. The main text reports the medium zone, and Section~\ref{sec:robustness} compares zones.
+
+\begin{table}[H]
+\centering
+\caption{Breakeven probability by state and NCCPI zone (percent). Annual is the probability that revenue falls short of cost in a year; Bad and Good are the same probability in bad and good years; Six-year is the probability that the six-year sum of net return is negative.}
+\label{tab:app_grid}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\input{tables/app_grid.tex}
+\end{table}
 
 \clearpage
 \bibliographystyle{apalike}
