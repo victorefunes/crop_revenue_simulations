@@ -37,6 +37,23 @@ cl <- c("\\begin{tabular}{lcccccccc}", "\\toprule",
   paste0(sapply(STATES, crow), " \\\\"), "\\bottomrule", "\\end{tabular}")
 writeLines(cl, file.path(TAB, "rob_cost_timing.tex"))
 
+# Direct-cost variants (cost_direct.R): continuous corn, medium zone
+cd <- fread("results/breakeven_years/cost_direct.csv")
+dw <- dcast(cd, state + scenario ~ plan, value.var = c("p_year", "p_bad", "p_good"))
+dw[, gap := p_year_CSCSCS - p_year_CCCCCC]
+dget <- function(st, s, col) dw[state == st & scenario == s][[col]]
+drow <- function(st) paste(c(st,
+  f1(dget(st, "baseline", "p_year_CCCCCC")), f1(dget(st, "direct_avg", "p_year_CCCCCC")), f1(dget(st, "direct_detrend", "p_year_CCCCCC")),
+  f1(dget(st, "baseline", "gap")), f1(dget(st, "direct_avg", "gap")), f1(dget(st, "direct_detrend", "gap")),
+  f1(dget(st, "baseline", "p_bad_CCCCCC")), f1(dget(st, "direct_detrend", "p_bad_CCCCCC")),
+  f1(dget(st, "baseline", "p_good_CCCCCC")), f1(dget(st, "direct_detrend", "p_good_CCCCCC"))), collapse = " & ")
+dl <- c("\\begin{tabular}{lcccccccccc}", "\\toprule",
+  " & \\multicolumn{3}{c}{Annual} & \\multicolumn{3}{c}{Gap (pp)} & \\multicolumn{2}{c}{Bad years} & \\multicolumn{2}{c}{Good years}\\\\",
+  "\\cmidrule(lr){2-4}\\cmidrule(lr){5-7}\\cmidrule(lr){8-9}\\cmidrule(lr){10-11}",
+  "State & Fixed & Avg. & Detr. & Fixed & Avg. & Detr. & Fixed & Detr. & Fixed & Detr.\\\\", "\\midrule",
+  paste0(sapply(STATES, drow), " \\\\"), "\\bottomrule", "\\end{tabular}")
+writeLines(dl, file.path(TAB, "rob_cost_direct.tex"))
+
 m <- fread("results/breakeven_years/breakeven_year_types.csv")
 Z <-c(high = "High", medium = "Medium", low = "Low")
 g <- function(st, z) {
