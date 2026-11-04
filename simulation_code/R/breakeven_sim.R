@@ -60,7 +60,9 @@ simulate_breakeven <- function(corn_gen, soy_gen, plan, price_par, cost_par, rho
     za <- qnorm((rk[j] - 0.5) / J)
     zp <- rho * za + sqrt(1 - rho^2) * eps
     P  <- if (fix_price) rep(pp$Pbar, B) else exp(pp$mu + pp$sigma * zp)
-    Kt <- if (fix_cost) rep(cp$Cbar, B) else cp$Cbar * exp(cp$sigma * ec - 0.5 * cp$sigma^2)
+    # cp$idx (optional): named numeric by calendar year, multiplies the cost level of the drawn year (cost timing)
+    ki <- if (is.null(cp$idx)) 1 else cp$idx[as.character(wt$years[j])]
+    Kt <- if (fix_cost) rep(cp$Cbar, B) else cp$Cbar * ki * exp(cp$sigma * ec - 0.5 * cp$sigma^2)
     rev[, t] <- P * Y; K[, t] <- Kt + pen[t]; Jm[, t] <- j
     if (!is.null(regm)) regm[, t] <- reg_j
   }

@@ -21,8 +21,24 @@ lines <- c("\\begin{tabular}{lccccccc}", "\\toprule", paste0("State & ", paste(h
   paste0(sapply(STATES, row, col = "gap"), " \\\\"), "\\bottomrule", "\\end{tabular}")
 writeLines(lines, file.path(TAB, "rob_inputs.tex"))
 
+# Year-specific costs (cost_timing.R): continuous corn, baseline vs ERS cost timing, medium zone
+ct <- fread("results/breakeven_years/cost_timing.csv")
+cw <- dcast(ct[scenario %in% c("baseline", "ers_timing")], state + scenario ~ plan, value.var = c("p_year", "p_bad", "p_good"))
+cw[, gap := p_year_CSCSCS - p_year_CCCCCC]
+cget <- function(st, s, col) cw[state == st & scenario == s][[col]]
+crow <- function(st) paste(c(st, f1(cget(st, "baseline", "p_year_CCCCCC")), f1(cget(st, "ers_timing", "p_year_CCCCCC")),
+  f1(cget(st, "baseline", "gap")), f1(cget(st, "ers_timing", "gap")),
+  f1(cget(st, "baseline", "p_bad_CCCCCC")), f1(cget(st, "ers_timing", "p_bad_CCCCCC")),
+  f1(cget(st, "baseline", "p_good_CCCCCC")), f1(cget(st, "ers_timing", "p_good_CCCCCC"))), collapse = " & ")
+cl <- c("\\begin{tabular}{lcccccccc}", "\\toprule",
+  " & \\multicolumn{2}{c}{Annual} & \\multicolumn{2}{c}{Gap (pp)} & \\multicolumn{2}{c}{Bad years} & \\multicolumn{2}{c}{Good years}\\\\",
+  "\\cmidrule(lr){2-3}\\cmidrule(lr){4-5}\\cmidrule(lr){6-7}\\cmidrule(lr){8-9}",
+  "State & Fixed & ERS & Fixed & ERS & Fixed & ERS & Fixed & ERS\\\\", "\\midrule",
+  paste0(sapply(STATES, crow), " \\\\"), "\\bottomrule", "\\end{tabular}")
+writeLines(cl, file.path(TAB, "rob_cost_timing.tex"))
+
 m <- fread("results/breakeven_years/breakeven_year_types.csv")
-Z <- c(high = "High", medium = "Medium", low = "Low")
+Z <-c(high = "High", medium = "Medium", low = "Low")
 g <- function(st, z) {
   a <- m[state == st & zone == z & plan == "CCCCCC"]; b <- m[state == st & zone == z & plan == "CSCSCS"]
   paste(c(st, Z[[z]], f1(a$p_loss_year), f1(a$p_bad), f1(a$p_good), f1(a$p_loss_cum),
